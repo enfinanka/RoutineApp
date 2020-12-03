@@ -4,33 +4,30 @@ import { StyleSheet, Text, View, Button, TouchableOpacity, TouchableHighlight } 
 import Icon from 'react-native-vector-icons/Ionicons';
 
 
-export default function AddButton(props) {
+export default function BackButton(props) {
 
-  const { title, history } = props;
+const { history } = props;
 
   return (
     <View>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => history.push('newActivity')}
-      >
-        <Icon name="ios-add" size={50} color="#F4F7F8" />
-      </TouchableOpacity>
+        <Button 
+            title="Go Back"
+            onPress={() => history.push('/')}
+            color="#EBB000"
+        />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#EBB000',
     color: '#fff',
     minHeight: 42,
-    height: 70,
-    borderRadius: 50,
-    width: 70,
+    borderRadius: 3,
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    position: 'absolute'
   },
   buttonText: {
     fontSize: 57,

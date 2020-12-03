@@ -5,28 +5,27 @@ import  Header  from '../components/HeaderComponents/Header';
 import  AddButton  from '../components/ButtonComponents/AddButton';
 
 
-
-export default function HomeScreen() {
-  
-  const exampleToDos = [
-    { activity: 'walk the dog', type: 'health', alert: true, alertWhen: '12:00'},
-    { activity: 'eat pizza', type: 'health', alert: true, alertWhen: '11:59'},
-    { activity: 'change dipers', type: 'family', alert: false, alertWhen: '20:00'},
-    { activity: 'hit boss in eye', type: 'work', alert: false, alertWhen: '00:00'}
-  ]
+export default function HomeScreen({history}) {
 
   return (
     <View style={styles.container}>
       <Header title="Today's activities"/>
-      <AddButton />
+      <View style={styles.addButton}>
+        <AddButton history={history}/>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingLeft: 15,
-    paddingTop: 20
+    width: '100%',
+    height: '100%',
+    paddingTop: 50
   },
-  addButton: {}
+  addButton: {
+    position: "absolute",
+    bottom: 20,
+    alignSelf: 'center'
+  }
 });
