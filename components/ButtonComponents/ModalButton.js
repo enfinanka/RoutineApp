@@ -4,15 +4,13 @@ import { StyleSheet, Text, View, Button, TouchableOpacity, TouchableHighlight } 
 import Icon from 'react-native-vector-icons/Ionicons';
 
 
-export default function AddButton(props) {
-
-  const { title, history } = props;
+export default function ModalButton() {
 
   return (
     <View>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => history.push('newActivity')}
+        onPress={() => console.log('kuk')}
       >
         <Icon name="ios-add" size={50} color="#F4F7F8" />
       </TouchableOpacity>

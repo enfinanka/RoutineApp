@@ -17,7 +17,7 @@ export default function Header(props) {
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    flex: 1,
+    
     backgroundColor: '#1E2036',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     color: '#85BCA9',
     fontSize: 35,
     fontWeight: 'bold',
-    fontFamily: 'Roboto'
+    fontFamily: 'Roboto',
+    paddingLeft: 20,
   }
 });
