@@ -26,6 +26,8 @@ export default function TodaysList() {
   const { activities, setActivities } = React.useContext(ActivitiesContext);
   const [checked, setChecked] = useState(false);
 
+  // console.log('activities', activities)
+
   // const onSwipeValueChange = swipeData => {
   //   console.log('swipeData', swipeData);
   //     // const { key, value } = swipeData;
@@ -44,8 +46,8 @@ export default function TodaysList() {
     return(
       <View style={styles.rowFront}>
         <Text style={styles.activityText}>{data.item.activity}</Text>
-        <TouchableOpacity style={styles.checkIcon} onPress={() => setChecked(!checked)}> 
-        {checked ? 
+        <TouchableOpacity style={styles.checkIcon} onPress={() => setActivities({type: 'SET_COMPLETED', payload: data.item})}> 
+        {data.item.completed ? 
           <AntDesign name="checkcircleo" size={50} color="#85BCA9" /> 
           : <Feather name="circle" size={50} color="#85BCA9" />
         }
