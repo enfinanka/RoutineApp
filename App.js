@@ -5,8 +5,7 @@ import { NativeRouter, Switch, Route } from 'react-router-native';
 import HomeScreen from './screens/HomeScreen';
 import NewActivityScreen from './screens/NewActivityScreen';
 import { AppearanceProvider } from 'react-native-appearance';
-import { ThemeProvider } from './themes/ThemeContext';
-
+import { ThemeProvider, useTheme } from './themes/ThemeContext';
 import { ActivitiesContext } from './contexts'
 
 const exampleToDos = [
@@ -20,13 +19,18 @@ export default function App() {
 
   const [activities, setActivities] = React.useState(exampleToDos)
   const activitiesProviderValue = React.useMemo(() => ({ activities, setActivities }), [activities, setActivities])
+  const { colors } = useTheme();
+
+  const bg = {
+    backgroundColor: colors.background,
+  };
 
   return (
     <ActivitiesContext.Provider value={activitiesProviderValue}>
       <NativeRouter>
         <AppearanceProvider>
           <ThemeProvider>
-            <SafeAreaView style={[styles.container, styles.AndroidSafeArea]}>
+            <SafeAreaView style={[styles.container, bg, styles.AndroidSafeArea]}>
               <Switch>
                 <Route exact path="/" component={HomeScreen} />
                 <Route path="/newActivity" component={NewActivityScreen} />
@@ -43,7 +47,6 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flex: 1,
-    // backgroundColor: '#1E2036',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
   },

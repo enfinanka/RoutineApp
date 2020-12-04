@@ -6,7 +6,7 @@ import AddButton from '../components/ButtonComponents/AddButton';
 import { useTheme } from '../themes/ThemeContext';
 
 export default function HomeScreen(props) {
-  const { colors, setScheme } = useTheme();
+  const { colors, setScheme, isDark } = useTheme();
   const { history } = props;
 
   const containerStyle = {
@@ -17,18 +17,11 @@ export default function HomeScreen(props) {
   };
 
   const changeTheme = () => {
-    setScheme('dark')
-    if (colors === 'dark') {
-      console.log("light");
-      setScheme('light');
-    } else {
-      console.log("dark");
-      setScheme('dark');
-    }
+    isDark ? setScheme('light') : setScheme('dark');
   }
 
   return (
-    <View style={[styles.container]}>
+    <View style={[styles.container, containerStyle]}>
       <Header title="Today's activities" />
       <View style={styles.addButton}>
         <AddButton history={history} />
