@@ -6,9 +6,8 @@ import SwitchToggle from '../ButtonComponents/SwitchToggle.js';
 import AddActivityButton from '../ButtonComponents/AddActivityButton.js';
 
 
-export default function ModalButton(props) {
-
-  const { showModal, setShowModal } = props;
+export default function ModalButton(props) {  
+  const { showModal, setShowModal, addExampleItem, history } = props;
 
   return (
     <View>
@@ -42,7 +41,7 @@ export default function ModalButton(props) {
               <Text style={styles.modalText} >Select Time</Text>
               <Icon size={25} name="ios-calendar"></Icon>
             </View>
-            <AddActivityButton />
+            <AddActivityButton history={history} addExampleItem={addExampleItem} setShowModal={setShowModal}/>
           </View>
         </View>
       </Modal>

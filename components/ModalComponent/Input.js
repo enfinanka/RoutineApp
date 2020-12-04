@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
 
 
-export default function Header() {
+export default function Input() {
     const [inputActivity, setInputActivity] = useState('');
     const [inputCategory, setInputCategory] = useState('');
 
