@@ -10,114 +10,79 @@ import {
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import { SwipeListView } from 'react-native-swipe-list-view';
+import {ActivitiesContext} from '../../contexts'
+
 
 const rowSwipeAnimatedValues = {};
-Array(20)
-    .fill('')
-    .forEach((_, i) => {
-        rowSwipeAnimatedValues[`${i}`] = new Animated.Value(0);
-    });
+// Array(20)
+//     .fill('')
+//     .forEach((_, i) => {
+//         rowSwipeAnimatedValues[`${i}`] = new Animated.Value(0);
+//     });
     //VAD GÖR DENNA
 
 export default function TodaysList() {
 
-  const exampleToDos = [
-    { activity: 'walk the dog', type: 'health', alert: true, alertWhen: '12:00', key: "1"},
-    { activity: 'eat pizza', type: 'health', alert: true, alertWhen: '11:59', key: "2"},
-    { activity: 'change dipers', type: 'family', alert: false, alertWhen: '20:00', key: "3"},
-    { activity: 'hit boss in eye', type: 'work', alert: false, alertWhen: '00:00', key: "4"}
-  ]
-
-  const [listData, setListData] = useState(exampleToDos);
+  const { activities, setActivities } = React.useContext(ActivitiesContext);
   const [checked, setChecked] = useState(false);
 
-  const [checkedColor, setCheckedColor] = useState('#3f4155');
-
-  const closeRow = (rowMap, rowKey) => {
-    console.log('rowmap,', rowMap)
-      if (rowMap[rowKey]) {
-          rowMap[rowKey].closeRow();
-      }
-  };
-
-  const activityDone = (rowMap, rowKey) => {
-    setChecked(!checked)
-    if (rowMap[rowKey] && checkedColor === '#3f4155') {
-      setCheckedColor('#85BCA9')
-      rowMap[rowKey].activityDone();
-
-  } else {
-    setCheckedColor('#3f4155')
-  }
-  }
-
-  const deleteRow = (rowMap, rowKey) => {
-      closeRow(rowMap, rowKey);
-      const newData = [...listData];
-      const prevIndex = listData.findIndex(item => item.key === rowKey);
-      newData.splice(prevIndex, 1);
-      setListData(newData);
-  };
-
-  // const onRowDidOpen = rowKey => {
-  //     console.log('This row opened', rowKey);
+  // const onSwipeValueChange = swipeData => {
+  //   console.log('swipeData', swipeData);
+  //     // const { key, value } = swipeData;
+  //     // rowSwipeAnimatedValues[key].setValue(Math.abs(value));
   // };
 
-  const onSwipeValueChange = swipeData => {
-      const { key, value } = swipeData;
-      rowSwipeAnimatedValues[key].setValue(Math.abs(value));
-  };
+  const editActivity = () => {
+
+  }
+
+  const deleteActivity = () => {
+
+  }
 
   const renderItem = (data) => {
     return(
-      // <TouchableHighlight
-      //     onPress={(e) => console.log('runs')}
-      //     style={styles.rowFront}
-      //     underlayColor={'#AAA'}
-      // >
       <View style={styles.rowFront}>
         <Text style={styles.activityText}>{data.item.activity}</Text>
-      </View>
-      // </TouchableHighlight>
-  )};
-
-  const renderHiddenItem = (data, rowMap) => (
-      <View style={styles.rowBack}>
-        <TouchableOpacity style={styles.leftButtonContainer} onPress={() => setChecked(!checked)}>
-        {/* <TouchableOpacity style={styles.leftButtonContainer} onPress={() => activityDone(rowMap, data.item.key)}> */}
+        <TouchableOpacity style={styles.checkIcon} onPress={() => setChecked(!checked)}> 
         {checked ? 
           <AntDesign name="checkcircleo" size={50} color="#85BCA9" /> 
           : <Feather name="circle" size={50} color="#85BCA9" />
         }
         </TouchableOpacity>
-          <TouchableOpacity
-              style={[styles.backRightBtn, styles.backRightBtnLeft]}
-              onPress={() => closeRow(rowMap, data.item.key)}
-          >
-              <Text style={{color: '#F5F4F8'}}>Edit</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-              style={[styles.backRightBtn, styles.backRightBtnRight]}
-              onPress={() => deleteRow(rowMap, data.item.key)}
-          >
-            <Text style={{color: "#F5F4F8"}}>Trash</Text>
-          </TouchableOpacity>
+      </View>
+  )};
+
+  const renderHiddenItem = (data, rowMap) => (
+      <View style={styles.rowBack}>
+        <TouchableOpacity
+          style={styles.leftButtonContainer}
+          onPress={() => editActivity(rowMap, data.key)}
+        >
+          <Text style={{color: '#F5F4F8'}}>Edit</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+            style={[styles.backRightBtn, styles.backRightBtnRight]}
+            onPress={() => deleteActivity(rowMap, data.key)}
+        >
+          <Text style={{color: "#F5F4F8"}}>Delete</Text>
+        </TouchableOpacity>
       </View>
   );
 
   return (
     <View style={styles.container}>
       <SwipeListView
-        data={listData}
+        data={activities}
         renderItem={renderItem}
         renderHiddenItem={renderHiddenItem}
         leftOpenValue={75}
-        rightOpenValue={-150}
+        rightOpenValue={-75}
         previewRowKey={'0'}
         previewOpenValue={-40}
         previewOpenDelay={3000}
         // onRowDidOpen={onRowDidOpen}
-        onSwipeValueChange={onSwipeValueChange}
+        // onSwipeValueChange={onSwipeValueChange}
       />
     </View>
   );
@@ -131,7 +96,9 @@ const styles = StyleSheet.create({
   },
   rowFront: {
     display: 'flex',
-    justifyContent: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     height: 66,
     marginTop: 15,
     margin: 10,
@@ -176,16 +143,14 @@ const styles = StyleSheet.create({
     color: 'red',
   },
   backRightBtnRight: {
-    backgroundColor: '#EB7100',
+    backgroundColor: '#EB5500',
     right: 0,
     borderRadius: 100,
-    // color: "#fff"
   },
-  trash: {
-    height: 25,
-    width: 25,
-  },
-
+  // trash: {
+  //   height: 25,
+  //   width: 25,
+  // },
   activityText: {
     color: '#F4F7F8',
     fontSize: 20,
@@ -193,6 +158,15 @@ const styles = StyleSheet.create({
   },
   leftButtonContainer: {
     borderRadius: 100,
-    width: 100
+    backgroundColor: '#5E6170',
+    alignItems: 'center',
+    bottom: 0,
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 0,
+    width: 66,
+  },
+  checkIcon: {
+    marginRight: 10
   }
 });

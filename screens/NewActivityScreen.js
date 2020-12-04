@@ -14,14 +14,17 @@ export default function NewActivityScreen({history}) {
   const { activities, setActivities } = React.useContext(ActivitiesContext);
   const anotherActivity = { activity: 'add activity to list', type: 'work', alert: true, alertWhen: '12:34'}
 
-  const addExampleItem = () => setActivities((previousActivities) => [...previousActivities, anotherActivity])
+  const addExampleItem = () => {
+    console.log('hej')
+    setActivities((previousActivities) => [...previousActivities, anotherActivity])
+  }
 
   return (
     <View style={styles.container}>
       <View style={styles.BackButton}>
         <BackButton history={history}/>
       </View>
-      <Header title="New Activity" />
+      <Header title="New Activity" date={false} />
 
       <FlatList
         // ItemSeparatorComponent={
@@ -49,7 +52,7 @@ export default function NewActivityScreen({history}) {
       />
 
       <View style={styles.ModalButton}>
-      <ModalButton handlePress={addExampleItem}/>
+      <ModalButton addExampleItem={addExampleItem}/>
       </View>
     </View>
   );
