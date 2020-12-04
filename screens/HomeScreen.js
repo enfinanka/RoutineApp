@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import  Header  from '../components/HeaderComponents/Header';
 import  AddButton  from '../components/ButtonComponents/AddButton';
+import TodaysList from '../components/ListComponents/TodaysList';
 
 
 export default function HomeScreen({history}) {
@@ -9,6 +10,7 @@ export default function HomeScreen({history}) {
   return (
     <View style={styles.container}>
       <Header title="Today's activities"/>
+      <TodaysList />
       <View style={styles.addButton}>
         <AddButton history={history}/>
       </View>

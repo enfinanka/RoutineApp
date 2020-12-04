@@ -12,6 +12,7 @@ export default function NewActivityScreen({history}) {
   const anotherActivity = { activity: 'add activity to list', type: 'work', alert: true, alertWhen: '12:34'}
 
   const addExampleItem = () => setActivities((previousActivities) => [...previousActivities, anotherActivity])
+  
 
 
   return (
@@ -19,7 +20,7 @@ export default function NewActivityScreen({history}) {
       <View style={styles.BackButton}>
         <BackButton history={history}/>
       </View>
-      <Header title="New Activity" />
+      <Header title="New Activity" date={false} />
 
       <FlatList
         data={activities}
