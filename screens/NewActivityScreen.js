@@ -6,24 +6,24 @@ import ModalButton from '../components/ButtonComponents/ModalButton';
 import BackButton from '../components/ButtonComponents/BackButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
+import { ActivitiesContext } from '../contexts'
+
 
 export default function NewActivityScreen({history}) {
   
-  const exampleToDos = [
-    { activity: 'walk the dog', type: 'health', alert: true, alertWhen: '12:00'},
-    { activity: 'eat pizza', type: 'health', alert: true, alertWhen: '11:59'},
-    { activity: 'change dipers', type: 'family', alert: false, alertWhen: '20:00'},
-    { activity: 'hit boss in eye', type: 'work', alert: false, alertWhen: '00:00'}
-  ]
+  const { activities, setActivities } = React.useContext(ActivitiesContext);
+  const anotherActivity = { activity: 'add activity to list', type: 'work', alert: true, alertWhen: '12:34'}
+
+  const addExampleItem = () => setActivities((previousActivities) => [...previousActivities, anotherActivity])
 
   return (
     <View style={styles.container}>
       <View style={styles.BackButton}>
         <BackButton history={history}/>
       </View>
-       <Header title="New Activity" />
+      <Header title="New Activity" />
 
-       <FlatList
+      <FlatList
         // ItemSeparatorComponent={
         //   Platform.OS !== 'android' &&
         //   (({ highlighted }) => (
@@ -33,12 +33,12 @@ export default function NewActivityScreen({history}) {
         //         highlighted && { marginLeft: 0 }
         //       ]}/>
         //   ))}
-        data={exampleToDos}
+        data={activities}
         renderItem={({ item, index, separators }) => (
           <TouchableOpacity
             style={styles.listItem}
             key={index}
-            onPress={() => this._onPress(item)}
+            onPress={() => this.onPress(item)}
             onShowUnderlay={separators.highlight}
             onHideUnderlay={separators.unhighlight}>
             
@@ -48,9 +48,9 @@ export default function NewActivityScreen({history}) {
         )}
       />
 
-       <View style={styles.ModalButton}>
-        <ModalButton />
-       </View>
+      <View style={styles.ModalButton}>
+      <ModalButton handlePress={addExampleItem}/>
+      </View>
     </View>
   );
 }
@@ -81,9 +81,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   BackButton: {
-   position: "absolute",
-   right: 10,
-   top: 30, 
-   zIndex: 999
+    position: "absolute",
+    right: 10,
+    top: 30, 
+    zIndex: 999
   }
 });
