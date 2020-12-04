@@ -1,15 +1,28 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 
 export default function Header(props) {
 
-  const { title } = props;
+  const { title, date = true } = props;
+  const [today, setToday ] = useState('')
+
+  useEffect(() => {
+    const options = {  weekday: 'long', month: 'long', day: 'numeric', hour12: false };
+    const prnDt = new Date().toLocaleTimeString('us', options);
+    console.log(prnDt);
+    setToday(prnDt)
+  }, []);
 
   return (
     <View >
       <Text style={styles.header}>{title}</Text>
+      {date === true ? 
+      <View>
+      <Text style={styles.date}>{today}</Text>
+      </View>
+      : null }
     </View>
   );
 }
@@ -30,5 +43,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: 'Roboto',
     paddingLeft: 20,
+  },
+  date: {
+    color: '#85BCA9',
+    paddingLeft: 20,
+    marginTop: 5
   }
 });

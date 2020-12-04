@@ -24,15 +24,15 @@ export default function NewActivityScreen({history}) {
        <Header title="New Activity" />
 
        <FlatList
-        ItemSeparatorComponent={
-          Platform.OS !== 'android' &&
-          (({ highlighted }) => (
-            <View
-              style={[
-                style.separator,
-                highlighted && { marginLeft: 0 }
-              ]}/>
-          ))}
+        // ItemSeparatorComponent={
+        //   Platform.OS !== 'android' &&
+        //   (({ highlighted }) => (
+        //     <View
+        //       style={[
+        //         style.separator,
+        //         highlighted && { marginLeft: 0 }
+        //       ]}/>
+        //   ))}
         data={exampleToDos}
         renderItem={({ item, index, separators }) => (
           <TouchableOpacity
