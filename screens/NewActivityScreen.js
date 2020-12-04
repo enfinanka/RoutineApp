@@ -1,16 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableHighlight } from 'react-native';
 import  Header  from '../components/HeaderComponents/Header';
-import  AddButton  from '../components/ButtonComponents/AddButton';
 import ModalButton from '../components/ButtonComponents/ModalButton';
 import BackButton from '../components/ButtonComponents/BackButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
-import { ActivitiesContext } from '../contexts'
+import { ActivitiesContext } from '../contexts';
 
 
 export default function NewActivityScreen({history}) {
-  
   const { activities, setActivities } = React.useContext(ActivitiesContext);
   const anotherActivity = { activity: 'add activity to list', type: 'work', alert: true, alertWhen: '12:34'}
 
@@ -18,6 +15,7 @@ export default function NewActivityScreen({history}) {
     console.log('hej')
     setActivities((previousActivities) => [...previousActivities, anotherActivity])
   }
+
 
   return (
     <View style={styles.container}>
@@ -27,15 +25,6 @@ export default function NewActivityScreen({history}) {
       <Header title="New Activity" date={false} />
 
       <FlatList
-        // ItemSeparatorComponent={
-        //   Platform.OS !== 'android' &&
-        //   (({ highlighted }) => (
-        //     <View
-        //       style={[
-        //         style.separator,
-        //         highlighted && { marginLeft: 0 }
-        //       ]}/>
-        //   ))}
         data={activities}
         renderItem={({ item, index, separators }) => (
           <TouchableOpacity
@@ -52,7 +41,7 @@ export default function NewActivityScreen({history}) {
       />
 
       <View style={styles.ModalButton}>
-      <ModalButton addExampleItem={addExampleItem}/>
+      <ModalButton addExampleItem={addExampleItem} history={history} />
       </View>
     </View>
   );

@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity, TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -6,7 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 export default function AddButton(props) {
 
-  const { title, history } = props;
+  const { history } = props;
 
   return (
     <View>

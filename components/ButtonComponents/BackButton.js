@@ -1,8 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, TouchableHighlight } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-
+import { StyleSheet, View, Button,  } from 'react-native';
 
 export default function BackButton(props) {
 

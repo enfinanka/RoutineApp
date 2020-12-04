@@ -1,21 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, TouchableHighlight } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-
+import Modal from '../ModalComponent/Modal.js'
 
 export default function ModalButton(props) {
-
-  const { addExampleItem } = props
+  const [showModal, setShowModal] = useState(false);
+  
+  const { addExampleItem, history } = props
 
   return (
     <View>
       <TouchableOpacity
         style={styles.button}
-        onPress={addExampleItem}
+        onPress={() => setShowModal(true)}
       >
         <Icon name="ios-add" size={50} color="#F4F7F8" />
       </TouchableOpacity>
+
+      <Modal showModal={showModal} setShowModal={setShowModal} addExampleItem={addExampleItem} history={history}/>
     </View>
   );
 }
