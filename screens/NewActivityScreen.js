@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableHighlight } from 'react-native';
-import  Header  from '../components/HeaderComponents/Header';
-import  AddButton  from '../components/ButtonComponents/AddButton';
+import Header from '../components/HeaderComponents/Header';
+import AddButton from '../components/ButtonComponents/AddButton';
 import ModalButton from '../components/ButtonComponents/ModalButton';
 import BackButton from '../components/ButtonComponents/BackButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -9,17 +9,17 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ActivitiesContext } from '../contexts'
 
 
-export default function NewActivityScreen({history}) {
-  
+export default function NewActivityScreen({ history }) {
+
   const { activities, setActivities } = React.useContext(ActivitiesContext);
-  const anotherActivity = { activity: 'add activity to list', type: 'work', alert: true, alertWhen: '12:34'}
+  const anotherActivity = { activity: 'add activity to list', type: 'work', alert: true, alertWhen: '12:34' }
 
   const addExampleItem = () => setActivities((previousActivities) => [...previousActivities, anotherActivity])
 
   return (
     <View style={styles.container}>
       <View style={styles.BackButton}>
-        <BackButton history={history}/>
+        <BackButton history={history} />
       </View>
       <Header title="New Activity" />
 
@@ -41,15 +41,15 @@ export default function NewActivityScreen({history}) {
             onPress={() => this.onPress(item)}
             onShowUnderlay={separators.highlight}
             onHideUnderlay={separators.unhighlight}>
-            
+
             <Text style={styles.listText}>{item.activity}</Text>
-            
+
           </TouchableOpacity>
         )}
       />
 
       <View style={styles.ModalButton}>
-      <ModalButton handlePress={addExampleItem}/>
+        <ModalButton addExampleItem={addExampleItem} />
       </View>
     </View>
   );
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   BackButton: {
     position: "absolute",
     right: 10,
-    top: 30, 
+    top: 60,
     zIndex: 999
   }
 });

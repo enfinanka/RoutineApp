@@ -6,15 +6,15 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 export default function BackButton(props) {
 
-const { history } = props;
+  const { history } = props;
 
   return (
     <View>
-        <Button 
-            title="Go Back"
-            onPress={() => history.push('/')}
-            color="#EBB000"
-        />
+      <Button
+        title="Go Back"
+        onPress={() => history.push('/')}
+        color="#EBB000"
+      />
     </View>
   );
 }
