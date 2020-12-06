@@ -3,11 +3,11 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 export default function AddActivityButton(props) {
 
-  const { addExampleItem, setShowModal, history } = props
+  const { addNewActivity, setShowModal, history } = props
 
   const addActivity = () => {
     setShowModal(false);
-    addExampleItem();
+    addNewActivity();
     history.push('/');
   }
 
@@ -15,7 +15,7 @@ export default function AddActivityButton(props) {
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.button}
-        onPress={addActivity}
+        onPress={addNewActivity}
       >
         <Text style={styles.buttonText}>Add Activity</Text>
       </TouchableOpacity>
