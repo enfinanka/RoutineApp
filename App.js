@@ -7,28 +7,11 @@ import HomeScreen from './screens/HomeScreen';
 import NewActivityScreen from './screens/NewActivityScreen';
 
 import { ActivitiesContext } from './contexts'
-
-const exampleToDos = [
-  {completed: true, activity: 'oscar', type: 'health', alert: true, alertWhen: '12:00'},
-  {completed: true, activity: 'eat pizza', type: 'health', alert: true, alertWhen: '11:59'},
-  {completed: false, activity: 'change dipers', type: 'family', alert: false, alertWhen: '20:00'},
-  {completed: true, activity: 'hit boss in eye', type: 'work', alert: false, alertWhen: '00:00'}
-]
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'SET_COMPLETED':
-      const objectToUpdate = exampleToDos.find((obj) => obj.activity === action.payload.activity )
-      objectToUpdate.completed = !objectToUpdate.completed;
-      return state=[...exampleToDos]
-    default:
-      return exampleToDos;
-  }
-}
+import { exampleToDos, activitiesReducer } from './reducers'
 
 export default function App() {
 
-  const [ activities, setActivities ] = React.useReducer(reducer, exampleToDos)
+  const [ activities, setActivities ] = React.useReducer(activitiesReducer, exampleToDos)
 
   // const [ activities, setActivities ] = React.useState(exampleToDos)
   // const activitiesProviderValue = React.useMemo(()=> ({ activities, setActivities }), [activities, setActivities])

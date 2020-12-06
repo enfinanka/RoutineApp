@@ -38,15 +38,15 @@ export default function TodaysList() {
 
   }
 
-  const deleteActivity = () => {
-
+  const deleteActivity = (rowMap, data) => {
+    console.log(rowMap, data.item)
   }
 
   const renderItem = (data) => {
     return(
       <View style={styles.rowFront}>
         <Text style={styles.activityText}>{data.item.activity}</Text>
-        <TouchableOpacity style={styles.checkIcon} onPress={() => setActivities({type: 'SET_COMPLETED', payload: data.item})}> 
+        <TouchableOpacity style={styles.checkIcon} onPress={() => setActivities({type: 'SET_COMPLETED', payload: data.item.activity})}> 
         {data.item.completed ? 
           <AntDesign name="checkcircleo" size={50} color="#85BCA9" /> 
           : <Feather name="circle" size={50} color="#85BCA9" />
@@ -66,6 +66,7 @@ export default function TodaysList() {
         <TouchableOpacity
             style={[styles.backRightBtn, styles.backRightBtnRight]}
             onPress={() => deleteActivity(rowMap, data.key)}
+            onPress={() => setActivities({type: 'REMOVE_ACTIVITY', payload: data.item.activity})}
         >
           <Text style={{color: "#F5F4F8"}}>Delete</Text>
         </TouchableOpacity>
@@ -108,7 +109,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#3f4155',
     color: "#fff"
   },
- 
   rowFrontDone: {
     display: 'flex',
     justifyContent: 'center',
