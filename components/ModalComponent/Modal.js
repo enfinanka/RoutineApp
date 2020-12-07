@@ -6,6 +6,8 @@ import SwitchToggle from '../ButtonComponents/SwitchToggle.js';
 import AddActivityButton from '../ButtonComponents/AddActivityButton.js';
 import { TextInput } from 'react-native-paper';
 import { ActivitiesContext } from '../../contexts'
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import TimeButton from '../ButtonComponents/TimeButton'
 
 export default function ModalButton(props) {
   const { showModal, setShowModal, history } = props;
@@ -14,6 +16,8 @@ export default function ModalButton(props) {
   const [inputActivity, setInputActivity] = React.useState('');
   const [inputCategory, setInputCategory] = React.useState('');
   const [alert, setAlert] = React.useState(false);
+  const [show, setShow] = React.useState(false);
+  const [chosenTime, setChosenTime] = React.useState('');
 
   const activityAlreadyExists = () => activities.some((obj) => obj.activity === inputActivity)
 
@@ -29,13 +33,23 @@ export default function ModalButton(props) {
         category: inputCategory,
         type: 'work',
         alert: alert,
-        alertWhen: '00:00'
+        alertWhen: chosenTime
       }
       setActivities({ type: 'ADD_ACTIVITY', payload: newActivity })
       setShowModal(false);
       history.push('/');
     }
+  }
 
+  const handleConfirm = (time) => {
+    let chosenTime = time.toLocaleTimeString().slice(0, 5);
+
+    setShow(false);
+    setChosenTime(chosenTime);
+  }
+
+  const hideDatePicker = () => {
+    setShow(false);
   }
 
   return (
@@ -82,8 +96,20 @@ export default function ModalButton(props) {
             </View>
             <View style={styles.textContainer}>
               <Text style={styles.modalText} >Select Time</Text>
-              <Icon size={25} name="ios-calendar"></Icon>
+              <TimeButton show={show} setShow={setShow} />
             </View>
+            {show ?
+              <View>
+                <DateTimePickerModal
+                  isVisible={show}
+                  mode="time"
+                  onConfirm={handleConfirm}
+                  onCancel={hideDatePicker}
+                  locale="en_GB"
+                  is24Hour={true}
+                />
+              </View>
+              : null}
             <AddActivityButton history={history} addNewActivity={addNewActivity} setShowModal={setShowModal} />
           </View>
         </View>
