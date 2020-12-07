@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { ActivitiesContext } from '../../contexts'
 
@@ -44,13 +45,31 @@ export default function TodaysList() {
 
   const renderItem = (data) => {
     return (
-      <View style={styles.rowFront}>
-        <Text style={styles.activityText}>{data.item.activity}</Text>
+      <View style={data.item.completed ? styles. rowFrontDone : styles.rowFront}>
+        
+          <View style={{display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
+            <Text style={styles.activityText}>{data.item.activity}</Text>
+            {data.item.alert ? 
+            <View style={{display: 'flex', justifyContent: 'flex-start', flexDirection: 'row'}}>
+              <Ionicons style={styles.notifyIcon} name="ios-notifications" size={20} color="#EBB000"/>
+              <Text
+              style={{
+                color: data.item.completed ? '#fff' : '#85BCA9',
+                fontSize: 12,
+                marginLeft: 10,
+                marginTop: 10
+                }}
+                >{data.item.alertWhen}</Text>
+              </View>
+              : null
+            }
+        </View>
         <TouchableOpacity style={styles.checkIcon} onPress={() => setActivities({ type: 'SET_COMPLETED', payload: data.item.activity })}>
           {data.item.completed ?
-            <AntDesign name="checkcircleo" size={50} color="#85BCA9" />
+            <AntDesign name="checkcircleo" size={50} color="#fff" />
             : <Feather name="circle" size={50} color="#85BCA9" />
           }
+          
         </TouchableOpacity>
       </View>
     )
@@ -113,12 +132,14 @@ const styles = StyleSheet.create({
   },
   rowFrontDone: {
     display: 'flex',
-    justifyContent: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     height: 66,
     marginTop: 15,
     margin: 10,
     borderRadius: 15,
-    backgroundColor: "#85BCA9",
+    backgroundColor: '#85BCA9',
     color: "#fff"
   },
   rowBack: {
@@ -151,14 +172,16 @@ const styles = StyleSheet.create({
     right: 0,
     borderRadius: 100,
   },
-  // trash: {
-  //   height: 25,
-  //   width: 25,
-  // },
   activityText: {
     color: '#F4F7F8',
     fontSize: 20,
-    marginLeft: 30,
+    marginLeft: 20,
+  },
+  alertText: {
+    color: '#85BCA9',
+    fontSize: 12,
+    marginLeft: 10,
+    marginTop: 10
   },
   leftButtonContainer: {
     borderRadius: 100,
@@ -172,5 +195,9 @@ const styles = StyleSheet.create({
   },
   checkIcon: {
     marginRight: 10
+  },
+  notifyIcon: {
+    marginTop: 5,
+    marginLeft: 20
   }
 });
