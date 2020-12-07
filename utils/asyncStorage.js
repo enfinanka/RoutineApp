@@ -18,28 +18,34 @@ export const retrieveDataFromAsyncStorage = async () => {
   }
 };
 
-export const storeDataToAsyncStorage = async () => {
-  let updatedState = {}
+
+//kalla på denna likt detta:
+//storeDataToAsyncStorage({activity: "oscar", keyToUpdate: "completed", newValue:true})
+export const storeDataToAsyncStorage = async (objToUpdate) => {
+
+  const {activity, keyToUpdate, newValue } = objToUpdate
+
+  async function updateState(prevState) {
+    console.log('prevState in updateState', prevState);
+    const newState = JSON.stringify(prevState.map(obj => obj.activity !== activity ? obj : {...obj, [keyToUpdate]: newValue}))
+    console.log('newstate', newState)
+    async function storeNewState () {
+      console.log('newState in storeNewState', newState);
+        try {
+          await AsyncStorage.setItem(
+            'Activities',
+            newState
+          );
+        } catch (error) {
+          console.log('error storeData', error) 
+        }
+      };
+      storeNewState()
+  }
+
   retrieveDataFromAsyncStorage()
-  .then(data => updatedState = data)
-  .then((data) => console.log('updatedState:', updatedState))
-  // prevAS.then(data => console.log('prevAS.then: data in storeDataToAsyncStorage', data))
+  .then(data => updateState(data))
 
-
-
-  // try {
-  //   const prevAS = await retrieveDataFromAsyncStorage()
-  //   if (prevAS !== null ) {
-  //     return JSON.parse(prevAS);
-  //   }
-  //   await AsyncStorage.setItem(
-  //     'Activities',
-  //     passedExamples
-  //   );
-  // } catch (error) {
-  //   console.log('error storeData', error) 
-
-  // }
 };
 
 export const InitalStoreDataToAsyncStorage = async () => {

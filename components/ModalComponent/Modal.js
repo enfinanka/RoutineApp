@@ -25,7 +25,7 @@ export default function ModalButton(props) {
 
     console.log('addActivity ran!')
 
-    storeDataToAsyncStorage()
+    storeDataToAsyncStorage({activity: "oscar", keyToUpdate: "completed", newValue:true})
       // more valitators??
     if (activityAlreadyExists()) {
       Alert.alert(`You already have an activity called: ${inputActivity}`)
