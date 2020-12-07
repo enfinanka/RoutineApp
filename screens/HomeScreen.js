@@ -4,13 +4,17 @@ import  Header  from '../components/HeaderComponents/Header';
 import  AddButton  from '../components/ButtonComponents/AddButton';
 import TodaysList from '../components/ListComponents/TodaysList';
 import {ActivitiesContext} from '../contexts'
+import { retrieveDataFromAsyncStorage, InitalStoreDataToAsyncStorage } from '../utils/asyncStorage'
+
 
 export default function HomeScreen({history}) {
+
   const { activities, setActivities } = React.useContext(ActivitiesContext);
 
+  //ersaätt allt från useEffecten första gången ni kör appen och limma in denna istället: InitalStoreDataToAsyncStorage() för att lägga in exemplen i asyncStorage. Tror jag :)
   React.useEffect(() => {
-    console.log('useEffect ran');
-    setActivities({type: 'LOAD_ASYNC_STORAGE'})
+    retrieveDataFromAsyncStorage()
+    .then((d)=> setActivities({type: 'ADD_FROM_ASYNCSTORAGE', payload: d}))
   },[])
 
   return (

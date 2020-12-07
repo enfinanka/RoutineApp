@@ -1,33 +1,24 @@
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const Activities = [
+export const activities = JSON.stringify([
   {completed: false, activity: 'oscar', type: 'health', alert: true, alertWhen: '12:00'},
   {completed: false, activity: 'eat pizza', type: 'health', alert: true, alertWhen: '11:59'},
   {completed: false, activity: 'change dipers', type: 'family', alert: false, alertWhen: '20:00'},
   {completed: false, activity: 'hit boss in eye', type: 'work', alert: false, alertWhen: '00:00'}
-]
+])
 
-const passedExamples = JSON.stringify(Activities)
-
-export const retrieveData = async () => {
-  console.log('retrivedata ran');
+export const retrieveDataFromAsyncStorage = async () => {
   try {
     const value = await AsyncStorage.getItem('Activities');
     if (value !== null) {
-      // We have data!!
-      console.log('value from asyncstorage:', JSON.parse(value));
-      return value
+      return JSON.parse(value);
     }
   } catch (error) {
     console.log('error retrieveData', error)
-
-    return []
-    // Error retrieving data
   }
 };
 
-export const storeData = async () => {
-  console.log('Storedata ran');
+export const storeDataToAsyncStorage = async () => {
   try {
     await AsyncStorage.setItem(
       'Activities',
@@ -35,7 +26,16 @@ export const storeData = async () => {
     );
   } catch (error) {
     console.log('error storeData', error) 
-    // Error saving data
   }
 };
 
+export const InitalStoreDataToAsyncStorage = async () => {
+  try {
+    await AsyncStorage.setItem(
+      'Activities',
+      activities
+    );
+  } catch (error) {
+    console.log('error storeData', error) 
+  }
+};

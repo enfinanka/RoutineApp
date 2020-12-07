@@ -34,6 +34,7 @@ export default function TodaysList() {
   //     // rowSwipeAnimatedValues[key].setValue(Math.abs(value));
   // };
 
+  // console.log('activities in list:', activities)
   const editActivity = () => {
 
   }
