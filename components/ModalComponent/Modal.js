@@ -76,7 +76,7 @@ export default function ModalButton(props) {
                 onChangeText={text => setInputCategory(text)}
                 value={inputCategory}
             />
-           </View>
+          </View>
             {/* <Input /> */}
             <View style={styles.textContainer}>
               <Text style={styles.modalText} >Notifications</Text>

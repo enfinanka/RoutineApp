@@ -3,9 +3,15 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import  Header  from '../components/HeaderComponents/Header';
 import  AddButton  from '../components/ButtonComponents/AddButton';
 import TodaysList from '../components/ListComponents/TodaysList';
-
+import {ActivitiesContext} from '../contexts'
 
 export default function HomeScreen({history}) {
+  const { activities, setActivities } = React.useContext(ActivitiesContext);
+
+  React.useEffect(() => {
+    console.log('useEffect ran');
+    setActivities({type: 'LOAD_ASYNC_STORAGE'})
+  },[])
 
   return (
     <View style={styles.container}>
