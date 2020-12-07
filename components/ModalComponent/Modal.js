@@ -1,13 +1,44 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableHighlight, Modal } from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight, Modal, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Input from './Input.js';
 import SwitchToggle from '../ButtonComponents/SwitchToggle.js';
 import AddActivityButton from '../ButtonComponents/AddActivityButton.js';
+import { TextInput } from 'react-native-paper';
+import {ActivitiesContext} from '../../contexts'
+
+
 
 
 export default function ModalButton(props) {  
-  const { showModal, setShowModal, addExampleItem, history } = props;
+  const { showModal, setShowModal, history } = props;
+  
+  const { activities, setActivities } = React.useContext(ActivitiesContext);
+  const [inputActivity, setInputActivity] = React.useState('');
+  const [inputCategory, setInputCategory] = React.useState('');
+
+  const activityAlreadyExists = () => activities.some((obj)=> obj.activity === inputActivity)
+
+  const addNewActivity = () => {
+      // more valitators??
+    if (activityAlreadyExists()) {
+      Alert.alert(`You already have an activity called: ${inputActivity}`)
+    } 
+    else {
+      const newActivity = {
+      completed: false, 
+      activity: inputActivity, 
+      category: inputCategory,
+      type: 'work', 
+      alert: false, 
+      alertWhen: '00:00'
+    }
+      setActivities({type: 'ADD_ACTIVITY', payload: newActivity})
+      setShowModal(false);
+      history.push('/');
+    }
+
+  }
 
   return (
     <View>
@@ -19,7 +50,7 @@ export default function ModalButton(props) {
           setShowModal(false);
         }}
       >
-       <View style={styles.centeredView}>
+      <View style={styles.centeredView}>
           <View style={styles.modalView}>            
             
             <TouchableHighlight
@@ -32,7 +63,21 @@ export default function ModalButton(props) {
             </TouchableHighlight>
             
             <Text style={styles.modalHeader}>New activity</Text>
-            <Input />
+            <View style={styles.container}>
+            <TextInput
+                label="Type your Activity"
+                style={styles.input} 
+                onChangeText={text => setInputActivity(text)}
+                value={inputActivity}
+            />
+            <TextInput
+                label="Category"
+                style={styles.input} 
+                onChangeText={text => setInputCategory(text)}
+                value={inputCategory}
+            />
+          </View>
+            {/* <Input /> */}
             <View style={styles.textContainer}>
               <Text style={styles.modalText} >Notifications</Text>
               <SwitchToggle />
@@ -41,7 +86,7 @@ export default function ModalButton(props) {
               <Text style={styles.modalText} >Select Time</Text>
               <Icon size={25} name="ios-calendar"></Icon>
             </View>
-            <AddActivityButton history={history} addExampleItem={addExampleItem} setShowModal={setShowModal}/>
+            <AddActivityButton history={history} addNewActivity={addNewActivity} setShowModal={setShowModal}/>
           </View>
         </View>
       </Modal>
@@ -51,8 +96,8 @@ export default function ModalButton(props) {
 
 const styles = StyleSheet.create({
   centeredView: {
-   flex: 1,
-   justifyContent: 'flex-end',
+    flex: 1,
+    justifyContent: 'flex-end',
   },
   modalView: {
     display: 'flex',
@@ -104,4 +149,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignContent: 'space-around',
   },
+  container: {
+    paddingBottom: 50,
+   },
+   input: {
+    height: 50,
+    margin: 10,
+    width: 350,
+    color: '#fff',
+    textAlign: 'center',
+   },
 });

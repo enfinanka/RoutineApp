@@ -9,10 +9,6 @@ import { ActivitiesContext } from '../contexts';
 
 export default function NewActivityScreen({history}) {
   const { activities, setActivities } = React.useContext(ActivitiesContext);
-  const anotherActivity = { activity: 'add activity to list', type: 'work', alert: true, alertWhen: '12:34'}
-
-  const addExampleItem = () => setActivities((previousActivities) => [...previousActivities, anotherActivity])
-  
 
 
   return (
@@ -39,7 +35,7 @@ export default function NewActivityScreen({history}) {
       />
 
       <View style={styles.ModalButton}>
-      <ModalButton addExampleItem={addExampleItem} history={history} />
+      <ModalButton history={history} />
       </View>
     </View>
   );
