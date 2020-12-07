@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import {
-    Animated,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    TouchableHighlight,
-    View,
+  Animated,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableHighlight,
+  View,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import { SwipeListView } from 'react-native-swipe-list-view';
-import {ActivitiesContext} from '../../contexts'
+import { ActivitiesContext } from '../../contexts'
 
 
 const rowSwipeAnimatedValues = {};
@@ -19,7 +19,7 @@ const rowSwipeAnimatedValues = {};
 //     .forEach((_, i) => {
 //         rowSwipeAnimatedValues[`${i}`] = new Animated.Value(0);
 //     });
-    //VAD GÖR DENNA
+//VAD GÖR DENNA
 
 export default function TodaysList() {
 
@@ -43,34 +43,35 @@ export default function TodaysList() {
   }
 
   const renderItem = (data) => {
-    return(
+    return (
       <View style={styles.rowFront}>
         <Text style={styles.activityText}>{data.item.activity}</Text>
-        <TouchableOpacity style={styles.checkIcon} onPress={() => setActivities({type: 'SET_COMPLETED', payload: data.item.activity})}> 
-        {data.item.completed ? 
-          <AntDesign name="checkcircleo" size={50} color="#85BCA9" /> 
-          : <Feather name="circle" size={50} color="#85BCA9" />
-        }
+        <TouchableOpacity style={styles.checkIcon} onPress={() => setActivities({ type: 'SET_COMPLETED', payload: data.item.activity })}>
+          {data.item.completed ?
+            <AntDesign name="checkcircleo" size={50} color="#85BCA9" />
+            : <Feather name="circle" size={50} color="#85BCA9" />
+          }
         </TouchableOpacity>
       </View>
-  )};
+    )
+  };
 
   const renderHiddenItem = (data, rowMap) => (
-      <View style={styles.rowBack}>
-        <TouchableOpacity
-          style={styles.leftButtonContainer}
-          onPress={() => editActivity(rowMap, data.key)}
-        >
-          <Text style={{color: '#F5F4F8'}}>Edit</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-            style={[styles.backRightBtn, styles.backRightBtnRight]}
-            onPress={() => deleteActivity(rowMap, data.key)}
-            onPress={() => setActivities({type: 'REMOVE_ACTIVITY', payload: data.item.activity})}
-        >
-          <Text style={{color: "#F5F4F8"}}>Delete</Text>
-        </TouchableOpacity>
-      </View>
+    <View style={styles.rowBack}>
+      <TouchableOpacity
+        style={styles.leftButtonContainer}
+        onPress={() => editActivity(rowMap, data.key)}
+      >
+        <Text style={{ color: '#F5F4F8' }}>Edit</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.backRightBtn, styles.backRightBtnRight]}
+        onPress={() => deleteActivity(rowMap, data.key)}
+        onPress={() => setActivities({ type: 'REMOVE_ACTIVITY', payload: data.item.activity })}
+      >
+        <Text style={{ color: "#F5F4F8" }}>Delete</Text>
+      </TouchableOpacity>
+    </View>
   );
 
   return (
@@ -84,8 +85,9 @@ export default function TodaysList() {
         previewRowKey={'0'}
         previewOpenValue={-40}
         previewOpenDelay={3000}
-        // onRowDidOpen={onRowDidOpen}
-        // onSwipeValueChange={onSwipeValueChange}
+        keyExtractor={(item, index) => index.toString()}
+      // onRowDidOpen={onRowDidOpen}
+      // onSwipeValueChange={onSwipeValueChange}
       />
     </View>
   );
@@ -120,15 +122,15 @@ const styles = StyleSheet.create({
     color: "#fff"
   },
   rowBack: {
-      alignItems: 'center',
-      flex: 1,
-      height: 66,
-      marginTop: 15,
-      margin: 10,
-      borderRadius: 15,
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      paddingLeft: 5,
+    alignItems: 'center',
+    flex: 1,
+    height: 66,
+    marginTop: 15,
+    margin: 10,
+    borderRadius: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: 5,
   },
   backRightBtn: {
     alignItems: 'center',

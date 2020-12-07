@@ -1,41 +1,39 @@
 import React from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableHighlight } from 'react-native';
-import  Header  from '../components/HeaderComponents/Header';
+import Header from '../components/HeaderComponents/Header';
 import ModalButton from '../components/ButtonComponents/ModalButton';
 import BackButton from '../components/ButtonComponents/BackButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ActivitiesContext } from '../contexts';
 
 
-export default function NewActivityScreen({history}) {
+export default function NewActivityScreen({ history }) {
   const { activities, setActivities } = React.useContext(ActivitiesContext);
 
 
   return (
     <View style={styles.container}>
       <View style={styles.BackButton}>
-        <BackButton history={history}/>
+        <BackButton history={history} />
       </View>
       <Header title="New Activity" date={false} />
 
       <FlatList
         data={activities}
-        renderItem={({ item, index, separators }) => (
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item, index }) => (
           <TouchableOpacity
             style={styles.listItem}
             key={index}
-            onPress={() => this.onPress(item)}
-            onShowUnderlay={separators.highlight}
-            onHideUnderlay={separators.unhighlight}>
-            
-            <Text style={styles.listText}>{item.activity}</Text>
-            
+            onPress={() => console.log(index)}>
+            <Text style={styles.listText} key={index}>{item.activity}</Text>
+
           </TouchableOpacity>
         )}
       />
 
       <View style={styles.ModalButton}>
-      <ModalButton history={history} />
+        <ModalButton history={history} />
       </View>
     </View>
   );
@@ -69,7 +67,7 @@ const styles = StyleSheet.create({
   BackButton: {
     position: "absolute",
     right: 10,
-    top: 30, 
+    top: 30,
     zIndex: 999
   }
 });

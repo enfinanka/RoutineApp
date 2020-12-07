@@ -5,35 +5,33 @@ import Input from './Input.js';
 import SwitchToggle from '../ButtonComponents/SwitchToggle.js';
 import AddActivityButton from '../ButtonComponents/AddActivityButton.js';
 import { TextInput } from 'react-native-paper';
-import {ActivitiesContext} from '../../contexts'
+import { ActivitiesContext } from '../../contexts'
 
-
-
-
-export default function ModalButton(props) {  
+export default function ModalButton(props) {
   const { showModal, setShowModal, history } = props;
-  
+
   const { activities, setActivities } = React.useContext(ActivitiesContext);
   const [inputActivity, setInputActivity] = React.useState('');
   const [inputCategory, setInputCategory] = React.useState('');
+  const [alert, setAlert] = React.useState(false);
 
-  const activityAlreadyExists = () => activities.some((obj)=> obj.activity === inputActivity)
+  const activityAlreadyExists = () => activities.some((obj) => obj.activity === inputActivity)
 
   const addNewActivity = () => {
-      // more valitators??
+    // more valitators??
     if (activityAlreadyExists()) {
       Alert.alert(`You already have an activity called: ${inputActivity}`)
-    } 
+    }
     else {
       const newActivity = {
-      completed: false, 
-      activity: inputActivity, 
-      category: inputCategory,
-      type: 'work', 
-      alert: false, 
-      alertWhen: '00:00'
-    }
-      setActivities({type: 'ADD_ACTIVITY', payload: newActivity})
+        completed: false,
+        activity: inputActivity,
+        category: inputCategory,
+        type: 'work',
+        alert: alert,
+        alertWhen: '00:00'
+      }
+      setActivities({ type: 'ADD_ACTIVITY', payload: newActivity })
       setShowModal(false);
       history.push('/');
     }
@@ -50,43 +48,43 @@ export default function ModalButton(props) {
           setShowModal(false);
         }}
       >
-      <View style={styles.centeredView}>
-          <View style={styles.modalView}>            
-            
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+
             <TouchableHighlight
               style={styles.closeButton}
               onPress={() => {
                 setShowModal(false);
               }}>
-              
+
               <Icon name="ios-close" size={50} color="#F4F7F8" />
             </TouchableHighlight>
-            
+
             <Text style={styles.modalHeader}>New activity</Text>
             <View style={styles.container}>
-            <TextInput
+              <TextInput
                 label="Type your Activity"
-                style={styles.input} 
+                style={styles.input}
                 onChangeText={text => setInputActivity(text)}
                 value={inputActivity}
-            />
-            <TextInput
+              />
+              <TextInput
                 label="Category"
-                style={styles.input} 
+                style={styles.input}
                 onChangeText={text => setInputCategory(text)}
                 value={inputCategory}
-            />
-          </View>
+              />
+            </View>
             {/* <Input /> */}
             <View style={styles.textContainer}>
               <Text style={styles.modalText} >Notifications</Text>
-              <SwitchToggle />
+              <SwitchToggle setAlert={setAlert} alert={alert} />
             </View>
             <View style={styles.textContainer}>
               <Text style={styles.modalText} >Select Time</Text>
               <Icon size={25} name="ios-calendar"></Icon>
             </View>
-            <AddActivityButton history={history} addNewActivity={addNewActivity} setShowModal={setShowModal}/>
+            <AddActivityButton history={history} addNewActivity={addNewActivity} setShowModal={setShowModal} />
           </View>
         </View>
       </Modal>
@@ -151,12 +149,12 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingBottom: 50,
-   },
-   input: {
+  },
+  input: {
     height: 50,
     margin: 10,
     width: 350,
     color: '#fff',
     textAlign: 'center',
-   },
+  },
 });
