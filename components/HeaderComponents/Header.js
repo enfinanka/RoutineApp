@@ -6,23 +6,22 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function Header(props) {
 
   const { title, date = true } = props;
-  const [today, setToday ] = useState('')
+  const [today, setToday] = useState('')
 
   useEffect(() => {
-    const options = {  weekday: 'long', month: 'long', day: 'numeric', hour12: false };
-    const prnDt = new Date().toLocaleTimeString('us', options);
-    console.log(prnDt);
+    const options = { weekday: 'long', month: 'long', day: 'numeric', hour12: false };
+    const prnDt = new Date().toLocaleDateString('us', options);
     setToday(prnDt)
   }, []);
 
   return (
     <View >
       <Text style={styles.header}>{title}</Text>
-      {date === true ? 
-      <View>
-      <Text style={styles.date}>{today}</Text>
-      </View>
-      : null }
+      {date === true ?
+        <View>
+          <Text style={styles.date}>{today}</Text>
+        </View>
+        : null}
     </View>
   );
 }
@@ -30,7 +29,7 @@ export default function Header(props) {
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    
+
     backgroundColor: '#1E2036',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
