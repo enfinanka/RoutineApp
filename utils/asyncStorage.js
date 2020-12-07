@@ -19,14 +19,27 @@ export const retrieveDataFromAsyncStorage = async () => {
 };
 
 export const storeDataToAsyncStorage = async () => {
-  try {
-    await AsyncStorage.setItem(
-      'Activities',
-      passedExamples
-    );
-  } catch (error) {
-    console.log('error storeData', error) 
-  }
+  let updatedState = {}
+  retrieveDataFromAsyncStorage()
+  .then(data => updatedState = data)
+  .then((data) => console.log('updatedState:', updatedState))
+  // prevAS.then(data => console.log('prevAS.then: data in storeDataToAsyncStorage', data))
+
+
+
+  // try {
+  //   const prevAS = await retrieveDataFromAsyncStorage()
+  //   if (prevAS !== null ) {
+  //     return JSON.parse(prevAS);
+  //   }
+  //   await AsyncStorage.setItem(
+  //     'Activities',
+  //     passedExamples
+  //   );
+  // } catch (error) {
+  //   console.log('error storeData', error) 
+
+  // }
 };
 
 export const InitalStoreDataToAsyncStorage = async () => {

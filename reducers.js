@@ -20,11 +20,7 @@ export const activitiesReducer = (state, action) => {
       return state.filter((obj) => obj.activity !== action.payload)
     
       case 'ADD_FROM_ASYNCSTORAGE':
-        return [...state, ...action.payload]
-        // console.log('ADD_FROM_ASYNCSTORAGE acation.payload:', action.payload);
-
-        // return [...state, action.payload]
-
+        return action.payload
       default:
       return state;
   }

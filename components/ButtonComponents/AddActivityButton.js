@@ -5,11 +5,7 @@ export default function AddActivityButton(props) {
 
   const { addNewActivity, setShowModal, history } = props
 
-  const addActivity = () => {
-    setShowModal(false);
-    addNewActivity();
-    history.push('/');
-  }
+
 
   return (
     <View style={styles.container}>

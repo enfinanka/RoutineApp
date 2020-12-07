@@ -6,6 +6,8 @@ import SwitchToggle from '../ButtonComponents/SwitchToggle.js';
 import AddActivityButton from '../ButtonComponents/AddActivityButton.js';
 import { TextInput } from 'react-native-paper';
 import {ActivitiesContext} from '../../contexts'
+import { storeDataToAsyncStorage } from '../../utils/asyncStorage'
+
 
 
 
@@ -20,6 +22,10 @@ export default function ModalButton(props) {
   const activityAlreadyExists = () => activities.some((obj)=> obj.activity === inputActivity)
 
   const addNewActivity = () => {
+
+    console.log('addActivity ran!')
+
+    storeDataToAsyncStorage()
       // more valitators??
     if (activityAlreadyExists()) {
       Alert.alert(`You already have an activity called: ${inputActivity}`)
