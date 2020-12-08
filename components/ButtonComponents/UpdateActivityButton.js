@@ -1,17 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-export default function AddActivityButton(props) {
+export default function UpdateActivityButton(props) {
 
-  const { addNewActivity, setShowModal, history } = props
+  const { editActivity } = props
 
   return (
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.button}
-        onPress={addNewActivity}
+        onPress={editActivity}
       >
-        <Text style={styles.buttonText}>Add Activity</Text>
+        <Text style={styles.buttonText}>Update Activity</Text>
       </TouchableOpacity>
     </View>
   );

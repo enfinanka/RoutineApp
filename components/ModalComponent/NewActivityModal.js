@@ -82,6 +82,7 @@ export default function NewActivityModal(props) {
                 style={styles.input}
                 onChangeText={text => setInputActivity(text)}
                 value={inputActivity}
+                maxLength={16}
               />
               <TextInput
                 label="Category"
