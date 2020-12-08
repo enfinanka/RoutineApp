@@ -35,7 +35,6 @@ export default function NewActivityModal(props) {
         alert: alert,
         alertWhen: chosenTime
       }
-      console.log(newActivity)
       setActivities({ type: 'ADD_ACTIVITY', payload: newActivity })
       setShowModal(false);
       history.push('/');
