@@ -14,27 +14,6 @@ import { ActivitiesContext } from '../../contexts'
 export default function TodaysList() {
 
   const { activities, setActivities } = React.useContext(ActivitiesContext);
-<<<<<<< HEAD
-  const [checked, setChecked] = useState(false);
-
-  // console.log('activities', activities)
-
-  // const onSwipeValueChange = swipeData => {
-  //   console.log('swipeData', swipeData);
-  //     // const { key, value } = swipeData;
-  //     // rowSwipeAnimatedValues[key].setValue(Math.abs(value));
-  // };
-
-  // console.log('activities in list:', activities)
-  const editActivity = () => {
-
-  }
-
-  const deleteActivity = (rowMap, data) => {
-    console.log(rowMap, data.item)
-  }
-=======
->>>>>>> d0178b6bc5bb79fc7d8fae39cf3f05ac5226a482
 
   const renderItem = (data) => {
     return (
