@@ -9,7 +9,7 @@ import { ActivitiesContext } from '../../contexts'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import TimeButton from '../ButtonComponents/TimeButton'
 
-export default function ModalButton(props) {
+export default function NewActivityModal(props) {
   const { showModal, setShowModal, history } = props;
 
   const { activities, setActivities } = React.useContext(ActivitiesContext);
