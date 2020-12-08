@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View, TouchableHighlight, Modal, Alert} from 'react-native';
 import { TextInput } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -6,6 +6,7 @@ import SwitchToggle from '../ButtonComponents/SwitchToggle';
 import TimeButton from '../ButtonComponents/TimeButton';
 import UpdateActivityButton from '../ButtonComponents/UpdateActivityButton';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { replaceObjectInAsyncStorage } from '../../utils/asyncStorage';
 
 export default function EditActivityModal(props) {
   
@@ -21,7 +22,7 @@ export default function EditActivityModal(props) {
   const editActivity = () => {
     // more valitators??
     if (activityAlreadyExists()) {
-      Alert.alert(`You already have an activity called: ${inputActivity}`)
+      //Alert.alert(`You already have an activity called: ${inputActivity}`)
     }
     else {
       const changeActivity = {
@@ -32,7 +33,7 @@ export default function EditActivityModal(props) {
         alertWhen: chosenTime
       }
       console.log(changeActivity)
-      setActivities({ type: 'CHANGE_ACTIVITY', payload: changeActivity })
+      replaceObjectInAsyncStorage({changeActivity});
       setShowEditModal(false);
       //history.push('/');
     }
@@ -70,12 +71,14 @@ export default function EditActivityModal(props) {
               }}>
               <Icon name="ios-close" size={50} color="#F4F7F8" />
             </TouchableHighlight>
-              
-            <TextInput style={styles.modalHeader}
-              label={activityName}
+            
+            <Text style={styles.modalHeader}> {activityName} </Text>
+
+            <TextInput style={styles.input}
+              label="Change your activity here"
               onChangeText={text => setInputActivity(text)}
               value={inputActivity}
-              theme={{ colors: {background: '#5E6170', text: '#fff' } }}
+              maxLength={16}              
             />
             
             <View style={styles.textContainer}>
@@ -144,6 +147,7 @@ const styles = StyleSheet.create({
     margin: 25,
     fontSize: 35,
     textAlign: "center",
+    textTransform: "capitalize",   
     color: '#F4F7F8',
     width: 300,
   },
@@ -160,6 +164,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignContent: 'space-around',
+  },
+  input: {
+    height: 50,
+    margin: 10,
+    width: 350,
+    color: '#fff',
+    textAlign: 'center',
   },
   container: {
     paddingBottom: 50,
