@@ -11,12 +11,22 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { ActivitiesContext } from '../../contexts'
 import EditActivityModal from '../ModalComponent/EditActivityModal';
+import { retrieveDataFromAsyncStorage } from '../../utils/asyncStorage'
 
-export default function TodaysList() {
-
-  const { activities, setActivities } = React.useContext(ActivitiesContext);
+export default function TodaysList(props) {
+const { activities, setActivities, history } = props;
+  // const { setActivities } = React.useContext(ActivitiesContext);
   const [showEditModal, setShowEditModal] = React.useState(false);
   const [activityName, setActivityName] = React.useState('');
+
+  // React.useEffect(() => {
+  //   const timer = setTimeout( ()=> {
+  //     retrieveDataFromAsyncStorage()
+  //     .then((d)=> setActivities({type: 'ADD_FROM_ASYNCSTORAGE', payload: d}))
+  //   },0)
+    
+  //   return ()=> clearTimeout(timer)
+  //   },[])
 
   const renderItem = (data) => {
     return (
@@ -88,7 +98,7 @@ export default function TodaysList() {
         friction={4}
         keyExtractor={(item, index) => index.toString()}
       />
-      <EditActivityModal activityName={activityName} setActivities={setActivities} activities={activities} setShowEditModal={setShowEditModal} showEditModal={showEditModal} />
+      <EditActivityModal history={history} activityName={activityName} setActivities={setActivities} activities={activities} setShowEditModal={setShowEditModal} showEditModal={showEditModal} />
     </View>
   );
 }
