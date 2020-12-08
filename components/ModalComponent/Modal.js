@@ -35,6 +35,7 @@ export default function ModalButton(props) {
         alert: alert,
         alertWhen: chosenTime
       }
+      console.log(newActivity)
       setActivities({ type: 'ADD_ACTIVITY', payload: newActivity })
       setShowModal(false);
       history.push('/');
@@ -42,6 +43,7 @@ export default function ModalButton(props) {
   }
 
   const handleConfirm = (time) => {
+    console.log(time, 'time');
     let chosenTime = time.toLocaleTimeString().slice(0, 5);
 
     setShow(false);
@@ -105,7 +107,7 @@ export default function ModalButton(props) {
                   mode="time"
                   onConfirm={handleConfirm}
                   onCancel={hideDatePicker}
-                  locale="en_GB"
+                  locale="gb" // Use "en_GB" here
                   is24Hour={true}
                 />
               </View>
