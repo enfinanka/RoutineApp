@@ -14,7 +14,7 @@ export default function HomeScreen({history}) {
   //kommentera fram InitalStoreDataToAsyncStorage() för att lägga in exemplen i asyncStorage.
   React.useEffect(() => {
   const timer = setTimeout( ()=> {
-    // InitalStoreDataToAsyncStorage()
+    //InitalStoreDataToAsyncStorage()
     retrieveDataFromAsyncStorage()
     .then((d)=> setActivities({type: 'ADD_FROM_ASYNCSTORAGE', payload: d}))
   },0)
