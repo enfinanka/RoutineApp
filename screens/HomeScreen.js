@@ -4,7 +4,7 @@ import  Header  from '../components/HeaderComponents/Header';
 import  AddButton  from '../components/ButtonComponents/AddButton';
 import TodaysList from '../components/ListComponents/TodaysList';
 import {ActivitiesContext} from '../contexts'
-import { retrieveDataFromAsyncStorage, InitalStoreDataToAsyncStorage } from '../utils/asyncStorage'
+import { retrieveDataFromAsyncStorage } from '../utils/asyncStorage'
 
 
 export default function HomeScreen({history}) {

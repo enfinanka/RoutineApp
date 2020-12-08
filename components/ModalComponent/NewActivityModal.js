@@ -8,6 +8,7 @@ import { TextInput } from 'react-native-paper';
 import { ActivitiesContext } from '../../contexts'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import TimeButton from '../ButtonComponents/TimeButton'
+import { addObjectInAsyncStorage } from '../../utils/asyncStorage'
 
 export default function NewActivityModal(props) {
   const { showModal, setShowModal, history } = props;
@@ -35,8 +36,8 @@ export default function NewActivityModal(props) {
         alert: alert,
         alertWhen: chosenTime
       }
-      console.log(newActivity)
-      setActivities({ type: 'ADD_ACTIVITY', payload: newActivity })
+      addObjectInAsyncStorage(newActivity)
+      // setActivities({ type: 'ADD_ACTIVITY', payload: newActivity }) 
       setShowModal(false);
       history.push('/');
     }

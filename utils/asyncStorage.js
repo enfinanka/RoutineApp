@@ -79,3 +79,15 @@ export const replaceObjectInAsyncStorage = async (objToUpdate) => {
   retrieveDataFromAsyncStorage()
   .then(data => updateStorage(data))
 };
+
+
+//kalla på denna likt detta för att helt byta ut ett object med samma "namn" på activity:
+//replaceObjectInAsyncStorage({completed: false, activity: 'oscar', type: 'funstuff', alert: true, alertWhen: '00:12'})
+export const addObjectInAsyncStorage = async (newObj) => {
+  async function updateStorage(prevState) {
+    const newState = [...prevState, newObj]
+    storeNewState(newState)
+  }
+  retrieveDataFromAsyncStorage()
+  .then(data => updateStorage(data))
+};
