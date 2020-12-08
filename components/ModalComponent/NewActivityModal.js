@@ -43,7 +43,6 @@ export default function NewActivityModal(props) {
   }
 
   const handleConfirm = (time) => {
-    console.log(time, 'time');
     let chosenTime = time.toLocaleTimeString().slice(0, 5);
 
     setShow(false);

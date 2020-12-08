@@ -50,7 +50,6 @@ export default function TodaysList(props) {
   };
 
   const editActivity = (activityName) => {
-    console.log(activityName);
     setShowEditModal(true);
     setActivityName(activityName);
   }

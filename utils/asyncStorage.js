@@ -7,7 +7,7 @@ async function storeNewState (newState) {
       JSON.stringify(newState)
     );
   } catch (error) {
-    console.log('error replaceObjectInAsyncStorage:', error) 
+    console.log('error in storeNewState:', error) 
   }
 };
 
