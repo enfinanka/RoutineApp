@@ -1,5 +1,3 @@
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-
 // export const exampleToDos = [
 //   {completed: false, activity: 'oscar', type: 'health', alert: true, alertWhen: '12:00'},
 //   {completed: false, activity: 'eat pizza', type: 'health', alert: true, alertWhen: '11:59'},
