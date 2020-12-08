@@ -3,9 +3,13 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 export default function AddActivityButton(props) {
 
+<<<<<<< HEAD
   const { addNewActivity, setShowModal, history } = props
 
 
+=======
+  const { addNewActivity } = props
+>>>>>>> d0178b6bc5bb79fc7d8fae39cf3f05ac5226a482
 
   return (
     <View style={styles.container}>

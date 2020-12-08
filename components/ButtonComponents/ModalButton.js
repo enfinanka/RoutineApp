@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Modal from '../ModalComponent/Modal.js'
+import NewActivityModal from '../ModalComponent/NewActivityModal'
 
 export default function ModalButton(props) {
   const [showModal, setShowModal] = useState(false);
@@ -17,7 +17,7 @@ export default function ModalButton(props) {
         <Icon name="ios-add" size={50} color="#F4F7F8" />
       </TouchableOpacity>
 
-      <Modal showModal={showModal} setShowModal={setShowModal} addExampleItem={addExampleItem} history={history}/>
+      <NewActivityModal showModal={showModal} setShowModal={setShowModal} addExampleItem={addExampleItem} history={history}/>
     </View>
   );
 }
