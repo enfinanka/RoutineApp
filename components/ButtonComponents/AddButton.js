@@ -8,7 +8,7 @@ export default function AddButton(props) {
   const { history } = props;
 
   return (
-    <View>
+    <View style={styles.container}>
       <TouchableOpacity
         style={styles.button}
         onPress={() => history.push('newActivity')}
@@ -20,20 +20,23 @@ export default function AddButton(props) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    shadowColor: '#111324',
+    shadowOffset: {
+      width: 2,
+      height: 2
+    },
+    shadowOpacity: 1,
+    shadowRadius: 5 
+  },
   button: {
     backgroundColor: '#EBB000',
-    color: '#fff',
     minHeight: 42,
     height: 70,
     borderRadius: 50,
     width: 70,
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
-  buttonText: {
-    fontSize: 57,
-    color: '#fff',
-    textAlign: 'center'
-  }
 });

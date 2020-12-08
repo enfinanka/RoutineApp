@@ -4,19 +4,23 @@ import  Header  from '../components/HeaderComponents/Header';
 import  AddButton  from '../components/ButtonComponents/AddButton';
 import TodaysList from '../components/ListComponents/TodaysList';
 import {ActivitiesContext} from '../contexts'
+import NoActivities from '../components/ListComponents/NoActivities';
 
 export default function HomeScreen({history}) {
   const { activities, setActivities } = React.useContext(ActivitiesContext);
 
   React.useEffect(() => {
-    console.log('useEffect ran');
     setActivities({type: 'LOAD_ASYNC_STORAGE'})
-  },[])
+  },[activities])
 
   return (
     <View style={styles.container}>
       <Header title="Today's activities"/>
-      <TodaysList />
+      {activities ?
+        <TodaysList />
+        : 
+        <NoActivities /> 
+      }      
       <View style={styles.addButton}>
         <AddButton history={history}/>
       </View>
