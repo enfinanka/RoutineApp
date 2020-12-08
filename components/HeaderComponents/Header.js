@@ -39,8 +39,9 @@ const styles = StyleSheet.create({
   header: {
     color: '#85BCA9',
     fontSize: 35,
-    fontWeight: 'bold',
     paddingLeft: 20,
+    fontFamily: "Roboto",
+    fontWeight: "200"
   },
   date: {
     color: '#85BCA9',

@@ -37,7 +37,6 @@ export default function NewActivityModal(props) {
         alertWhen: chosenTime
       }
       addObjectInAsyncStorage(newActivity)
-      // setActivities({ type: 'ADD_ACTIVITY', payload: newActivity }) 
       setShowModal(false);
       history.push('/');
     }
@@ -93,7 +92,6 @@ export default function NewActivityModal(props) {
                 value={inputCategory}
               />
             </View>
-            {/* <Input /> */}
             <View style={styles.textContainer}>
               <Text style={styles.modalText} >Notifications</Text>
               <SwitchToggle setAlert={setAlert} alert={alert} />
