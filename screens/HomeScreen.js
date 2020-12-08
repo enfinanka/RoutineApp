@@ -13,8 +13,14 @@ export default function HomeScreen({history}) {
 
   //ersaätt allt från useEffecten första gången ni kör appen och limma in denna istället: InitalStoreDataToAsyncStorage() för att lägga in exemplen i asyncStorage. Tror jag :)
   React.useEffect(() => {
+
+  const timer = setTimeout( ()=> {
+    // InitalStoreDataToAsyncStorage()
     retrieveDataFromAsyncStorage()
     .then((d)=> setActivities({type: 'ADD_FROM_ASYNCSTORAGE', payload: d}))
+  },0)
+
+    return ()=> clearTimeout(timer)
   },[])
 
   return (
