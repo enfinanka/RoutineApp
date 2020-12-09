@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, SafeAreaView, Platform } from 'react-native';
+import { StyleSheet, SafeAreaView, Platform } from 'react-native';
 import {NativeRouter, Switch, Route } from 'react-router-native';
 import HomeScreen from './screens/HomeScreen';
 import { ActivitiesContext } from './contexts'

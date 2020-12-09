@@ -12,11 +12,20 @@ import { SwipeListView } from 'react-native-swipe-list-view';
 import EditActivityModal from '../ModalComponent/EditActivityModal';
 
 export default function TodaysList(props) {
+
   const { activities, setActivities, refresh, setRefresh } = props;
 
   const [showEditModal, setShowEditModal] = React.useState(false);
   const [activityName, setActivityName] = React.useState('');
   const [alert, setAlert] = React.useState(false);
+
+  const key = Math.floor(Math.random()*100000000)
+
+  const editActivity = (activityName, notificationAlert) => {
+    setShowEditModal(true);
+    setActivityName(activityName);
+    setAlert(notificationAlert);
+  }
 
   const renderItem = (data) => {
     return (
@@ -49,12 +58,6 @@ export default function TodaysList(props) {
       </View>
     )
   };
-
-  const editActivity = (activityName, notificationAlert) => {
-    setShowEditModal(true);
-    setActivityName(activityName);
-    setAlert(notificationAlert);
-  }
   
   const renderHiddenItem = (data, rowMap) => (
     
@@ -86,6 +89,7 @@ export default function TodaysList(props) {
         previewOpenValue={-40}
         previewOpenDelay={3000}
         friction={4}
+        key={key}
         keyExtractor={(item, index) => index.toString()}
       />
       <EditActivityModal 
@@ -98,7 +102,7 @@ export default function TodaysList(props) {
         setAlert={setAlert}
         alert={alert}
       />
-    </View>
+    </View> 
   );
 }
 
