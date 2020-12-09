@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import SwitchToggle from '../ButtonComponents/SwitchToggle';
 import TimeButton from '../ButtonComponents/TimeButton';
 import UpdateActivityButton from '../ButtonComponents/UpdateActivityButton';
+import EditActivityNameButton from '../ButtonComponents/EditActivityNameButton';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { replaceObjectInAsyncStorage } from '../../utils/asyncStorage';
 
@@ -12,6 +13,7 @@ export default function EditActivityModal(props) {
   const [inputActivity, setInputActivity] = React.useState();
   const [show, setShow] = React.useState(false);
   const [alert, setAlert] = React.useState(false);
+  const [showTextInput, setShowTextInput] = React.useState(false);
   const [chosenTime, setChosenTime] = React.useState('');
 
   const { setShowEditModal, showEditModal, activities, setActivities, activityName } = props;  
@@ -70,18 +72,25 @@ export default function EditActivityModal(props) {
               style={styles.closeButton}
               onPress={() => {
                 setShowEditModal(false);
+                setShowTextInput(false);
               }}>
               <Icon name="ios-close" size={50} color="#F4F7F8" />
             </TouchableHighlight>
             
-            <Text style={styles.modalHeader}> {activityName} </Text>
-
-            <TextInput style={styles.input}
-              label="Change your activity here"
-              onChangeText={text => setInputActivity(text)}
-              value={inputActivity}
-              maxLength={16}              
-            />
+            <View style={styles.modalHeadContainer}>
+              <Text style={styles.modalHeader}> {activityName} </Text>
+              <EditActivityNameButton setShowTextInput={setShowTextInput} />
+            </View>
+            
+            {showTextInput ? 
+              <TextInput style={styles.input}
+                onChangeText={text => setInputActivity(text)}
+                value={inputActivity}
+                maxLength={16}
+                autoFocus
+                clearButtonMode="always"          
+              />
+            :null}
             
             <View style={styles.textContainer}>
               <Text style={styles.modalText} >Notifications</Text>
@@ -103,7 +112,7 @@ export default function EditActivityModal(props) {
                 />
               </View>
               : null}
-            <UpdateActivityButton editActivity={editActivity} />
+            <UpdateActivityButton editActivity={editActivity} setShowTextInput={setShowTextInput} />
           </View>
         </View>
       </Modal>
@@ -145,13 +154,19 @@ const styles = StyleSheet.create({
     marginTop: -50,
   },
   modalHeader: {
-    position: "absolute",
-    margin: 25,
     fontSize: 35,
     textAlign: "center",
     textTransform: "capitalize",   
     color: '#F4F7F8',
-    width: 300,
+    fontWeight: 'bold'
+  },
+  modalHeadContainer: {
+    position: 'absolute',
+    marginTop: 40,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    width: 400
   },
   modalText: {
     color: '#F4F7F8',

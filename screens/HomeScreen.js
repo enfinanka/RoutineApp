@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import Header from '../components/HeaderComponents/Header';
-import AddButton from '../components/ButtonComponents/AddButton';
 import TodaysList from '../components/ListComponents/TodaysList';
 import { ActivitiesContext } from '../contexts'
 import { retrieveDataFromAsyncStorage, InitalStoreDataToAsyncStorage } from '../utils/asyncStorage'
+import ModalButton from '../components/ButtonComponents/ModalButton';
 
 
 export default function HomeScreen({ history }) {
@@ -27,7 +27,7 @@ export default function HomeScreen({ history }) {
       <Header title="Today's activities"/>
       <TodaysList activities={activities} setActivities={setActivities}/>
       <View style={styles.addButton}>
-        <AddButton history={history} />
+        <ModalButton history={history} />
       </View>
     </View>
   );
