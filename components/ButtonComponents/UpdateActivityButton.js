@@ -3,13 +3,18 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 export default function UpdateActivityButton(props) {
 
-  const { editActivity } = props
+  const { editActivity, setShowTextInput } = props
+
+  const updateActivity = () => {
+    editActivity();
+    setShowTextInput(false);
+  }
 
   return (
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.button}
-        onPress={editActivity}
+        onPress={updateActivity}
       >
         <Text style={styles.buttonText}>Update Activity</Text>
       </TouchableOpacity>

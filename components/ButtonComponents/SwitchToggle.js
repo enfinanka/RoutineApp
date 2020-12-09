@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Switch, View } from 'react-native';
+import { Switch, View } from 'react-native';
 
 export default function SwitchToggle(props) {
   const { setAlert, alert } = props
@@ -16,7 +16,3 @@ export default function SwitchToggle(props) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-
-});
