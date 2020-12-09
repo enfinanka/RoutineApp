@@ -12,11 +12,10 @@ import { replaceObjectInAsyncStorage } from '../../utils/asyncStorage';
 export default function EditActivityModal(props) {  
   const [inputActivity, setInputActivity] = React.useState();
   const [show, setShow] = React.useState(false);
-  const [alert, setAlert] = React.useState(false);
   const [showTextInput, setShowTextInput] = React.useState(false);
   const [chosenTime, setChosenTime] = React.useState('');
 
-  const { setShowEditModal, showEditModal, activities, setActivities, activityName, refresh, setRefresh } = props;  
+  const { setShowEditModal, showEditModal, activityName, refresh, setRefresh, setAlert, alert } = props;  
 
   const editActivity = () => {
     // if the inputfield for changing the name has not been altered.
@@ -44,11 +43,10 @@ export default function EditActivityModal(props) {
       setShowEditModal(false);
       setRefresh(!refresh)
     }
-  }
+  }  
 
   const handleConfirm = (time) => {
     let chosenTime = time.toLocaleTimeString().slice(0, 5);
-
     setShow(false);
     setChosenTime(chosenTime);
   }

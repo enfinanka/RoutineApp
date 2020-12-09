@@ -16,6 +16,7 @@ export default function TodaysList(props) {
 
   const [showEditModal, setShowEditModal] = React.useState(false);
   const [activityName, setActivityName] = React.useState('');
+  const [alert, setAlert] = React.useState(false);
 
   const renderItem = (data) => {
     return (
@@ -49,9 +50,10 @@ export default function TodaysList(props) {
     )
   };
 
-  const editActivity = (activityName) => {
+  const editActivity = (activityName, notificationAlert) => {
     setShowEditModal(true);
     setActivityName(activityName);
+    setAlert(notificationAlert);
   }
   
   const renderHiddenItem = (data, rowMap) => (
@@ -59,7 +61,7 @@ export default function TodaysList(props) {
     <View style={styles.rowBack}>
       <TouchableOpacity
         style={styles.leftButton}
-        onPress={() => editActivity(data.item.activity)}
+        onPress={() => editActivity(data.item.activity, data.item.alert)}
       >
         <Text style={{ color: '#F5F4F8' }}>Edit</Text>
       </TouchableOpacity>
@@ -88,12 +90,13 @@ export default function TodaysList(props) {
       />
       <EditActivityModal 
         activityName={activityName} 
-        setActivities={setActivities} 
         activities={activities} 
         setShowEditModal={setShowEditModal} 
         showEditModal={showEditModal} 
         refresh={refresh}
         setRefresh={setRefresh}
+        setAlert={setAlert}
+        alert={alert}
       />
     </View>
   );
