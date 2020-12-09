@@ -9,7 +9,7 @@ import { retrieveDataFromAsyncStorage, InitalStoreDataToAsyncStorage } from '../
 
 export default function HomeScreen({ history }) {
 
-  const { setActivities } = React.useContext(ActivitiesContext);
+  const { activities, setActivities } = React.useContext(ActivitiesContext);
 
   //kommentera fram InitalStoreDataToAsyncStorage() för att lägga in exemplen i asyncStorage.
   React.useEffect(() => {
@@ -19,13 +19,13 @@ export default function HomeScreen({ history }) {
         .then((d) => setActivities({ type: 'ADD_FROM_ASYNCSTORAGE', payload: d }))
     }, 0)
 
-    return () => clearTimeout(timer)
-  }, [])
+    return ()=> clearTimeout(timer)
+  },[activities])
 
   return (
     <View style={styles.container}>
-      <Header title="Today's activities" />
-      <TodaysList />
+      <Header title="Today's activities"/>
+      <TodaysList activities={activities} setActivities={setActivities}/>
       <View style={styles.addButton}>
         <AddButton history={history} />
       </View>

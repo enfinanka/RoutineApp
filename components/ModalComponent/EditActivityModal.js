@@ -8,21 +8,26 @@ import UpdateActivityButton from '../ButtonComponents/UpdateActivityButton';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { replaceObjectInAsyncStorage } from '../../utils/asyncStorage';
 
-export default function EditActivityModal(props) {
-  
-  const [inputActivity, setInputActivity] = React.useState('');
+export default function EditActivityModal(props) {  
+  const [inputActivity, setInputActivity] = React.useState();
   const [show, setShow] = React.useState(false);
   const [alert, setAlert] = React.useState(false);
   const [chosenTime, setChosenTime] = React.useState('');
 
   const { setShowEditModal, showEditModal, activities, setActivities, activityName } = props;  
 
-  const activityAlreadyExists = () => activities.some((obj) => obj.activity === inputActivity)
-
   const editActivity = () => {
-    // more valitators??
-    if (activityAlreadyExists()) {
-      //Alert.alert(`You already have an activity called: ${inputActivity}`)
+    // if the inputfield for changing the name has not been altered.
+    if (!inputActivity) {
+      const changeActivity = {
+        completed: false,
+        activity: activityName,
+        type: 'work',
+        alert: alert,
+        alertWhen: chosenTime
+      }
+      replaceObjectInAsyncStorage(changeActivity);
+      setShowEditModal(false);
     }
     else {
       const changeActivity = {
@@ -32,15 +37,12 @@ export default function EditActivityModal(props) {
         alert: alert,
         alertWhen: chosenTime
       }
-      console.log(changeActivity)
-      replaceObjectInAsyncStorage({changeActivity});
+      replaceObjectInAsyncStorage(changeActivity, activityName);
       setShowEditModal(false);
-      //history.push('/');
     }
   }
 
   const handleConfirm = (time) => {
-    console.log(time, 'time');
     let chosenTime = time.toLocaleTimeString().slice(0, 5);
 
     setShow(false);

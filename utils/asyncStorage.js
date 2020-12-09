@@ -7,7 +7,7 @@ async function storeNewState (newState) {
       JSON.stringify(newState)
     );
   } catch (error) {
-    console.log('error replaceObjectInAsyncStorage:', error) 
+    console.log('error in storeNewState:', error) 
   }
 };
 
@@ -69,11 +69,34 @@ export const deleteAnActivityFromAsyncStorage = async (activity) => {
 };
 
 
-//kalla på denna likt detta för att helt byta ut ett object med samma "namn" på activity:
+//kalla på denna likt detta för att helt byta ut ett object med samma "namn" på activity.
 //replaceObjectInAsyncStorage({completed: false, activity: 'oscar', type: 'funstuff', alert: true, alertWhen: '00:12'})
-export const replaceObjectInAsyncStorage = async (objToUpdate) => {
+
+// Vill man byta namn och redigera skcickar man med en sträng med det gamla namnet så funktionen vet vilken den ska byta ut i arrayen.
+//replaceObjectInAsyncStorage({completed: false, activity: 'oscar', type: 'funstuff', alert: true, alertWhen: '00:12'}, "nyttAktivitetsNamn")
+export const replaceObjectInAsyncStorage = async (objToUpdate, previousActivityName) => {
+
   async function updateStorage(prevState) {
-    const newState = prevState.map(obj => obj.activity !== objToUpdate.activity ? obj : objToUpdate)
+
+    if(!previousActivityName) {
+      const newState = prevState.map(obj => obj.activity === objToUpdate.activity ? objToUpdate : obj)
+      storeNewState(newState)
+    } 
+    else {
+      const newState = prevState.map(obj => obj.activity !== previousActivityName ? obj : objToUpdate)
+      storeNewState(newState)
+    }
+  }
+  retrieveDataFromAsyncStorage()
+  .then(data => updateStorage(data))
+};
+
+
+//kalla på denna likt detta för att lägga till ett objekt:
+//addObjectInAsyncStorage({completed: false, activity: 'oscar', type: 'funstuff', alert: true, alertWhen: '00:12'})
+export const addObjectInAsyncStorage = async (newObj) => {
+  async function updateStorage(prevState) {
+    const newState = [...prevState, newObj]
     storeNewState(newState)
   }
   retrieveDataFromAsyncStorage()
