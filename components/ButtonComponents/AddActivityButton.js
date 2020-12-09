@@ -20,7 +20,7 @@ export default function AddActivityButton(props) {
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
-    bottom: 10,
+    bottom: 40,
   },
   button: {
     backgroundColor: '#EBB000',

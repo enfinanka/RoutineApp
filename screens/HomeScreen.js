@@ -1,12 +1,11 @@
 import React from 'react';
 import { StyleSheet, View, Platform, StatusBar } from 'react-native';
 import Header from '../components/HeaderComponents/Header';
-import AddButton from '../components/ButtonComponents/AddButton';
 import TodaysList from '../components/ListComponents/TodaysList';
 import { ActivitiesContext } from '../contexts';
 import NoActivities from '../components/ListComponents/NoActivities';
 import { retrieveDataFromAsyncStorage, InitalStoreDataToAsyncStorage } from '../utils/asyncStorage';
-
+import AddButton from '../components/ButtonComponents/AddButton';
 
 export default function HomeScreen({ history }) {
 

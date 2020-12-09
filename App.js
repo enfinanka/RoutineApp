@@ -3,8 +3,6 @@ import React from 'react';
 import { StyleSheet, Text, SafeAreaView, Platform } from 'react-native';
 import {NativeRouter, Switch, Route } from 'react-router-native';
 import HomeScreen from './screens/HomeScreen';
-import NewActivityScreen from './screens/NewActivityScreen';
-
 import { ActivitiesContext } from './contexts'
 import { activitiesReducer } from './reducers'
 
@@ -19,7 +17,6 @@ const activitiesProviderValue = React.useMemo(() => ({ activities, setActivities
         <SafeAreaView style={[styles.container, styles.AndroidSafeArea]}>
           <Switch>
             <Route exact path="/" component={HomeScreen} />
-            <Route path="/newActivity" component={NewActivityScreen} />
           </Switch>
         </SafeAreaView>
       </NativeRouter>
