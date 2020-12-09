@@ -10,6 +10,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import EditActivityModal from '../ModalComponent/EditActivityModal';
+import Toast from 'react-native-toast-message';
 
 export default function TodaysList(props) {
 
@@ -48,12 +49,30 @@ export default function TodaysList(props) {
             : null}
           </View>
         </View>
-        <TouchableOpacity style={styles.checkIcon} onPress={() => setActivities({ type: 'SET_COMPLETED', payload: data.item.activity })}>
+        <TouchableOpacity style={styles.checkIcon} onPress={checkActivityComplete => {
+          setActivities({ type: 'SET_COMPLETED', payload: data.item.activity })
+          if(!data.item.completed){
+            Toast.show({
+              text1: 'Completed',
+              text2: 'Nice, you have just completed your activity!',
+              visibilityTime: 2000,
+            })
+          }else{
+            Toast.show({
+              text1: 'Unchecked',
+              text2: 'You have unchecked your activity',
+              visibilityTime: 2000,
+              type: 'info'
+            })
+          }
+          
+        }}>
           {data.item.completed ?
             <AntDesign name="checkcircleo" size={50} color="#F5F4F8" />
             : 
             <Feather name="circle" size={50} color="#85BCA9" />
           }
+          
         </TouchableOpacity>
       </View>
     )
@@ -70,7 +89,14 @@ export default function TodaysList(props) {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.backRightBtnRight}
-        onPress={() => setActivities({ type: 'REMOVE_ACTIVITY', payload: data.item.activity })}
+        onPress={deleteActivity => {
+          setActivities({ type: 'REMOVE_ACTIVITY', payload: data.item.activity })
+          Toast.show({
+            text1: `Activity Deleted`,
+            type: 'error',
+            visibilityTime: 2000
+          })
+        }}
       >
         <Text style={{ color: "#F5F4F8" }}>Delete</Text>
       </TouchableOpacity>

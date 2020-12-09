@@ -8,6 +8,7 @@ import UpdateActivityButton from '../ButtonComponents/UpdateActivityButton';
 import EditActivityNameButton from '../ButtonComponents/EditActivityNameButton';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { replaceObjectInAsyncStorage } from '../../utils/asyncStorage';
+import Toast from 'react-native-toast-message';
 
 export default function EditActivityModal(props) {  
   const [inputActivity, setInputActivity] = React.useState();
@@ -39,6 +40,11 @@ export default function EditActivityModal(props) {
         alert: alert,
         alertWhen: chosenTime
       }
+      Toast.show({
+        text1:'Success!',
+        text2: `Activity ${activityName} has been changed`,
+        visibilityTime: 2000,
+      })
       replaceObjectInAsyncStorage(changeActivity, activityName);
       setShowEditModal(false);
       setRefresh(!refresh)

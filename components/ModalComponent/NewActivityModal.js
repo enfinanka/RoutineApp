@@ -9,6 +9,7 @@ import { ActivitiesContext } from '../../contexts'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import TimeButton from '../ButtonComponents/TimeButton'
 import { addObjectInAsyncStorage } from '../../utils/asyncStorage'
+import Toast from 'react-native-toast-message';
 
 export default function NewActivityModal(props) {
   const { showModal, setShowModal, history, refresh, setRefresh } = props;
@@ -35,15 +36,29 @@ export default function NewActivityModal(props) {
     }
     // more valitators??
     if (activityAlreadyExists()) {
-      Alert.alert(`You already have an activity called: ${inputActivity}`)
+      Toast.show({
+        text1: 'Denied!',
+        text2: `Activity ${inputActivity} already exists!`,
+        type: 'error',
+        visibilityTime: 2000,
+      })
       return;
     }
 
     if (activityLongerThanZero(newActivity.activity)) {
-      Alert.alert(`Name must be longer than 0 characters.`)
+      Toast.show({
+        text1: 'No input!',
+        text2: 'Activity must contain atleast 1 Character!',
+        type: 'error',
+        visibilityTime: 2000,
+      })      
       return;
     }
-
+    Toast.show({
+      text1: 'Success!',
+      text2: `Activity ${inputActivity} is added to the list!`,
+      visibilityTime: 2000,
+    })
     addObjectInAsyncStorage(newActivity)
     setShowModal(false);
     setRefresh(!refresh)

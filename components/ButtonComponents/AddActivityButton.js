@@ -5,11 +5,15 @@ export default function AddActivityButton(props) {
 
   const { addNewActivity, setShowModal, history } = props
 
+  const addActivity = () => {
+    addNewActivity();
+  }
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.button}
-        onPress={addNewActivity}
+        onPress={addActivity}
       >
         <Text style={styles.buttonText}>Add Activity</Text>
       </TouchableOpacity>
