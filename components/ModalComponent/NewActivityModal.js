@@ -8,6 +8,7 @@ import { TextInput } from 'react-native-paper';
 import { ActivitiesContext } from '../../contexts'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import TimeButton from '../ButtonComponents/TimeButton'
+import { addObjectInAsyncStorage } from '../../utils/asyncStorage'
 
 export default function NewActivityModal(props) {
   const { showModal, setShowModal, history } = props;
@@ -35,15 +36,13 @@ export default function NewActivityModal(props) {
         alert: alert,
         alertWhen: chosenTime
       }
-      console.log(newActivity)
-      setActivities({ type: 'ADD_ACTIVITY', payload: newActivity })
+      addObjectInAsyncStorage(newActivity)
       setShowModal(false);
       history.push('/');
     }
   }
 
   const handleConfirm = (time) => {
-    console.log(time, 'time');
     let chosenTime = time.toLocaleTimeString().slice(0, 5);
 
     setShow(false);
@@ -83,6 +82,7 @@ export default function NewActivityModal(props) {
                 style={styles.input}
                 onChangeText={text => setInputActivity(text)}
                 value={inputActivity}
+                maxLength={16}
               />
               <TextInput
                 label="Category"
@@ -91,7 +91,6 @@ export default function NewActivityModal(props) {
                 value={inputCategory}
               />
             </View>
-            {/* <Input /> */}
             <View style={styles.textContainer}>
               <Text style={styles.modalText} >Notifications</Text>
               <SwitchToggle setAlert={setAlert} alert={alert} />

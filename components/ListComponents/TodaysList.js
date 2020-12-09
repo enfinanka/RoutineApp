@@ -9,11 +9,13 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { SwipeListView } from 'react-native-swipe-list-view';
-import { ActivitiesContext } from '../../contexts'
+import EditActivityModal from '../ModalComponent/EditActivityModal';
 
-export default function TodaysList() {
+export default function TodaysList(props) {
+  const { activities, setActivities } = props;
 
-  const { activities, setActivities } = React.useContext(ActivitiesContext);
+  const [showEditModal, setShowEditModal] = React.useState(false);
+  const [activityName, setActivityName] = React.useState('');
 
   const renderItem = (data) => {
     return (
@@ -47,11 +49,17 @@ export default function TodaysList() {
     )
   };
 
+  const editActivity = (activityName) => {
+    setShowEditModal(true);
+    setActivityName(activityName);
+  }
+  
   const renderHiddenItem = (data, rowMap) => (
+    
     <View style={styles.rowBack}>
       <TouchableOpacity
         style={styles.leftButton}
-        onPress={() => editActivity(rowMap, data.key)}
+        onPress={() => editActivity(data.item.activity)}
       >
         <Text style={{ color: '#F5F4F8' }}>Edit</Text>
       </TouchableOpacity>
@@ -78,6 +86,7 @@ export default function TodaysList() {
         friction={4}
         keyExtractor={(item, index) => index.toString()}
       />
+      <EditActivityModal activityName={activityName} setActivities={setActivities} activities={activities} setShowEditModal={setShowEditModal} showEditModal={showEditModal} />
     </View>
   );
 }
