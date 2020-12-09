@@ -23,15 +23,14 @@ export default function NewActivityModal(props) {
   const activityAlreadyExists = () => activities.some((obj) => obj.activity === inputActivity)
   const activityLongerThanZero = (activity) => activity.length === 0 ? true : false;
 
-
   const addNewActivity = () => {
     const newActivity = {
       completed: false,
       activity: inputActivity,
       category: inputCategory,
       type: 'work',
-      alert: alert,
-      alertWhen: chosenTime
+      alert: chosenTime ? alert : false,
+      alertWhen: alert ? chosenTime : null 
     }
     // more valitators??
     if (activityAlreadyExists()) {
@@ -98,14 +97,19 @@ export default function NewActivityModal(props) {
                 value={inputCategory}
               />
             </View>
+
             <View style={styles.textContainer}>
               <Text style={styles.modalText} >Notifications</Text>
               <SwitchToggle setAlert={setAlert} alert={alert} />
             </View>
+
+            {alert &&
             <View style={styles.textContainer}>
-              <Text style={styles.modalText} >Select Time</Text>
-              <TimeButton show={show} setShow={setShow} />
+              <Text style={styles.modalText} >{ chosenTime ? "Selected time" :  "Select Time"}</Text>              
+              <TimeButton chosenTime={chosenTime} show={show} setShow={setShow} />
             </View>
+            }
+
             {show ?
               <View>
                 <DateTimePickerModal
@@ -180,6 +184,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignContent: 'space-around',
+    alignItems: 'center'
   },
   container: {
     paddingBottom: 50,
