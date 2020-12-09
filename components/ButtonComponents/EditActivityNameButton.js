@@ -3,13 +3,13 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
 export default function EditActivityNameButton(props) {
-  const { setShowTextInput } = props
+  const { setShowTextInput, showTextInput } = props
 
   return (
     <View>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => setShowTextInput(true)
+        onPress={() => setShowTextInput(!showTextInput)
         }
       >
         <Icon name="edit" size={30} color="#EBB000" />
