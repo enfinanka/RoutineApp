@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { StyleSheet, View, Text, Image, Animated } from 'react-native';
 
 export default function NoActivities() {
@@ -16,10 +16,10 @@ export default function NoActivities() {
 
   Animated.timing(opacity, {
     toValue: 1,
-    duration: 3000,
+    duration: 2500,
     useNativeDriver: true,
     bounciness: 1,
-    delay: 1000,
+    delay: 500,
   }).start();
 
   return (
@@ -78,7 +78,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#fff',
     fontSize: 15,
-    fontWeight: 'bold',
-    marginBottom: 20
   },
 });
