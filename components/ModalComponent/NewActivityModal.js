@@ -41,7 +41,7 @@ export default function NewActivityModal(props) {
     }
 
     if (activityLongerThanZero(newActivity.activity)) {
-      Alert.alert(`Name must be longer than 0 characters.`)
+      Alert.alert(`Activity name must be longer than 0 characters.`)
       return;
     }
 
