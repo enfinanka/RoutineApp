@@ -1,39 +1,49 @@
-import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, TouchableHighlight } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-
+import NewActivityModal from '../ModalComponent/NewActivityModal'
 
 export default function AddButton(props) {
-
-  const { history } = props;
+  const [showModal, setShowModal] = useState(false);
+  const { refresh, setRefresh, history, addExampleItem } = props;
 
   return (
-    <View>
+    <View style={styles.container}>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => history.push('newActivity')}
+        onPress={() => setShowModal(true)}
       >
         <Icon name="ios-add" size={50} color="#F4F7F8" />
       </TouchableOpacity>
+
+      <NewActivityModal 
+      refresh={refresh} 
+      setRefresh={setRefresh} 
+      showModal={showModal} 
+      setShowModal={setShowModal} 
+      history={history}/>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    shadowColor: '#111324',
+    shadowOffset: {
+      width: 2,
+      height: 2
+    },
+    shadowOpacity: 1,
+    shadowRadius: 5 
+  },
   button: {
     backgroundColor: '#EBB000',
-    color: '#fff',
     minHeight: 42,
     height: 70,
     borderRadius: 50,
     width: 70,
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
-  buttonText: {
-    fontSize: 57,
-    color: '#fff',
-    textAlign: 'center'
-  }
 });

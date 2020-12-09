@@ -1,73 +1,73 @@
-import React from 'react';
-import { StyleSheet, Text, View, FlatList, TouchableHighlight } from 'react-native';
-import Header from '../components/HeaderComponents/Header';
-import ModalButton from '../components/ButtonComponents/ModalButton';
-import BackButton from '../components/ButtonComponents/BackButton';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { ActivitiesContext } from '../contexts';
+// import React from 'react';
+// import { StyleSheet, Text, View, FlatList, TouchableHighlight } from 'react-native';
+// import Header from '../components/HeaderComponents/Header';
+// import ModalButton from '../components/ButtonComponents/ModalButton';
+// import BackButton from '../components/ButtonComponents/BackButton';
+// import { TouchableOpacity } from 'react-native-gesture-handler';
+// import { ActivitiesContext } from '../contexts';
 
 
-export default function NewActivityScreen({ history }) {
-  const { activities, setActivities } = React.useContext(ActivitiesContext);
+// export default function NewActivityScreen({ history }) {
+//   const { activities, setActivities } = React.useContext(ActivitiesContext);
 
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.BackButton}>
-        <BackButton history={history} />
-      </View>
-      <Header title="New Activity" date={false} />
+//   return (
+//     <View style={styles.container}>
+//       <View style={styles.BackButton}>
+//         <BackButton history={history} />
+//       </View>
+//       <Header title="New Activity" date={false} />
 
-      <FlatList
-        data={activities}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item, index }) => (
-          <TouchableOpacity
-            style={styles.listItem}
-            key={index}
-            onPress={() => console.log(index)}>
-            <Text style={styles.listText} key={index}>{item.activity}</Text>
+//       <FlatList
+//         data={activities}
+//         keyExtractor={(item, index) => index.toString()}
+//         renderItem={({ item, index }) => (
+//           <TouchableOpacity
+//             style={styles.listItem}
+//             key={index}
+//             onPress={() => console.log(index)}>
+//             <Text style={styles.listText} key={index}>{item.activity}</Text>
 
-          </TouchableOpacity>
-        )}
-      />
+//           </TouchableOpacity>
+//         )}
+//       />
 
-      <View style={styles.ModalButton}>
-        <ModalButton history={history} />
-      </View>
-    </View>
-  );
-}
+//       <View style={styles.ModalButton}>
+//         <ModalButton history={history} />
+//       </View>
+//     </View>
+//   );
+// }
 
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    height: '100%',
-    paddingTop: 50,
-  },
-  listItem: {
-    display: 'flex',
-    justifyContent: 'center',
-    height: 66,
-    marginTop: 15,
-    margin: 10,
-    borderRadius: 15,
-    backgroundColor: '#3f4155',
-  },
-  listText: {
-    color: '#F4F7F8',
-    fontSize: 20,
-    marginLeft: 30,
-  },
-  ModalButton: {
-    position: "absolute",
-    bottom: 20,
-    alignSelf: 'center'
-  },
-  BackButton: {
-    position: "absolute",
-    right: 10,
-    top: 30,
-    zIndex: 999
-  }
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     width: '100%',
+//     height: '100%',
+//     paddingTop: 50,
+//   },
+//   listItem: {
+//     display: 'flex',
+//     justifyContent: 'center',
+//     height: 66,
+//     marginTop: 15,
+//     margin: 10,
+//     borderRadius: 15,
+//     backgroundColor: '#3f4155',
+//   },
+//   listText: {
+//     color: '#F4F7F8',
+//     fontSize: 20,
+//     marginLeft: 30,
+//   },
+//   ModalButton: {
+//     position: "absolute",
+//     bottom: 20,
+//     alignSelf: 'center'
+//   },
+//   BackButton: {
+//     position: "absolute",
+//     right: 10,
+//     top: 30,
+//     zIndex: 999
+//   }
+// });

@@ -3,31 +3,41 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import Header from '../components/HeaderComponents/Header';
 import AddButton from '../components/ButtonComponents/AddButton';
 import TodaysList from '../components/ListComponents/TodaysList';
-import { ActivitiesContext } from '../contexts'
-import { retrieveDataFromAsyncStorage, InitalStoreDataToAsyncStorage } from '../utils/asyncStorage'
+import { ActivitiesContext } from '../contexts';
+import NoActivities from '../components/ListComponents/NoActivities';
+import { retrieveDataFromAsyncStorage, InitalStoreDataToAsyncStorage } from '../utils/asyncStorage';
 
 
 export default function HomeScreen({ history }) {
 
   const { activities, setActivities } = React.useContext(ActivitiesContext);
+  const [ refresh, setRefresh ] = React.useState(false)
 
   //kommentera fram InitalStoreDataToAsyncStorage() för att lägga in exemplen i asyncStorage.
   React.useEffect(() => {
+
     const timer = setTimeout(() => {
-      //InitalStoreDataToAsyncStorage()
+      // InitalStoreDataToAsyncStorage()
       retrieveDataFromAsyncStorage()
         .then((d) => setActivities({ type: 'ADD_FROM_ASYNCSTORAGE', payload: d }))
     }, 0)
-
     return ()=> clearTimeout(timer)
-  },[activities])
+  },[refresh])
 
   return (
     <View style={styles.container}>
       <Header title="Today's activities"/>
-      <TodaysList activities={activities} setActivities={setActivities}/>
+      { activities.length === 0 ? 
+        <NoActivities /> 
+        : 
+        <TodaysList 
+        activities={activities} 
+        setActivities={setActivities} 
+        refresh={refresh} 
+        setRefresh={setRefresh} /> 
+      } 
       <View style={styles.addButton}>
-        <AddButton history={history} />
+        <AddButton refresh={refresh} setRefresh={setRefresh} history={history} />
       </View>
     </View>
   );
