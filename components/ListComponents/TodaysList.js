@@ -12,7 +12,7 @@ import { SwipeListView } from 'react-native-swipe-list-view';
 import EditActivityModal from '../ModalComponent/EditActivityModal';
 
 export default function TodaysList(props) {
-  const { activities, setActivities } = props;
+  const { activities, setActivities, refresh, setRefresh } = props;
 
   const [showEditModal, setShowEditModal] = React.useState(false);
   const [activityName, setActivityName] = React.useState('');
@@ -86,7 +86,15 @@ export default function TodaysList(props) {
         friction={4}
         keyExtractor={(item, index) => index.toString()}
       />
-      <EditActivityModal activityName={activityName} setActivities={setActivities} activities={activities} setShowEditModal={setShowEditModal} showEditModal={showEditModal} />
+      <EditActivityModal 
+        activityName={activityName} 
+        setActivities={setActivities} 
+        activities={activities} 
+        setShowEditModal={setShowEditModal} 
+        showEditModal={showEditModal} 
+        refresh={refresh}
+        setRefresh={setRefresh}
+      />
     </View>
   );
 }

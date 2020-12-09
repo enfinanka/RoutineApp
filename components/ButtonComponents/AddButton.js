@@ -1,20 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-
+import NewActivityModal from '../ModalComponent/NewActivityModal'
 
 export default function AddButton(props) {
-
-  const { history } = props;
+  const [showModal, setShowModal] = useState(false);
+  const { refresh, setRefresh, history, addExampleItem } = props;
 
   return (
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => history.push('newActivity')}
+        onPress={() => setShowModal(true)}
       >
         <Icon name="ios-add" size={50} color="#F4F7F8" />
       </TouchableOpacity>
+
+      <NewActivityModal 
+      refresh={refresh} 
+      setRefresh={setRefresh} 
+      showModal={showModal} 
+      setShowModal={setShowModal} 
+      history={history}/>
     </View>
   );
 }

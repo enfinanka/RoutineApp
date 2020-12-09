@@ -11,7 +11,7 @@ import TimeButton from '../ButtonComponents/TimeButton'
 import { addObjectInAsyncStorage } from '../../utils/asyncStorage'
 
 export default function NewActivityModal(props) {
-  const { showModal, setShowModal, history } = props;
+  const { showModal, setShowModal, history, refresh, setRefresh } = props;
 
   const { activities, setActivities } = React.useContext(ActivitiesContext);
   const [inputActivity, setInputActivity] = React.useState('');
@@ -38,7 +38,7 @@ export default function NewActivityModal(props) {
       }
       addObjectInAsyncStorage(newActivity)
       setShowModal(false);
-      history.push('/');
+      setRefresh(!refresh)
     }
   }
 
