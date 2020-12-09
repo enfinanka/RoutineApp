@@ -21,25 +21,33 @@ export default function NewActivityModal(props) {
   const [chosenTime, setChosenTime] = React.useState('');
 
   const activityAlreadyExists = () => activities.some((obj) => obj.activity === inputActivity)
+  const activityLongerThanZero = (activity) => activity.length === 0 ? true : false;
+
 
   const addNewActivity = () => {
     // more valitators??
+    const newActivity = {
+      completed: false,
+      activity: inputActivity,
+      category: inputCategory,
+      type: 'work',
+      alert: alert,
+      alertWhen: chosenTime
+    }
+
     if (activityAlreadyExists()) {
       Alert.alert(`You already have an activity called: ${inputActivity}`)
+      return;
     }
-    else {
-      const newActivity = {
-        completed: false,
-        activity: inputActivity,
-        category: inputCategory,
-        type: 'work',
-        alert: alert,
-        alertWhen: chosenTime
-      }
-      addObjectInAsyncStorage(newActivity)
-      setShowModal(false);
-      setRefresh(!refresh)
+
+    if (activityLongerThanZero(newActivity.activity)) {
+      Alert.alert(`Name must be longer than 0 characters.`)
+      return;
     }
+
+    addObjectInAsyncStorage(newActivity)
+    setShowModal(false);
+    history.push('/');
   }
 
   const handleConfirm = (time) => {
