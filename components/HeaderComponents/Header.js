@@ -40,8 +40,7 @@ const styles = StyleSheet.create({
     color: '#85BCA9',
     fontSize: 35,
     paddingLeft: 20,
-    fontFamily: "Roboto",
-    fontWeight: "200"
+    fontWeight: 'bold'
   },
   date: {
     color: '#85BCA9',

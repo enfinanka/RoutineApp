@@ -16,7 +16,7 @@ export default function EditActivityModal(props) {
   const [showTextInput, setShowTextInput] = React.useState(false);
   const [chosenTime, setChosenTime] = React.useState('');
 
-  const { setShowEditModal, showEditModal, activities, setActivities, activityName } = props;  
+  const { setShowEditModal, showEditModal, activities, setActivities, activityName, refresh, setRefresh } = props;  
 
   const editActivity = () => {
     // if the inputfield for changing the name has not been altered.
@@ -30,6 +30,7 @@ export default function EditActivityModal(props) {
       }
       replaceObjectInAsyncStorage(changeActivity);
       setShowEditModal(false);
+      setRefresh(!refresh)
     }
     else {
       const changeActivity = {
@@ -41,6 +42,7 @@ export default function EditActivityModal(props) {
       }
       replaceObjectInAsyncStorage(changeActivity, activityName);
       setShowEditModal(false);
+      setRefresh(!refresh)
     }
   }
 
