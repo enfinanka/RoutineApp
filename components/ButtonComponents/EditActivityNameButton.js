@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import NewActivityModal from '../ModalComponent/NewActivityModal'
 
-export default function EditActivityNameButton(props) {  
+export default function EditActivityNameButton(props) {
   const { setShowTextInput } = props
 
   return (
@@ -21,6 +20,6 @@ export default function EditActivityNameButton(props) {
 
 const styles = StyleSheet.create({
   button: {
-   
+
   },
 });

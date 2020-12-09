@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableHighlight, Modal, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Input from './Input.js';
 import SwitchToggle from '../ButtonComponents/SwitchToggle.js';
 import AddActivityButton from '../ButtonComponents/AddActivityButton.js';
 import { TextInput } from 'react-native-paper';
@@ -9,20 +8,17 @@ import { ActivitiesContext } from '../../contexts'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import TimeButton from '../ButtonComponents/TimeButton'
 import { addObjectInAsyncStorage } from '../../utils/asyncStorage'
+import { activityLongerThanZero, activityAlreadyExists } from '../../utils/validation'
 
 export default function NewActivityModal(props) {
   const { showModal, setShowModal, history, refresh, setRefresh } = props;
 
-  const { activities, setActivities } = React.useContext(ActivitiesContext);
+  const { activities } = React.useContext(ActivitiesContext);
   const [inputActivity, setInputActivity] = React.useState('');
   const [inputCategory, setInputCategory] = React.useState('');
   const [alert, setAlert] = React.useState(false);
   const [show, setShow] = React.useState(false);
   const [chosenTime, setChosenTime] = React.useState('');
-
-  const activityAlreadyExists = () => activities.some((obj) => obj.activity === inputActivity)
-  const activityLongerThanZero = (activity) => activity.length === 0 ? true : false;
-
 
   const addNewActivity = () => {
     const newActivity = {
@@ -33,8 +29,8 @@ export default function NewActivityModal(props) {
       alert: alert,
       alertWhen: chosenTime
     }
-    // more valitators??
-    if (activityAlreadyExists()) {
+
+    if (activityAlreadyExists(activities, inputActivity)) {
       Alert.alert(`You already have an activity called: ${inputActivity}`)
       return;
     }
