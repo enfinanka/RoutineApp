@@ -38,6 +38,7 @@ export default function EditActivityModal(props) {
       Toast.show({
         text1:'Denied!',
         text2: `Activity ${inputActivity} already exists`,
+        type: 'error',
         visibilityTime: 2000,
       })
       return;
