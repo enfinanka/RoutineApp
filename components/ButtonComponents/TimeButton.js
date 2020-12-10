@@ -15,16 +15,15 @@ export default function BackButton(props) {
         <Text style={styles.buttonText}>{chosenTime ? chosenTime : "Choose time"}</Text>
       </TouchableOpacity>
     </View>
-
   );
 }
 
 const styles = StyleSheet.create({
   button: {
     color: '#fff',
-    backgroundColor: '#EBB000',
+    backgroundColor: '#5E6170',
     minHeight: 42,
-    borderRadius: 3,
+    borderRadius: 15,
     minWidth: 120,
     padding: 8,
     flex: 1,

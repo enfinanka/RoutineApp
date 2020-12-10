@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Modal, Alert } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Modal } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import SwitchToggle from '../ButtonComponents/SwitchToggle.js';
 import AddActivityButton from '../ButtonComponents/AddActivityButton.js';
@@ -9,8 +9,9 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import TimeButton from '../ButtonComponents/TimeButton'
 import { addObjectInAsyncStorage } from '../../utils/asyncStorage'
 import Toast from 'react-native-toast-message';
-// import { BlurView } from 'expo-blur';
-import { activityLongerThanZero, activityAlreadyExists } from '../../utils/validation'
+import { activityLongerThanZero, activityAlreadyExists } from '../../utils/validation';
+import { LinearGradient } from 'expo-linear-gradient';
+
 
 export default function NewActivityModal(props) {
 
@@ -20,10 +21,10 @@ export default function NewActivityModal(props) {
   const [inputCategory, setInputCategory] = React.useState('');
   const [chosenTime, setChosenTime] = React.useState('');
   const [alert, setAlert] = React.useState(false);
-
   const [show, setShow] = React.useState(false);
   
   const { activities } = React.useContext(ActivitiesContext);
+
 
   const clearValues = () => {
     setInputActivity('')
@@ -92,11 +93,6 @@ export default function NewActivityModal(props) {
           setShowModal(false);
         }}
       >
-        {/* <BlurView  
-        intensity={100} 
-        style={StyleSheet.absoluteFill}
-        tint="dark"> */}
-
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <TouchableOpacity
@@ -104,8 +100,18 @@ export default function NewActivityModal(props) {
               onPress={() => {
                 clearValues();
               }}>
-
-              <Icon name="ios-close" size={40} color="#F4F7F8" />
+                <LinearGradient
+                  colors={['#FC9054', '#EB5500']} 
+                  style={{
+                    padding: 2, 
+                    height: 50, 
+                    width: 50, 
+                    alignItems: 'center', 
+                    borderRadius: 20, 
+                    justifyContent: 'center'
+                  }}> 
+                <Icon name="ios-close" size={40} color="#F4F7F8" />
+              </LinearGradient>
             </TouchableOpacity>
 
             <Text style={styles.modalHeader}>New activity</Text>
@@ -128,7 +134,7 @@ export default function NewActivityModal(props) {
             </View>
 
             <View style={styles.textContainer}>
-              <Text style={styles.modalText} >Notifications</Text>
+              <Text style={styles.modalText}>Notifications</Text>
               <SwitchToggle setAlert={setAlert} alert={alert} />
             </View>
 
@@ -154,49 +160,32 @@ export default function NewActivityModal(props) {
             <AddActivityButton history={history} addNewActivity={addNewActivity} setShowModal={setShowModal} />
           </View>
         </View>
-        {/* </BlurView> */}
-      </Modal>
-    </View>
-  )}
+        </Modal>
+      </View>  
+      )}
 
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
     justifyContent: 'flex-end',
-    // position: 'absolute',
-    // width: '100%',
-    // height: '100%',
-    // justifyContent: 'center',
-    // backgroundColor: 'rgba(200,200,200, 0.5)',
-    // backgroundColor: '#000'
-    // padding: 20,
   },
   modalView: {
     display: 'flex',
     alignItems: 'center',
-    backgroundColor: "white",
     borderTopRightRadius: 50,
     borderTopLeftRadius: 50,
     padding: 100,
-    backgroundColor: '#5E6170',
+    backgroundColor: '#3f4155',
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 10
+    shadowOpacity: 0.8,
+    shadowRadius: 15,
   },
   closeButton: {
-    backgroundColor: '#EB5500',
-    borderRadius: 100,
-    width: 50,
-    height: 50,
     position: "absolute",
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
     marginTop: -20,
   },
   modalHeader: {
@@ -211,7 +200,6 @@ const styles = StyleSheet.create({
   modalText: {
     color: '#F4F7F8',
     fontSize: 20,
-    fontWeight: 'bold',
   },
   textContainer: {
     margin: 10,
@@ -220,19 +208,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingBottom: 30
   },
   container: {
-    paddingBottom: 50,
+    paddingBottom: 30,
   },
   input: {
     height: 50,
     margin: 10,
     width: 350,
     color: '#fff',
-    textAlign: 'center',
   },
-  nonBlurredContent: {
-
-  }
 });
