@@ -1,17 +1,17 @@
 import React from 'react';
-import { StyleSheet, View, Button,  } from 'react-native';
+import { StyleSheet, View, Button } from 'react-native';
 
 export default function BackButton(props) {
 
-const { history } = props;
+  const { history } = props;
 
   return (
     <View>
-        <Button 
-            title="Go Back"
-            onPress={() => history.push('/')}
-            color="#EBB000"
-        />
+      <Button
+        title="Go Back"
+        onPress={() => history.push('/')}
+        color="#EBB000"
+      />
     </View>
   );
 }

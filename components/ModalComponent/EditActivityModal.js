@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableHighlight, Modal, Alert} from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight, Modal, Alert } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import SwitchToggle from '../ButtonComponents/SwitchToggle';
@@ -8,42 +8,43 @@ import UpdateActivityButton from '../ButtonComponents/UpdateActivityButton';
 import EditActivityNameButton from '../ButtonComponents/EditActivityNameButton';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { replaceObjectInAsyncStorage } from '../../utils/asyncStorage';
+import { activityAlreadyExists } from '../../utils/validation'
 
-export default function EditActivityModal(props) {  
+export default function EditActivityModal(props) {
   const [inputActivity, setInputActivity] = React.useState();
   const [show, setShow] = React.useState(false);
   const [showTextInput, setShowTextInput] = React.useState(false);
   const [chosenTime, setChosenTime] = React.useState('');
 
-  const { setShowEditModal, showEditModal, activityName, refresh, setRefresh, setAlert, alert } = props;  
+  const { setShowEditModal, showEditModal, activityName, refresh, setRefresh, setAlert, alert, activities } = props;
 
   const editActivity = () => {
     // if the inputfield for changing the name has not been altered.
+    const changeActivity = {
+      completed: false,
+      activity: inputActivity ? inputActivity : activityName,
+      type: 'work',
+      alert: alert,
+      alertWhen: chosenTime
+    }
+
     if (!inputActivity) {
-      const changeActivity = {
-        completed: false,
-        activity: activityName,
-        type: 'work',
-        alert: alert,
-        alertWhen: chosenTime
-      }
       replaceObjectInAsyncStorage(changeActivity);
       setShowEditModal(false);
-      setRefresh(!refresh)
+      setRefresh(!refresh);
+      return;
     }
-    else {
-      const changeActivity = {
-        completed: false,
-        activity: inputActivity,
-        type: 'work',
-        alert: alert,
-        alertWhen: chosenTime
-      }
-      replaceObjectInAsyncStorage(changeActivity, activityName);
-      setShowEditModal(false);
-      setRefresh(!refresh)
+
+    if (activityAlreadyExists(activities, inputActivity)) {
+      Alert.alert(`You already have an activity called: ${inputActivity}`)
+      return;
     }
-  }  
+
+    replaceObjectInAsyncStorage(changeActivity, activityName);
+    setShowEditModal(false);
+    setRefresh(!refresh);
+    setInputActivity('');
+  }
 
   const handleConfirm = (time) => {
     let chosenTime = time.toLocaleTimeString().slice(0, 5);
@@ -67,31 +68,32 @@ export default function EditActivityModal(props) {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            
+
             <TouchableHighlight
               style={styles.closeButton}
               onPress={() => {
+                setInputActivity('');
                 setShowEditModal(false);
                 setShowTextInput(false);
               }}>
               <Icon name="ios-close" size={50} color="#F4F7F8" />
             </TouchableHighlight>
-            
+
             <View style={styles.modalHeadContainer}>
               <Text style={styles.modalHeader}> {activityName} </Text>
-              <EditActivityNameButton setShowTextInput={setShowTextInput} />
+              <EditActivityNameButton setShowTextInput={setShowTextInput} showTextInput={showTextInput} />
             </View>
-            
-            {showTextInput ? 
+
+            {showTextInput ?
               <TextInput style={styles.input}
                 onChangeText={text => setInputActivity(text)}
                 value={inputActivity}
                 maxLength={16}
                 autoFocus
-                clearButtonMode="always"          
+                clearButtonMode="always"
               />
-            :null}
-            
+              : null}
+
             <View style={styles.textContainer}>
               <Text style={styles.modalText} >Notifications</Text>
               <SwitchToggle setAlert={setAlert} alert={alert} />
@@ -156,7 +158,7 @@ const styles = StyleSheet.create({
   modalHeader: {
     fontSize: 35,
     textAlign: "center",
-    textTransform: "capitalize",   
+    textTransform: "capitalize",
     color: '#F4F7F8',
     fontWeight: 'bold'
   },
