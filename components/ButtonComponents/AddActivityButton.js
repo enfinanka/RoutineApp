@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function AddActivityButton(props) {
 
@@ -15,7 +16,11 @@ export default function AddActivityButton(props) {
         style={styles.button}
         onPress={addActivity}
       >
+        <LinearGradient
+          colors={['#E5C564', '#EBB000']}
+          style={styles.button}> 
         <Text style={styles.buttonText}>Add Activity</Text>
+        </LinearGradient>
       </TouchableOpacity>
     </View>
   );
@@ -27,24 +32,17 @@ const styles = StyleSheet.create({
     bottom: 40,
   },
   button: {
-    backgroundColor: '#EBB000',
     color: '#fff',
     minHeight: 42,
     width: 250,
-    borderRadius: 20,
+    borderRadius: 15, 
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: "black",
-    shadowOffset: {
-      width: 5,
-      height: 2
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 2,
   },
   buttonText: {
     fontSize: 20,
     color: '#fff',
+    fontWeight: 'bold',
   }
 });

@@ -21,7 +21,8 @@ export default function TodaysList(props) {
   const [chosenTime, setChosenTime] = React.useState('');
   const [alert, setAlert] = React.useState(false);
 
-  const key = Math.floor(Math.random()*100000000)
+  const key = Math.floor(Math.random()*100000000);
+
 
   const editActivity = (activityName, notificationAlert, alertWhen) => {
     setShowEditModal(true);
@@ -32,10 +33,17 @@ export default function TodaysList(props) {
 
   const renderItem = (data) => {
     return (
-      <View style={data.item.completed ? styles.listItemDone : styles.listItem}>
+ 
+        <View style={data.item.completed ? styles.listItemDone : styles.listItem}>
         <View style={{display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
           <Text style={styles.activityText}>{data.item.activity}</Text>
-          <View style={{display: 'flex', justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center'}}>
+          <View 
+            style={{
+              display: 'flex', 
+              justifyContent: 'flex-start', 
+              flexDirection: 'row', 
+              alignItems: 'center'
+            }}>
             {data.item.alert ? 
               <Ionicons style={styles.notifyIcon} name="ios-notifications" size={20} color="#EBB000"/>
             : null}
@@ -43,7 +51,7 @@ export default function TodaysList(props) {
               <Text
               style={{
                 color: data.item.completed ? '#F5F4F8' : '#85BCA9',
-                fontSize: 16,
+                fontSize: 14,
                 marginLeft: data.item.alert ? 10 : 20,
                 marginTop: 10
                 }}
@@ -52,29 +60,12 @@ export default function TodaysList(props) {
           </View>
         </View>
         <TouchableOpacity style={styles.checkIcon} onPress={checkActivityComplete => {
-          setActivities({ type: 'SET_COMPLETED', payload: data.item.activity })
-          if(!data.item.completed){
-            Toast.show({
-              text1: 'Completed',
-              text2: 'Nice, you have just completed your activity!',
-              visibilityTime: 2000,
-            })
-          }else{
-            Toast.show({
-              text1: 'Unchecked',
-              text2: 'You have unchecked your activity',
-              visibilityTime: 2000,
-              type: 'info'
-            })
-          }
-          
-        }}>
+          setActivities({ type: 'SET_COMPLETED', payload: data.item.activity })}}>
           {data.item.completed ?
-            <AntDesign name="checkcircleo" size={50} color="#F5F4F8" />
+            <AntDesign name="checkcircleo" size={50} color="#F5F4F8"/>
             : 
-            <Feather name="circle" size={50} color="#85BCA9" />
+            <Feather name="circle" size={50} color="#85BCA9"/>
           }
-          
         </TouchableOpacity>
       </View>
     )

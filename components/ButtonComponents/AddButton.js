@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import NewActivityModal from '../ModalComponent/NewActivityModal'
+import NewActivityModal from '../ModalComponent/NewActivityModal';
+import { LinearGradient } from 'expo-linear-gradient';
+
 
 export default function AddButton(props) {
   const [showModal, setShowModal] = useState(false);
@@ -10,10 +12,12 @@ export default function AddButton(props) {
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        style={styles.button}
-        onPress={() => setShowModal(true)}
-      >
+        onPress={() => setShowModal(true)}>
+        <LinearGradient
+          colors={['#E5C564', '#EBB000']}
+          style={styles.button}> 
         <Icon name="ios-add" size={50} color="#F4F7F8" />
+        </LinearGradient>
       </TouchableOpacity>
 
       <NewActivityModal
@@ -33,14 +37,14 @@ const styles = StyleSheet.create({
       width: 5,
       height: 5
     },
-    shadowOpacity: 1,
-    shadowRadius: 1,
+    shadowOpacity: 0.3,
+    shadowRadius: 0.5,
   },
   button: {
-    backgroundColor: '#EBB000',
+    backgroundColor: 'red',
     minHeight: 42,
     height: 70,
-    borderRadius: 50,
+    borderRadius: 30,
     width: 70,
     display: 'flex',
     justifyContent: 'center',
