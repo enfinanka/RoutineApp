@@ -9,7 +9,9 @@ import EditActivityNameButton from '../ButtonComponents/EditActivityNameButton';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { replaceObjectInAsyncStorage } from '../../utils/asyncStorage';
 import Toast from 'react-native-toast-message';
-import { activityAlreadyExists } from '../../utils/validation'
+import { activityAlreadyExists } from '../../utils/validation';
+import { LinearGradient } from 'expo-linear-gradient';
+
 
 export default function EditActivityModal(props) {
   const [inputActivity, setInputActivity] = React.useState();
@@ -86,7 +88,18 @@ export default function EditActivityModal(props) {
                 setShowEditModal(false);
                 setShowTextInput(false);
               }}>
-              <Icon name="ios-close" size={40} color="#F4F7F8" />
+                <LinearGradient
+                  colors={['#FC9054', '#EB5500']} 
+                  style={{
+                    padding: 2, 
+                    height: 50, 
+                    width: 50, 
+                    alignItems: 'center', 
+                    borderRadius: 20, 
+                    justifyContent: 'center'
+                  }}> 
+                <Icon name="ios-close" size={40} color="#F4F7F8" />
+              </LinearGradient>
             </TouchableOpacity>
           
             <View style={styles.modalHeadContainer}>
@@ -106,7 +119,7 @@ export default function EditActivityModal(props) {
             }
             
             <View style={styles.textContainer}>
-              <Text style={styles.modalText} >Notifications</Text>
+              <Text style={styles.modalText}>Notifications</Text>
               <SwitchToggle setAlert={setAlert} alert={alert} />
             </View>
 
@@ -149,25 +162,17 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 50,
     borderTopLeftRadius: 50,
     padding: 100,
-    backgroundColor: '#5E6170',
+    backgroundColor: '#3f4155',
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 10
+    shadowOpacity: 0.8,
+    shadowRadius: 15,
   },
   closeButton: {
-    backgroundColor: '#EB5500',
-    borderRadius: 100,
-    width: 50,
-    height: 50,
     position: "absolute",
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
     marginTop: -20,
   },
   modalHeader: {
@@ -189,7 +194,6 @@ const styles = StyleSheet.create({
   modalText: {
     color: '#F4F7F8',
     fontSize: 20,
-    fontWeight: 'bold',
   },
   textContainer: {
     margin: 10,
@@ -199,7 +203,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingBottom: 30
   },
   input: {
     height: 50,
