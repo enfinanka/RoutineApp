@@ -8,13 +8,11 @@ import { retrieveDataFromAsyncStorage, InitalStoreDataToAsyncStorage } from '../
 import AddButton from '../components/ButtonComponents/AddButton';
 
 export default function HomeScreen({ history }) {
-
   const { activities, setActivities } = React.useContext(ActivitiesContext);
   const [refresh, setRefresh] = React.useState(false)
 
   //kommentera fram InitalStoreDataToAsyncStorage() för att lägga in exemplen i asyncStorage.
   React.useEffect(() => {
-
     const timer = setTimeout(() => {
       // InitalStoreDataToAsyncStorage()
       retrieveDataFromAsyncStorage()
