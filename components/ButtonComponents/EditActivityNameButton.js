@@ -1,7 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
-import NewActivityModal from '../ModalComponent/NewActivityModal'
 
 export default function EditActivityNameButton(props) {
   const { setShowTextInput, showTextInput } = props
