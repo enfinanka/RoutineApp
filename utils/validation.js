@@ -1,0 +1,2 @@
+export const activityAlreadyExists = (activities, inputActivity) => activities.some((obj) => obj.activity === inputActivity)
+export const activityLongerThanZero = (activity) => activity.length === 0 ? true : false;

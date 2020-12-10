@@ -1,26 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/Entypo';
 import NewActivityModal from '../ModalComponent/NewActivityModal'
 
-export default function EditActivityNameButton(props) {  
-  const { setShowTextInput } = props
+export default function EditActivityNameButton(props) {
+  const { setShowTextInput, showTextInput } = props
 
   return (
     <View>
       <TouchableOpacity
-        style={styles.button}
-        onPress={() => setShowTextInput(true)
+        onPress={() => setShowTextInput(!showTextInput)
         }
       >
-        <Icon name="edit" size={30} color="#EBB000" />
+        <Icon name="edit" size={25} color="#EBB000" />
       </TouchableOpacity>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  button: {
-   
-  },
-});

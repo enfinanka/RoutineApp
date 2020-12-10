@@ -5,7 +5,7 @@ import NewActivityModal from '../ModalComponent/NewActivityModal'
 
 export default function AddButton(props) {
   const [showModal, setShowModal] = useState(false);
-  const { refresh, setRefresh, history, addExampleItem } = props;
+  const { refresh, setRefresh, history } = props;
 
   return (
     <View style={styles.container}>
@@ -16,25 +16,25 @@ export default function AddButton(props) {
         <Icon name="ios-add" size={50} color="#F4F7F8" />
       </TouchableOpacity>
 
-      <NewActivityModal 
-      refresh={refresh} 
-      setRefresh={setRefresh} 
-      showModal={showModal} 
-      setShowModal={setShowModal} 
-      history={history}/>
+      <NewActivityModal
+        refresh={refresh}
+        setRefresh={setRefresh}
+        showModal={showModal}
+        setShowModal={setShowModal}
+        history={history} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    shadowColor: '#111324',
+    shadowColor: "black",
     shadowOffset: {
-      width: 2,
-      height: 2
+      width: 5,
+      height: 5
     },
     shadowOpacity: 1,
-    shadowRadius: 5 
+    shadowRadius: 1,
   },
   button: {
     backgroundColor: '#EBB000',
