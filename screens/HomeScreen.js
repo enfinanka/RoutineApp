@@ -12,15 +12,11 @@ export default function HomeScreen({ history }) {
   const { activities, setActivities } = React.useContext(ActivitiesContext);
   const [refresh, setRefresh] = React.useState(false)
 
-  const sortActivities = (d) => {
-    const completed = d.filter((act) => act.completed)
-    const NotCompleted = d.filter((act) => !act.completed)
-      // console.log('completed', completed);
-      // console.log('NotCompleted', NotCompleted);
-    const sortedActivitiesByCompleted = [...NotCompleted, ...completed]
-
-
-    setActivities({ type: 'ADD_FROM_ASYNCSTORAGE', payload: sortedActivitiesByCompleted })
+  const sortAndSetActivities = (d) => {
+    const notCompleted = d.filter((a) => !a.completed)
+    const completed = d.filter((a) => a.completed)
+    const sorted = [...notCompleted, ...completed ]
+    setActivities({ type: 'ADD_FROM_ASYNCSTORAGE', payload: sorted })
   }
 
   //kommentera fram InitalStoreDataToAsyncStorage() för att lägga in exemplen i asyncStorage.
@@ -28,7 +24,7 @@ export default function HomeScreen({ history }) {
     const timer = setTimeout(() => {
       // InitalStoreDataToAsyncStorage()
       retrieveDataFromAsyncStorage()
-        .then((d) => sortActivities(d))
+        .then((d) => sortAndSetActivities(d))
     }, 0)
     return () => clearTimeout(timer)
   }, [refresh])

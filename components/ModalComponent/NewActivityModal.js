@@ -148,6 +148,7 @@ export default function NewActivityModal(props) {
                   onCancel={hideDatePicker}
                   locale="gb" // Use "en_GB" here
                   is24Hour={true}
+                  headerTextIOS="Select Time"
                 />
               </View>
             }
