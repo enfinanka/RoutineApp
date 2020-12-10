@@ -32,7 +32,7 @@ export default function TodaysList(props) {
       <View style={data.item.completed ? styles.listItemDone : styles.listItem}>
         <View style={{display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
           <Text style={styles.activityText}>{data.item.activity}</Text>
-          <View style={{display: 'flex', justifyContent: 'flex-start', flexDirection: 'row'}}>
+          <View style={{display: 'flex', justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center'}}>
             {data.item.alert ? 
               <Ionicons style={styles.notifyIcon} name="ios-notifications" size={20} color="#EBB000"/>
             : null}
@@ -40,7 +40,7 @@ export default function TodaysList(props) {
               <Text
               style={{
                 color: data.item.completed ? '#F5F4F8' : '#85BCA9',
-                fontSize: 12,
+                fontSize: 16,
                 marginLeft: data.item.alert ? 10 : 20,
                 marginTop: 10
                 }}
@@ -122,7 +122,14 @@ const styles = StyleSheet.create({
     margin: 10,
     borderRadius: 15,
     backgroundColor: '#3f4155',
-    color: "#F5F4F8"
+    color: "#F5F4F8",
+    shadowColor: "black",
+    shadowOffset: {
+      width: 4,
+      height: 4
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 3.84,
   },
   listItemDone: {
     display: 'flex',
@@ -157,6 +164,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     width: 66,
+    shadowColor: "black",
+    shadowOffset: {
+      width: 5,
+      height: 2
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
   },
   activityText: {
     color: '#F4F7F8',
@@ -172,12 +186,19 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     width: 66,
+    shadowColor: "black",
+    shadowOffset: {
+      width: 5,
+      height: 2
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
   },
   checkIcon: {
     marginRight: 10
   },
   notifyIcon: {
-    marginTop: 5,
+    marginTop: 10,
     marginLeft: 20
   }
 });

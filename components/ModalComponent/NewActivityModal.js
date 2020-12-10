@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableHighlight, Modal, Alert } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Modal, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import SwitchToggle from '../ButtonComponents/SwitchToggle.js';
 import AddActivityButton from '../ButtonComponents/AddActivityButton.js';
@@ -7,7 +7,8 @@ import { TextInput } from 'react-native-paper';
 import { ActivitiesContext } from '../../contexts'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import TimeButton from '../ButtonComponents/TimeButton'
-import { addObjectInAsyncStorage } from '../../utils/asyncStorage'
+import { addObjectInAsyncStorage } from '../../utils/asyncStorage';
+// import { BlurView } from 'expo-blur';
 import { activityLongerThanZero, activityAlreadyExists } from '../../utils/validation'
 
 export default function NewActivityModal(props) {
@@ -66,23 +67,28 @@ export default function NewActivityModal(props) {
           setShowModal(false);
         }}
       >
+        {/* <BlurView  
+        intensity={100} 
+        style={StyleSheet.absoluteFill}
+        tint="dark"> */}
+
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-
-            <TouchableHighlight
+            <TouchableOpacity
               style={styles.closeButton}
               onPress={() => {
                 setShowModal(false);
               }}>
 
-              <Icon name="ios-close" size={50} color="#F4F7F8" />
-            </TouchableHighlight>
+              <Icon name="ios-close" size={40} color="#F4F7F8" />
+            </TouchableOpacity>
 
             <Text style={styles.modalHeader}>New activity</Text>
             <View style={styles.container}>
               <TextInput
                 label="Type your Activity"
                 style={styles.input}
+                theme={{ colors: {primary: '#1E2036'} }}
                 onChangeText={text => setInputActivity(text)}
                 value={inputActivity}
                 maxLength={16}
@@ -90,6 +96,7 @@ export default function NewActivityModal(props) {
               <TextInput
                 label="Category"
                 style={styles.input}
+                theme={{ colors: {primary: '#1E2036'} }}
                 onChangeText={text => setInputCategory(text)}
                 value={inputCategory}
               />
@@ -117,15 +124,22 @@ export default function NewActivityModal(props) {
             <AddActivityButton history={history} addNewActivity={addNewActivity} setShowModal={setShowModal} />
           </View>
         </View>
+        {/* </BlurView> */}
       </Modal>
     </View>
-  );
-}
+  )}
 
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
     justifyContent: 'flex-end',
+    // position: 'absolute',
+    // width: '100%',
+    // height: '100%',
+    // justifyContent: 'center',
+    // backgroundColor: 'rgba(200,200,200, 0.5)',
+    // backgroundColor: '#000'
+    // padding: 20,
   },
   modalView: {
     display: 'flex',
@@ -145,21 +159,21 @@ const styles = StyleSheet.create({
     elevation: 10
   },
   closeButton: {
-    backgroundColor: '#EB7100',
-    borderRadius: 50,
-    width: 70,
-    padding: 10,
+    backgroundColor: '#EB5500',
+    borderRadius: 100,
+    width: 50,
+    height: 50,
     position: "absolute",
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: -50,
+    marginTop: -20,
   },
   modalHeader: {
     position: "absolute",
-    marginTop: 20,
+    marginTop: 40,
     marginLeft: 10,
-    fontSize: 40,
+    fontSize: 30,
     textAlign: "center",
     color: '#F4F7F8',
     width: 300,
@@ -175,7 +189,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignContent: 'space-around',
+    alignItems: 'center',
   },
   container: {
     paddingBottom: 50,
@@ -187,4 +201,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     textAlign: 'center',
   },
+  nonBlurredContent: {
+
+  }
 });
