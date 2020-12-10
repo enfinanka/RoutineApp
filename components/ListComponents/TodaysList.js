@@ -4,7 +4,6 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Animated
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
@@ -24,15 +23,6 @@ export default function TodaysList(props) {
 
   const key = Math.floor(Math.random()*100000000);
 
-  const opacity = new Animated.Value(0);
-
-  Animated.timing(opacity, {
-    toValue: 1,
-    duration: 2500,
-    useNativeDriver: true,
-    bounciness: 1,
-    delay: 500,
-  }).start();
 
   const editActivity = (activityName, notificationAlert, alertWhen) => {
     setShowEditModal(true);
@@ -44,7 +34,7 @@ export default function TodaysList(props) {
   const renderItem = (data) => {
     return (
  
-        <Animated.View style={data.item.completed ? styles.listItemDone : styles.listItem}>
+        <View style={data.item.completed ? styles.listItemDone : styles.listItem}>
         <View style={{display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
           <Text style={styles.activityText}>{data.item.activity}</Text>
           <View 
@@ -77,7 +67,7 @@ export default function TodaysList(props) {
             <Feather name="circle" size={50} color="#85BCA9"/>
           }
         </TouchableOpacity>
-      </Animated.View>
+      </View>
     )
   };
   
