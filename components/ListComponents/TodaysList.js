@@ -10,6 +10,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import EditActivityModal from '../ModalComponent/EditActivityModal';
+import Toast from 'react-native-toast-message';
 
 export default function TodaysList(props) {
 
@@ -34,7 +35,7 @@ export default function TodaysList(props) {
       <View style={data.item.completed ? styles.listItemDone : styles.listItem}>
         <View style={{display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
           <Text style={styles.activityText}>{data.item.activity}</Text>
-          <View style={{display: 'flex', justifyContent: 'flex-start', flexDirection: 'row'}}>
+          <View style={{display: 'flex', justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center'}}>
             {data.item.alert ? 
               <Ionicons style={styles.notifyIcon} name="ios-notifications" size={20} color="#EBB000"/>
             : null}
@@ -42,7 +43,7 @@ export default function TodaysList(props) {
               <Text
               style={{
                 color: data.item.completed ? '#F5F4F8' : '#85BCA9',
-                fontSize: 12,
+                fontSize: 16,
                 marginLeft: data.item.alert ? 10 : 20,
                 marginTop: 10
                 }}
@@ -50,12 +51,30 @@ export default function TodaysList(props) {
             : null}
           </View>
         </View>
-        <TouchableOpacity style={styles.checkIcon} onPress={() => setActivities({ type: 'SET_COMPLETED', payload: data.item.activity })}>
+        <TouchableOpacity style={styles.checkIcon} onPress={checkActivityComplete => {
+          setActivities({ type: 'SET_COMPLETED', payload: data.item.activity })
+          if(!data.item.completed){
+            Toast.show({
+              text1: 'Completed',
+              text2: 'Nice, you have just completed your activity!',
+              visibilityTime: 2000,
+            })
+          }else{
+            Toast.show({
+              text1: 'Unchecked',
+              text2: 'You have unchecked your activity',
+              visibilityTime: 2000,
+              type: 'info'
+            })
+          }
+          
+        }}>
           {data.item.completed ?
             <AntDesign name="checkcircleo" size={50} color="#F5F4F8" />
             : 
             <Feather name="circle" size={50} color="#85BCA9" />
           }
+          
         </TouchableOpacity>
       </View>
     )
@@ -72,7 +91,14 @@ export default function TodaysList(props) {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.backRightBtnRight}
-        onPress={() => setActivities({ type: 'REMOVE_ACTIVITY', payload: data.item.activity })}
+        onPress={deleteActivity => {
+          setActivities({ type: 'REMOVE_ACTIVITY', payload: data.item.activity })
+          Toast.show({
+            text1: `Activity Deleted`,
+            type: 'error',
+            visibilityTime: 2000
+          })
+        }}
       >
         <Text style={{ color: "#F5F4F8" }}>Delete</Text>
       </TouchableOpacity>
@@ -126,7 +152,14 @@ const styles = StyleSheet.create({
     margin: 10,
     borderRadius: 15,
     backgroundColor: '#3f4155',
-    color: "#F5F4F8"
+    color: "#F5F4F8",
+    shadowColor: "black",
+    shadowOffset: {
+      width: 4,
+      height: 4
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 3.84,
   },
   listItemDone: {
     display: 'flex',
@@ -161,6 +194,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     width: 66,
+    shadowColor: "black",
+    shadowOffset: {
+      width: 5,
+      height: 2
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
   },
   activityText: {
     color: '#F4F7F8',
@@ -176,12 +216,19 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     width: 66,
+    shadowColor: "black",
+    shadowOffset: {
+      width: 5,
+      height: 2
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
   },
   checkIcon: {
     marginRight: 10
   },
   notifyIcon: {
-    marginTop: 5,
+    marginTop: 10,
     marginLeft: 20
   }
 });

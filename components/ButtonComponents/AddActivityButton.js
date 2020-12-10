@@ -3,13 +3,17 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 export default function AddActivityButton(props) {
 
-  const { addNewActivity, setShowModal, history } = props
+  const { addNewActivity } = props
+
+  const addActivity = () => {
+    addNewActivity();
+  }
 
   return (
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.button}
-        onPress={addNewActivity}
+        onPress={addActivity}
       >
         <Text style={styles.buttonText}>Add Activity</Text>
       </TouchableOpacity>
@@ -30,7 +34,14 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    shadowColor: "black",
+    shadowOffset: {
+      width: 5,
+      height: 2
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
   },
   buttonText: {
     fontSize: 20,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableHighlight, Modal, Alert} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Modal, Alert} from 'react-native';
 import { TextInput } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import SwitchToggle from '../ButtonComponents/SwitchToggle';
@@ -8,41 +8,52 @@ import UpdateActivityButton from '../ButtonComponents/UpdateActivityButton';
 import EditActivityNameButton from '../ButtonComponents/EditActivityNameButton';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { replaceObjectInAsyncStorage } from '../../utils/asyncStorage';
+import Toast from 'react-native-toast-message';
+import { activityAlreadyExists } from '../../utils/validation'
 
-export default function EditActivityModal(props) {  
+export default function EditActivityModal(props) {
   const [inputActivity, setInputActivity] = React.useState();
   const [show, setShow] = React.useState(false);
   const [showTextInput, setShowTextInput] = React.useState(false);
 
-  const { setShowEditModal, showEditModal, activityName, refresh, setRefresh, setAlert, alert, chosenTime, setChosenTime } = props;  
+  const { setShowEditModal, showEditModal, activityName, refresh, setRefresh, setAlert, alert, chosenTime, setChosenTime, activities } = props;  
 
   const editActivity = () => {
-    // if the inputfield for changing the name has not been altered.
+    
+    const changeActivity = {
+      completed: false,
+      activity: inputActivity ? inputActivity : activityName,
+      type: 'work',
+      alert: chosenTime ? alert : false,
+      alertWhen: alert ? chosenTime : null 
+    }
+
     if (!inputActivity) {
-      const changeActivity = {
-        completed: false,
-        activity: activityName,
-        type: 'work',
-        alert: chosenTime ? alert : false,
-        alertWhen: alert ? chosenTime : null 
-      }
       replaceObjectInAsyncStorage(changeActivity);
       setShowEditModal(false);
-      setRefresh(!refresh)
+      setRefresh(!refresh);
+      return;
     }
-    else {
-      const changeActivity = {
-        completed: false,
-        activity: inputActivity,
-        type: 'work',
-        alert: chosenTime ? alert : false,
-        alertWhen: alert ? chosenTime : null 
-      }
-      replaceObjectInAsyncStorage(changeActivity, activityName);
-      setShowEditModal(false);
-      setRefresh(!refresh)
+    if (activityAlreadyExists(activities, inputActivity)) {
+      Toast.show({
+        text1:'Denied!',
+        text2: `Activity ${inputActivity} already exists`,
+        visibilityTime: 2000,
+      })
+      return;
     }
-  }  
+
+    Toast.show({
+      text1:'Success!',
+      text2: `Activity ${activityName} has been changed`,
+      visibilityTime: 2000,
+    })
+
+    replaceObjectInAsyncStorage(changeActivity, activityName);
+    setShowEditModal(false);
+    setRefresh(!refresh);
+    setInputActivity('');
+  }
 
   const handleConfirm = (time) => {
     let chosenTime = time.toLocaleTimeString().slice(0, 5);
@@ -67,15 +78,16 @@ export default function EditActivityModal(props) {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             
-            <TouchableHighlight
+            <TouchableOpacity
               style={styles.closeButton}
               onPress={() => {
+                setInputActivity('');
                 setShowEditModal(false);
                 setShowTextInput(false);
               }}>
-              <Icon name="ios-close" size={50} color="#F4F7F8" />
-            </TouchableHighlight>
-            
+              <Icon name="ios-close" size={40} color="#F4F7F8" />
+            </TouchableOpacity>
+          
             <View style={styles.modalHeadContainer}>
               <Text style={styles.modalHeader}> {activityName} </Text>
               <EditActivityNameButton showTextInput={showTextInput} setShowTextInput={setShowTextInput} />
@@ -87,6 +99,7 @@ export default function EditActivityModal(props) {
                 value={inputActivity}
                 maxLength={16}
                 autoFocus
+                theme={{ colors: {primary: '#1E2036'} }}
                 clearButtonMode="always"          
               />
             }
@@ -145,22 +158,22 @@ const styles = StyleSheet.create({
     elevation: 10
   },
   closeButton: {
-    backgroundColor: '#EB7100',
-    borderRadius: 50,
-    width: 70,
-    padding: 10,
+    backgroundColor: '#EB5500',
+    borderRadius: 100,
+    width: 50,
+    height: 50,
     position: "absolute",
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: -50,
+    marginTop: -20,
   },
   modalHeader: {
-    fontSize: 35,
+    fontSize: 30,
+    marginRight: 20,
     textAlign: "center",
-    textTransform: "capitalize",   
+    textTransform: "capitalize",
     color: '#F4F7F8',
-    fontWeight: 'bold'
   },
   modalHeadContainer: {
     position: 'absolute',
@@ -168,7 +181,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-    width: 400
+    alignItems: 'center',
+    width: 500
   },
   modalText: {
     color: '#F4F7F8',

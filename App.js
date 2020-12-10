@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, SafeAreaView, Platform } from 'react-native';
 import {NativeRouter, Switch, Route } from 'react-router-native';
+import Toast from 'react-native-toast-message';
 import HomeScreen from './screens/HomeScreen';
 import { ActivitiesContext } from './contexts'
 import { activitiesReducer } from './reducers'
@@ -18,6 +19,7 @@ const activitiesProviderValue = React.useMemo(() => ({ activities, setActivities
           <Switch>
             <Route exact path="/" component={HomeScreen} />
           </Switch>
+          <Toast ref={(ref) => Toast.setRef(ref)} />
         </SafeAreaView>
       </NativeRouter>
     </ActivitiesContext.Provider>
