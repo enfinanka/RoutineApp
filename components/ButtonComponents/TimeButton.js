@@ -1,38 +1,42 @@
 import React from 'react';
-import { StyleSheet, View, Button, } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export default function BackButton(props) {
-  const { setShow } = props
+  const { setShow, chosenTime } = props
 
   return (
     <View>
-      {/* <Icon style={styles.button} name="ios-time" size={40} onPress={() => setShow(true)}
-        color="#1E2036"/> */}
-
-      <Button
-        title="Choose time"
-        onPress={() => setShow(true)}
-        color="#EBB000"
-      />
+      <TouchableOpacity
+        style={styles.button}
+        onPress={()=>setShow(true)}
+      >
+        <Icon name="ios-time" size={20} color="#fff"/>
+        <Text style={styles.buttonText}>{chosenTime ? chosenTime : "Choose time"}</Text>
+      </TouchableOpacity>
     </View>
+
   );
 }
 
 const styles = StyleSheet.create({
-  // button: {
-  //   // color: '#fff',
-  //   // minHeight: 42,
-  //   // borderRadius: 3,
-  //   display: 'flex',
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   // position: 'absolute'
-  //   marginRight: 10
-  // },
-  buttonText: {
-    fontSize: 57,
+  button: {
     color: '#fff',
-    textAlign: 'center'
+    backgroundColor: '#EBB000',
+    minHeight: 42,
+    borderRadius: 3,
+    minWidth: 120,
+    padding: 8,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  buttonText: {
+    fontSize: 16,
+    color: '#fff',
+    textAlign: 'center',
+    marginLeft: 10,
   }
 });

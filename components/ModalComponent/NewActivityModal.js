@@ -13,14 +13,25 @@ import Toast from 'react-native-toast-message';
 import { activityLongerThanZero, activityAlreadyExists } from '../../utils/validation'
 
 export default function NewActivityModal(props) {
+
   const { showModal, setShowModal, history, refresh, setRefresh } = props;
 
-  const { activities } = React.useContext(ActivitiesContext);
   const [inputActivity, setInputActivity] = React.useState('');
   const [inputCategory, setInputCategory] = React.useState('');
-  const [alert, setAlert] = React.useState(false);
-  const [show, setShow] = React.useState(false);
   const [chosenTime, setChosenTime] = React.useState('');
+  const [alert, setAlert] = React.useState(false);
+
+  const [show, setShow] = React.useState(false);
+  
+  const { activities } = React.useContext(ActivitiesContext);
+
+  const clearValues = () => {
+    setInputActivity('')
+    setInputCategory('')
+    setChosenTime(null)
+    setAlert(false)
+    setShowModal(false);
+  }
 
   const addNewActivity = () => {
     const newActivity = {
@@ -28,10 +39,9 @@ export default function NewActivityModal(props) {
       activity: inputActivity,
       category: inputCategory,
       type: 'work',
-      alert: alert,
-      alertWhen: chosenTime
+      alert: chosenTime ? alert : false,
+      alertWhen: alert ? chosenTime : null 
     }
-    // more valitators??
     if (activityAlreadyExists(activities, inputActivity)) {
       Toast.show({
         text1: 'Denied!',
@@ -57,7 +67,7 @@ export default function NewActivityModal(props) {
       visibilityTime: 2000,
     })
     addObjectInAsyncStorage(newActivity)
-    setShowModal(false);
+    clearValues();
     setRefresh(!refresh)
   }
 
@@ -92,7 +102,7 @@ export default function NewActivityModal(props) {
             <TouchableOpacity
               style={styles.closeButton}
               onPress={() => {
-                setShowModal(false);
+                clearValues();
               }}>
 
               <Icon name="ios-close" size={40} color="#F4F7F8" />
@@ -116,15 +126,20 @@ export default function NewActivityModal(props) {
                 value={inputCategory}
               />
             </View>
+
             <View style={styles.textContainer}>
               <Text style={styles.modalText} >Notifications</Text>
               <SwitchToggle setAlert={setAlert} alert={alert} />
             </View>
+
+            {alert &&
             <View style={styles.textContainer}>
-              <Text style={styles.modalText} >Select Time</Text>
-              <TimeButton show={show} setShow={setShow} />
+              <Text style={styles.modalText} >{ chosenTime ? "Selected time" :  "Select Time"}</Text>              
+              <TimeButton chosenTime={chosenTime} show={show} setShow={setShow} />
             </View>
-            {show ?
+            }
+
+            {show &&
               <View>
                 <DateTimePickerModal
                   isVisible={show}
@@ -135,7 +150,7 @@ export default function NewActivityModal(props) {
                   is24Hour={true}
                 />
               </View>
-              : null}
+            }
             <AddActivityButton history={history} addNewActivity={addNewActivity} setShowModal={setShowModal} />
           </View>
         </View>
@@ -204,7 +219,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignContent: 'space-around',
+    alignItems: 'center'
   },
   container: {
     paddingBottom: 50,

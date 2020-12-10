@@ -15,18 +15,17 @@ export default function EditActivityModal(props) {
   const [inputActivity, setInputActivity] = React.useState();
   const [show, setShow] = React.useState(false);
   const [showTextInput, setShowTextInput] = React.useState(false);
-  const [chosenTime, setChosenTime] = React.useState('');
 
-  const { setShowEditModal, showEditModal, activityName, refresh, setRefresh, setAlert, alert, activities } = props;
+  const { setShowEditModal, showEditModal, activityName, refresh, setRefresh, setAlert, alert, chosenTime, setChosenTime, activities } = props;  
 
   const editActivity = () => {
-    // if the inputfield for changing the name has not been altered.
+    
     const changeActivity = {
       completed: false,
       activity: inputActivity ? inputActivity : activityName,
       type: 'work',
-      alert: alert,
-      alertWhen: chosenTime
+      alert: chosenTime ? alert : false,
+      alertWhen: alert ? chosenTime : null 
     }
 
     if (!inputActivity) {
@@ -39,6 +38,7 @@ export default function EditActivityModal(props) {
       Toast.show({
         text1:'Denied!',
         text2: `Activity ${inputActivity} already exists`,
+        type: 'error',
         visibilityTime: 2000,
       })
       return;
@@ -88,13 +88,13 @@ export default function EditActivityModal(props) {
               }}>
               <Icon name="ios-close" size={40} color="#F4F7F8" />
             </TouchableOpacity>
-           
+          
             <View style={styles.modalHeadContainer}>
               <Text style={styles.modalHeader}> {activityName} </Text>
-              <EditActivityNameButton setShowTextInput={setShowTextInput} showTextInput={showTextInput} />
+              <EditActivityNameButton showTextInput={showTextInput} setShowTextInput={setShowTextInput} />
             </View>
-
-            {showTextInput ?
+            
+            {showTextInput &&
               <TextInput style={styles.input}
                 onChangeText={text => setInputActivity(text)}
                 value={inputActivity}
@@ -103,17 +103,20 @@ export default function EditActivityModal(props) {
                 theme={{ colors: {primary: '#1E2036'} }}
                 clearButtonMode="always"          
               />
-              : null}
-
+            }
+            
             <View style={styles.textContainer}>
               <Text style={styles.modalText} >Notifications</Text>
               <SwitchToggle setAlert={setAlert} alert={alert} />
             </View>
+
+            {alert && 
             <View style={styles.textContainer}>
-              <Text style={styles.modalText} >Select Time</Text>
-              <TimeButton show={show} setShow={setShow} />
-            </View>
-            {show ?
+              <Text style={styles.modalText} >{ chosenTime ? "Selected time" :  "Select Time"}</Text>              
+              <TimeButton chosenTime={chosenTime} setShow={setShow} />
+            </View>}
+            
+            {show &&
               <View>
                 <DateTimePickerModal
                   isVisible={show}
@@ -124,7 +127,7 @@ export default function EditActivityModal(props) {
                   is24Hour={true}
                 />
               </View>
-              : null}
+            }
             <UpdateActivityButton editActivity={editActivity} setShowTextInput={setShowTextInput} />
           </View>
         </View>
@@ -195,6 +198,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignContent: 'space-around',
+    alignItems: 'center'
   },
   input: {
     height: 50,
