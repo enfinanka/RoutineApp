@@ -8,6 +8,7 @@ import UpdateActivityButton from '../ButtonComponents/UpdateActivityButton';
 import EditActivityNameButton from '../ButtonComponents/EditActivityNameButton';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { replaceObjectInAsyncStorage } from '../../utils/asyncStorage';
+import Toast from 'react-native-toast-message';
 import { activityAlreadyExists } from '../../utils/validation'
 
 export default function EditActivityModal(props) {
@@ -34,11 +35,20 @@ export default function EditActivityModal(props) {
       setRefresh(!refresh);
       return;
     }
-
     if (activityAlreadyExists(activities, inputActivity)) {
-      Alert.alert(`You already have an activity called: ${inputActivity}`)
+      Toast.show({
+        text1:'Denied!',
+        text2: `Activity ${inputActivity} already exists`,
+        visibilityTime: 2000,
+      })
       return;
     }
+
+    Toast.show({
+      text1:'Success!',
+      text2: `Activity ${activityName} has been changed`,
+      visibilityTime: 2000,
+    })
 
     replaceObjectInAsyncStorage(changeActivity, activityName);
     setShowEditModal(false);
