@@ -30,6 +30,7 @@ export default function NewActivityModal(props) {
     setInputCategory('')
     setChosenTime(null)
     setAlert(false)
+    setShowModal(false);
   }
 
   const addNewActivity = () => {
@@ -66,7 +67,6 @@ export default function NewActivityModal(props) {
       visibilityTime: 2000,
     })
     addObjectInAsyncStorage(newActivity)
-    setShowModal(false);
     clearValues();
     setRefresh(!refresh)
   }
@@ -102,7 +102,7 @@ export default function NewActivityModal(props) {
             <TouchableOpacity
               style={styles.closeButton}
               onPress={() => {
-                setShowModal(false);
+                clearValues();
               }}>
 
               <Icon name="ios-close" size={40} color="#F4F7F8" />
