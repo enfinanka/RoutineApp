@@ -5,7 +5,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 export default function Header(props) {
 
-  const { title, date = true } = props;
+  const { title} = props;
   const [today, setToday] = useState('')
 
   useEffect(() => {
@@ -17,11 +17,9 @@ export default function Header(props) {
   return (
     <View >
       <Text style={styles.header}>{title}</Text>
-      {date === true ?
         <View>
           <Text style={styles.date}>{today}</Text>
         </View>
-        : null}
     </View>
   );
 }
@@ -29,22 +27,21 @@ export default function Header(props) {
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-
-    backgroundColor: '#1E2036',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    paddingTop: 60,
     paddingLeft: 20,
   },
   header: {
     color: '#85BCA9',
     fontSize: 35,
     paddingLeft: 20,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    marginTop: 40
   },
   date: {
     color: '#85BCA9',
     paddingLeft: 20,
-    marginTop: 5
+    marginTop: 5,
+    fontSize: 20
   }
 });

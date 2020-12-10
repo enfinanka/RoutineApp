@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableHighlight, Modal, Alert} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Modal, Alert} from 'react-native';
 import { TextInput } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import SwitchToggle from '../ButtonComponents/SwitchToggle';
@@ -68,14 +68,14 @@ export default function EditActivityModal(props) {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             
-            <TouchableHighlight
+            <TouchableOpacity
               style={styles.closeButton}
               onPress={() => {
                 setShowEditModal(false);
                 setShowTextInput(false);
               }}>
-              <Icon name="ios-close" size={50} color="#F4F7F8" />
-            </TouchableHighlight>
+              <Icon name="ios-close" size={40} color="#F4F7F8" />
+            </TouchableOpacity>
             
             <View style={styles.modalHeadContainer}>
               <Text style={styles.modalHeader}> {activityName} </Text>
@@ -88,6 +88,7 @@ export default function EditActivityModal(props) {
                 value={inputActivity}
                 maxLength={16}
                 autoFocus
+                theme={{ colors: {primary: '#1E2036'} }}
                 clearButtonMode="always"          
               />
             :null}
@@ -143,22 +144,22 @@ const styles = StyleSheet.create({
     elevation: 10
   },
   closeButton: {
-    backgroundColor: '#EB7100',
-    borderRadius: 50,
-    width: 70,
-    padding: 10,
+    backgroundColor: '#EB5500',
+    borderRadius: 100,
+    width: 50,
+    height: 50,
     position: "absolute",
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: -50,
+    marginTop: -20,
   },
   modalHeader: {
-    fontSize: 35,
+    fontSize: 30,
+    marginRight: 20,
     textAlign: "center",
     textTransform: "capitalize",   
     color: '#F4F7F8',
-    fontWeight: 'bold'
   },
   modalHeadContainer: {
     position: 'absolute',
@@ -166,7 +167,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-    width: 400
+    alignItems: 'center',
+    width: 500
   },
   modalText: {
     color: '#F4F7F8',

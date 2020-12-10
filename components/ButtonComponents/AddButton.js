@@ -28,13 +28,13 @@ export default function AddButton(props) {
 
 const styles = StyleSheet.create({
   container: {
-    shadowColor: '#111324',
+    shadowColor: "black",
     shadowOffset: {
-      width: 2,
-      height: 2
+      width: 5,
+      height: 5
     },
     shadowOpacity: 1,
-    shadowRadius: 5 
+    shadowRadius: 1,
   },
   button: {
     backgroundColor: '#EBB000',
