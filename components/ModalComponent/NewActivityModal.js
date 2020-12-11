@@ -40,8 +40,8 @@ export default function NewActivityModal(props) {
       activity: inputActivity,
       category: inputCategory,
       type: 'work',
-      alert: chosenTime ? alert : false,
-      alertWhen: alert ? chosenTime : null 
+      alert: alert,
+      alertWhen: chosenTime
     }
     if (activityAlreadyExists(activities, inputActivity)) {
       Toast.show({
@@ -135,15 +135,13 @@ export default function NewActivityModal(props) {
 
             <View style={styles.textContainer}>
               <Text style={styles.modalText}>Notifications</Text>
-              <SwitchToggle setAlert={setAlert} alert={alert} />
+              <SwitchToggle disabled={!chosenTime} setAlert={setAlert} alert={alert} />
             </View>
 
-            {alert &&
             <View style={styles.textContainer}>
               <Text style={styles.modalText} >{ chosenTime ? "Selected time" :  "Select Time"}</Text>              
               <TimeButton chosenTime={chosenTime} show={show} setShow={setShow} />
             </View>
-            }
 
             {show &&
               <View>

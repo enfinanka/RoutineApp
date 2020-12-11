@@ -26,8 +26,8 @@ export default function EditActivityModal(props) {
       completed: false,
       activity: inputActivity ? inputActivity : activityName,
       type: 'work',
-      alert: chosenTime ? alert : false,
-      alertWhen: alert ? chosenTime : null 
+      alert: alert,
+      alertWhen: chosenTime
     }
 
     if (!inputActivity) {
@@ -120,14 +120,13 @@ export default function EditActivityModal(props) {
             
             <View style={styles.textContainer}>
               <Text style={styles.modalText}>Notifications</Text>
-              <SwitchToggle setAlert={setAlert} alert={alert} />
+              <SwitchToggle disabled={!chosenTime} setAlert={setAlert} alert={alert} />
             </View>
 
-            {alert && 
             <View style={styles.textContainer}>
               <Text style={styles.modalText} >{ chosenTime ? "Selected time" :  "Select Time"}</Text>              
               <TimeButton chosenTime={chosenTime} setShow={setShow} />
-            </View>}
+            </View>
             
             {show &&
               <View>
