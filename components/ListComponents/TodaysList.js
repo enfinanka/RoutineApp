@@ -23,7 +23,6 @@ export default function TodaysList(props) {
 
   const key = Math.floor(Math.random()*100000000);
 
-
   const editActivity = (activityName, notificationAlert, alertWhen) => {
     setShowEditModal(true);
     setActivityName(activityName);
@@ -31,9 +30,14 @@ export default function TodaysList(props) {
     setChosenTime(alertWhen);
   }
 
+  const handleCompleted = (activity, completed) => {
+    setActivities({ type: 'SET_COMPLETED', payload: activity})
+    setRefresh(!refresh)
+  }
+
   const renderItem = (data) => {
     return (
- 
+
         <View style={data.item.completed ? styles.listItemDone : styles.listItem}>
         <View style={{display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
           <Text style={styles.activityText}>{data.item.activity}</Text>
@@ -44,10 +48,8 @@ export default function TodaysList(props) {
               flexDirection: 'row', 
               alignItems: 'center'
             }}>
-            {data.item.alert ? 
-              <Ionicons style={styles.notifyIcon} name="ios-notifications" size={20} color="#EBB000"/>
-            : null}
-            {data.item.alertWhen ? 
+            {data.item.alert && <Ionicons style={styles.notifyIcon} name="ios-notifications" size={20} color="#EBB000"/>}
+            {data.item.alertWhen &&
               <Text
               style={{
                 color: data.item.completed ? '#F5F4F8' : '#85BCA9',
@@ -56,11 +58,10 @@ export default function TodaysList(props) {
                 marginTop: 10
                 }}
                 >{data.item.alertWhen}</Text>
-            : null}
+            }
           </View>
         </View>
-        <TouchableOpacity style={styles.checkIcon} onPress={checkActivityComplete => {
-          setActivities({ type: 'SET_COMPLETED', payload: data.item.activity })}}>
+        <TouchableOpacity style={styles.checkIcon} onPress={() => handleCompleted(data.item.activity, data.item.completed )}>
           {data.item.completed ?
             <AntDesign name="checkcircleo" size={50} color="#F5F4F8"/>
             : 
@@ -82,7 +83,7 @@ export default function TodaysList(props) {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.backRightBtnRight}
-        onPress={deleteActivity => {
+        onPress={() => {
           setActivities({ type: 'REMOVE_ACTIVITY', payload: data.item.activity })
           Toast.show({
             text1: `Activity Deleted`,
