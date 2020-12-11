@@ -17,11 +17,11 @@ export default function HomeScreen({ history }) {
     const notCompleted = d.filter((a) => !a.completed)
     const completed = d.filter((a) => a.completed)
 
-    const completedAndHasTime = completed.filter((a)=> a.alert)
-    const notCompletedAndHasTime = notCompleted.filter((a)=> a.alert)
+    const completedAndHasTime = completed.filter((a)=> a.alertWhen)
+    const notCompletedAndHasTime = notCompleted.filter((a)=> a.alertWhen)
 
-    const notCompletedNoTime = notCompleted.filter((a)=> !a.alert)
-    const completedNoTime = completed.filter((a)=> !a.alert)
+    const notCompletedNoTime = notCompleted.filter((a)=> !a.alertWhen)
+    const completedNoTime = completed.filter((a)=> !a.alertWhen)
 
     const notCompletedAndHasTimeAsNumber = notCompletedAndHasTime.map((a)=> {
       const timeAsNumberWOColon = parseInt(a.alertWhen.replace(':','')) 
