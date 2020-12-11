@@ -12,27 +12,27 @@ export default function App() {
 
   const [activities, setActivities] = React.useReducer(activitiesReducer, [])
   const activitiesProviderValue = React.useMemo(() => ({ activities, setActivities }), [activities, setActivities])
+  const [cleanCompleted, setCleanCompleted] = React.useState(false);
+  let startUpInterval;
 
   const checkIfNextDay = () => {
     const currentTime = moment().format("HH:mm");
-    const endOfDay = '00:00'
-
+    const endOfDay = '00:00';
     if (currentTime === endOfDay) {
-      console.log("Bajs");
+      console.log("unchecking completed");
+      clearInterval(startUpInterval);
+      console.log("clean interval");
+      setTimeout(() => {
+        setCleanCompleted(!cleanCompleted)
+      }, 65000);
+      console.log("after setTimeout");
     }
   }
 
   React.useEffect(() => {
-    const startUpInterval = setInterval(checkIfNextDay, 5000);
-
-    //TO STOP INTERVAL, UPDATE EMULATOR.
-    // clearInterval(startUpInterval);
-
-    //TO STOP INTERVAL FROM STARTING AFTER RE-RENDER(MINNESLÄCKOR NO MORE)
-    return () => {
-      clearInterval(startUpInterval);
-    }
-  }, [])
+    console.log("useeffect interval start");
+    startUpInterval = setInterval(checkIfNextDay, 5000);
+  }, [cleanCompleted])
 
   return (
     <ActivitiesContext.Provider value={activitiesProviderValue}>
