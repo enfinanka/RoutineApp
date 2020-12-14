@@ -69,8 +69,6 @@ export default function NewActivityModal(props) {
       alert: alert,
       alertWhen: chosenTime 
     }
-    console.log(newActivity, 'newactivity');
-    console.log(chosenDays, 'chosendays');
 
     if (activityAlreadyExists(activities, inputActivity)) {
       Toast.show({
@@ -215,6 +213,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.8,
     shadowRadius: 15,
+    elevation: 3
   },
   closeButton: {
     position: "absolute",
