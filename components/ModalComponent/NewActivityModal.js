@@ -159,6 +159,9 @@ export default function NewActivityModal(props) {
                 value={inputCategory}
               />
             </View>
+            <View>
+              <CheckboxDays days={days} setChosenDays={setChosenDays} checkAll={checkAll} setCheckAll={setCheckAll}/>
+            </View>
 
             <View style={styles.textContainer}>
               <Text style={styles.modalText}>Notifications</Text>
@@ -166,13 +169,10 @@ export default function NewActivityModal(props) {
             </View>
 
             {alert &&
-            <>
             <View style={styles.textContainer}>
               <Text style={styles.modalText} >{ chosenTime ? "Selected time" :  "Select Time"}</Text>              
               <TimeButton chosenTime={chosenTime} show={show} setShow={setShow} />
             </View>
-            <CheckboxDays days={days} setChosenDays={setChosenDays} checkAll={checkAll} setCheckAll={setCheckAll}/>
-            </>
             }
 
             {show &&
@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   textContainer: {
-    margin: 10,
+    // margin: 10,
     width: 300,
     display: 'flex',
     flexDirection: 'row',
