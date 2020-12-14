@@ -107,7 +107,7 @@ export default function EditActivityModal(props) {
               <EditActivityNameButton showTextInput={showTextInput} setShowTextInput={setShowTextInput} />
             </View>
             
-            {showTextInput &&
+            {showTextInput ?
               <TextInput style={styles.input}
                 onChangeText={text => setInputActivity(text)}
                 value={inputActivity}
@@ -116,7 +116,7 @@ export default function EditActivityModal(props) {
                 theme={{ colors: {primary: '#1E2036'} }}
                 clearButtonMode="always"          
               />
-            }
+            : null}
             
             <View style={styles.textContainer}>
               <Text style={styles.modalText}>Notifications</Text>
@@ -128,7 +128,7 @@ export default function EditActivityModal(props) {
               <TimeButton chosenTime={chosenTime} setShow={setShow} />
             </View>
             
-            {show &&
+            {show ?
               <View>
                 <DateTimePickerModal
                   isVisible={show}
@@ -140,7 +140,7 @@ export default function EditActivityModal(props) {
                   headerTextIOS="Select Time"
                 />
               </View>
-            }
+            :null}
             <UpdateActivityButton editActivity={editActivity} setShowTextInput={setShowTextInput} />
           </View>
         </View>
