@@ -4,7 +4,7 @@ import Header from '../components/HeaderComponents/Header';
 import TodaysList from '../components/ListComponents/TodaysList';
 import { ActivitiesContext } from '../contexts';
 import NoActivities from '../components/ListComponents/NoActivities';
-import { retrieveDataFromAsyncStorage, InitalStoreDataToAsyncStorage } from '../utils/asyncStorage';
+import { retrieveDataFromAsyncStorage, InitalStoreDataToAsyncStorage, clearAllAsyncStorage } from '../utils/asyncStorage';
 import { sortActivities } from '../utils/sortingActivities';
 import AddButton from '../components/ButtonComponents/AddButton';
 
@@ -17,6 +17,7 @@ export default function HomeScreen({ history }) {
   React.useEffect(() => {
     const timer = setTimeout(() => {
       // InitalStoreDataToAsyncStorage()
+      // clearAllAsyncStorage()
       retrieveDataFromAsyncStorage()
         .then((d) => setActivities({ type: 'ADD_FROM_ASYNCSTORAGE', payload: sortActivities(d) }))
     }, 0)

@@ -143,7 +143,7 @@ export default function NewActivityModal(props) {
               <TimeButton chosenTime={chosenTime} show={show} setShow={setShow} />
             </View>
 
-            {show &&
+            {show ?
               <View>
                 <DateTimePickerModal
                   isVisible={show}
@@ -155,7 +155,7 @@ export default function NewActivityModal(props) {
                   headerTextIOS="Select Time"
                 />
               </View>
-            }
+            :null}
             <AddActivityButton history={history} addNewActivity={addNewActivity} setShowModal={setShowModal} />
           </View>
         </View>
