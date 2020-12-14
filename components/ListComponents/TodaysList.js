@@ -48,8 +48,8 @@ export default function TodaysList(props) {
               flexDirection: 'row', 
               alignItems: 'center'
             }}>
-            {data.item.alert && <Ionicons style={styles.notifyIcon} name="ios-notifications" size={20} color="#EBB000"/>}
-            {data.item.alertWhen &&
+            {data.item.alert ? <Ionicons style={styles.notifyIcon} name="ios-notifications" size={20} color="#EBB000"/> : null}
+            {data.item.alertWhen ?
               <Text
               style={{
                 color: data.item.completed ? '#F5F4F8' : '#85BCA9',
@@ -58,7 +58,7 @@ export default function TodaysList(props) {
                 marginTop: 10
                 }}
                 >{data.item.alertWhen}</Text>
-            }
+            : null}
           </View>
         </View>
         <TouchableOpacity style={styles.checkIcon} onPress={() => handleCompleted(data.item.activity, data.item.completed )}>
