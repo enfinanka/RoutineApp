@@ -56,7 +56,7 @@ export default function NewActivityModal(props) {
       {day: 'Sun', chosen: false}
     ]);
     setCheckAll(false);
-    setChosenDays('');
+    setChosenDays([]);
   }
 
   const addNewActivity = () => {
@@ -65,11 +65,13 @@ export default function NewActivityModal(props) {
       activity: inputActivity,
       category: inputCategory,
       type: 'work',
-      daysToAlert: chosenDays,
+      daysToAlert: chosenDays === [] ? chosenDays : days,
       alert: alert,
-      alertWhen: chosenTime
+      alertWhen: chosenTime 
     }
     console.log(newActivity, 'newactivity');
+    console.log(chosenDays, 'chosendays');
+
     if (activityAlreadyExists(activities, inputActivity)) {
       Toast.show({
         text1: 'Denied!',
@@ -149,7 +151,7 @@ export default function NewActivityModal(props) {
                 theme={{ colors: {primary: '#1E2036'} }}
                 onChangeText={text => setInputActivity(text)}
                 value={inputActivity}
-                maxLength={16}
+                maxLength={25}
               />
               {/* <TextInput
                 label="Category"
@@ -172,6 +174,7 @@ export default function NewActivityModal(props) {
               {/* <Text style={styles.modalText} >{ chosenTime ? "Selected time" :  "Select Time"}</Text>               */}
               <TimeButton chosenTime={chosenTime} show={show} setShow={setShow} />
             </View>
+
 
             {show ?
               <View>
@@ -232,6 +235,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     // margin: 10,
+    marginTop: 10,
     width: 300,
     display: 'flex',
     flexDirection: 'row',

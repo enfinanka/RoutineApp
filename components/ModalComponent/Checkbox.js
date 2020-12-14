@@ -87,17 +87,18 @@ export default function CheckboxDays(props) {
         })
       }
       </View>
-      {!chosenDays ? 
+      {!chosenDays ?
         <View style={styles.allDays}>
-          <Text style={styles.days}>Select all days</Text>
+          <Text style={styles.selectAll}>Select all days</Text>
           <CheckBox
             center
             checkedColor='#EBB000'
             checked={checkAll}
+            size={30}
             onPress={() => handleAllDays(days)}
           />
         </View>
-      : null }
+        : null}
     </View>
   )}
 
@@ -120,11 +121,22 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 'bold'
   },
+  selectAll: {
+    color: '#F4F7F8',
+    fontSize: 20,
+  },
   allDays: {
+    // display: 'flex',
+    // flexDirection: 'row',
+    // alignItems: 'center',
+    // justifyContent: 'flex-start',
+    // width: 330
+    width: 300,
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignContent: 'space-around',
     alignItems: 'center',
-    justifyContent: 'flex-start',
-    width: 330
+    // paddingBottom: 15
   }
 });

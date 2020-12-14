@@ -19,7 +19,7 @@ export default function TodaysList(props) {
   const [showEditModal, setShowEditModal] = React.useState(false);
   const [activityName, setActivityName] = React.useState('');
   const [chosenTime, setChosenTime] = React.useState('');
-  const [chosenDays, setChosenDays] = React.useState([]);
+  const [chosenDays, setChosenDays] = React.useState([chosenDays]);
   const [alert, setAlert] = React.useState(false);
 
   const key = Math.floor(Math.random()*100000000);
