@@ -11,6 +11,9 @@ import { addObjectInAsyncStorage } from '../../utils/asyncStorage'
 import Toast from 'react-native-toast-message';
 import { activityLongerThanZero, activityAlreadyExists } from '../../utils/validation';
 import { LinearGradient } from 'expo-linear-gradient';
+import CheckboxDays from './Checkbox';
+
+
 
 
 export default function NewActivityModal(props) {
@@ -20,11 +23,22 @@ export default function NewActivityModal(props) {
   const [inputActivity, setInputActivity] = React.useState('');
   const [inputCategory, setInputCategory] = React.useState('');
   const [chosenTime, setChosenTime] = React.useState('');
+  const [chosenDays, setChosenDays] = React.useState([]);
+  const [checkAll, setCheckAll] = React.useState(false);
   const [alert, setAlert] = React.useState(false);
   const [show, setShow] = React.useState(false);
-  
-  const { activities } = React.useContext(ActivitiesContext);
 
+  const [days, setDays] = React.useState([
+    {day: 'Mon', chosen: false}, 
+    {day: 'Tue', chosen: false}, 
+    {day: 'Wed', chosen: false}, 
+    {day: 'Thu', chosen: false}, 
+    {day: 'Fri', chosen: false},
+    {day: 'Sat', chosen: false},
+    {day: 'Sun', chosen: false}
+  ]);
+
+  const { activities } = React.useContext(ActivitiesContext);
 
   const clearValues = () => {
     setInputActivity('')
@@ -32,6 +46,17 @@ export default function NewActivityModal(props) {
     setChosenTime(null)
     setAlert(false)
     setShowModal(false);
+    setDays([
+      {day: 'Mon', chosen: false}, 
+      {day: 'Tue', chosen: false}, 
+      {day: 'Wed', chosen: false}, 
+      {day: 'Thu', chosen: false}, 
+      {day: 'Fri', chosen: false},
+      {day: 'Sat', chosen: false},
+      {day: 'Sun', chosen: false}
+    ]);
+    setCheckAll(false);
+    setChosenDays('');
   }
 
   const addNewActivity = () => {
@@ -41,8 +66,10 @@ export default function NewActivityModal(props) {
       category: inputCategory,
       type: 'work',
       alert: chosenTime ? alert : false,
-      alertWhen: alert ? chosenTime : null 
+      alertWhen: alert ? chosenTime : null,
+      daysToAlert: chosenDays
     }
+    console.log(newActivity, 'newactivity');
     if (activityAlreadyExists(activities, inputActivity)) {
       Toast.show({
         text1: 'Denied!',
@@ -139,10 +166,13 @@ export default function NewActivityModal(props) {
             </View>
 
             {alert &&
+            <>
             <View style={styles.textContainer}>
               <Text style={styles.modalText} >{ chosenTime ? "Selected time" :  "Select Time"}</Text>              
               <TimeButton chosenTime={chosenTime} show={show} setShow={setShow} />
             </View>
+            <CheckboxDays days={days} setChosenDays={setChosenDays} checkAll={checkAll} setCheckAll={setCheckAll}/>
+            </>
             }
 
             {show &&
@@ -152,7 +182,7 @@ export default function NewActivityModal(props) {
                   mode="time"
                   onConfirm={handleConfirm}
                   onCancel={hideDatePicker}
-                  locale="gb" // Use "en_GB" here
+                  locale="gb"
                   is24Hour={true}
                   headerTextIOS="Select Time"
                 />
@@ -162,8 +192,8 @@ export default function NewActivityModal(props) {
           </View>
         </View>
         </Modal>
-      </View>  
-      )}
+      </View>
+    )}
 
 const styles = StyleSheet.create({
   centeredView: {
@@ -221,4 +251,23 @@ const styles = StyleSheet.create({
     width: 350,
     color: '#fff',
   },
+  checkboxContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 100
+  },
+  checkboxes: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 50
+  },
+  days: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: 'bold'
+  }
 });
