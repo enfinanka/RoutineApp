@@ -138,6 +138,7 @@ export default function EditActivityModal(props) {
                   locale="gb" // Use "en_GB" here
                   is24Hour={true}
                   headerTextIOS="Select Time"
+                  minuteInterval={5}
                 />
               </View>
             :null}
