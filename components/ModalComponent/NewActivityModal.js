@@ -65,9 +65,9 @@ export default function NewActivityModal(props) {
       activity: inputActivity,
       category: inputCategory,
       type: 'work',
-      alert: chosenTime ? alert : false,
-      alertWhen: alert ? chosenTime : null,
-      daysToAlert: chosenDays
+      daysToAlert: chosenDays,
+      alert: alert,
+      alertWhen: chosenTime
     }
     console.log(newActivity, 'newactivity');
     if (activityAlreadyExists(activities, inputActivity)) {
@@ -151,13 +151,13 @@ export default function NewActivityModal(props) {
                 value={inputActivity}
                 maxLength={16}
               />
-              <TextInput
+              {/* <TextInput
                 label="Category"
                 style={styles.input}
                 theme={{ colors: {primary: '#1E2036'} }}
                 onChangeText={text => setInputCategory(text)}
                 value={inputCategory}
-              />
+              /> */}
             </View>
             <View>
               <CheckboxDays days={days} setChosenDays={setChosenDays} checkAll={checkAll} setCheckAll={setCheckAll}/>
@@ -165,17 +165,15 @@ export default function NewActivityModal(props) {
 
             <View style={styles.textContainer}>
               <Text style={styles.modalText}>Notifications</Text>
-              <SwitchToggle setAlert={setAlert} alert={alert} />
+              <SwitchToggle disabled={!chosenTime} setAlert={setAlert} alert={alert} />
             </View>
 
-            {alert &&
             <View style={styles.textContainer}>
-              <Text style={styles.modalText} >{ chosenTime ? "Selected time" :  "Select Time"}</Text>              
+              {/* <Text style={styles.modalText} >{ chosenTime ? "Selected time" :  "Select Time"}</Text>               */}
               <TimeButton chosenTime={chosenTime} show={show} setShow={setShow} />
             </View>
-            }
 
-            {show &&
+            {show ?
               <View>
                 <DateTimePickerModal
                   isVisible={show}
@@ -187,7 +185,7 @@ export default function NewActivityModal(props) {
                   headerTextIOS="Select Time"
                 />
               </View>
-            }
+            :null}
             <AddActivityButton history={history} addNewActivity={addNewActivity} setShowModal={setShowModal} />
           </View>
         </View>
