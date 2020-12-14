@@ -11,6 +11,8 @@ import { replaceObjectInAsyncStorage } from '../../utils/asyncStorage';
 import Toast from 'react-native-toast-message';
 import { activityAlreadyExists } from '../../utils/validation';
 import { LinearGradient } from 'expo-linear-gradient';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+
 
 
 export default function EditActivityModal(props) {
@@ -123,10 +125,13 @@ export default function EditActivityModal(props) {
               <SwitchToggle disabled={!chosenTime} setAlert={setAlert} alert={alert} />
             </View>
 
-            <View style={styles.textContainer}>
-              <Text style={styles.modalText} >{ chosenTime ? "Selected time" :  "Select Time"}</Text>              
-              <TimeButton chosenTime={chosenTime} setShow={setShow} />
-            </View>
+            {/* <View style={styles.timeWrapper}> */}
+              <View style={styles.textContainer}>
+                {/* <Text style={styles.modalText} >{ chosenTime ? "Selected time" :  "Select Time" }</Text>               */}
+                <TimeButton title="Choose time" chosenTime={chosenTime} setShow={setShow} />
+              { chosenTime ? <MaterialIcon style={styles.clearTime} name="clear" size={40} color="#fff"/> : null}      
+              </View>
+            {/* </View> */}
             
             {show ?
               <View>
@@ -216,4 +221,18 @@ const styles = StyleSheet.create({
   container: {
     paddingBottom: 50,
   },
+  timeWrapper: {
+    display: "flex",
+    flexDirection: "row"
+  },
+  clearTime: {
+    backgroundColor: "tomato",
+
+      borderRadius: 20,
+      marginLeft: 10,
+
+
+  
+
+  }
 });
