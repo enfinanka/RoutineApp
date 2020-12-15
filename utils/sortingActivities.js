@@ -4,8 +4,16 @@ export const sortActivities = (d) => {
     return []
   }
 
-  const notCompleted = d.filter((a) => !a.completed)
-  const completed = d.filter((a) => a.completed)
+  const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+  const dayOfTheWeek = weekdays[new Date().getDay()-1]
+
+  const todaysActivities = d.filter((act) => act.daysToAlert.find((weekday) => {
+      return weekday.chosen === true && weekday.day === dayOfTheWeek
+    })
+  )
+
+  const notCompleted = todaysActivities.filter((a) => !a.completed)
+  const completed = todaysActivities.filter((a) => a.completed)
 
   const notCompletedNoTime = notCompleted.filter((a)=> !a.alertWhen)
   const completedNoTime = completed.filter((a)=> !a.alertWhen)
