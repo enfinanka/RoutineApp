@@ -88,11 +88,8 @@ export const retrieveDataFromAsyncStorage = async () => {
 //updateKeyInAsyncStorage({activity: "oscar", keyToUpdate: "completed", newValue:true})
 export const updateKeyInAsyncStorage = async (objToUpdate) => {
   const { activity, keyToUpdate, newValue } = objToUpdate
-  // console.log("objtoUpdate: ", objToUpdate, "activity: ", activity)
   async function updateStorage(prevState) {
-    // console.log("prevstate: ", prevState);
     const newState = prevState.map(obj => obj.activity !== activity ? obj : { ...obj, [keyToUpdate]: newValue })
-    // console.log("newstate: ", newState);
     storeNewState(newState)
   }
   retrieveDataFromAsyncStorage().then(data => updateStorage(data))
@@ -116,15 +113,12 @@ export const deleteAnActivityFromAsyncStorage = async (activity) => {
 // Vill man byta namn och redigera skcickar man med en sträng med det gamla namnet så funktionen vet vilken den ska byta ut i arrayen.
 //replaceObjectInAsyncStorage({completed: false, activity: 'oscar', type: 'funstuff', alert: true, alertWhen: '00:12'}, "nyttAktivitetsNamn")
 export const replaceObjectInAsyncStorage = async (objToUpdate, previousActivityName) => {
-
   async function updateStorage(prevState) {
-
     if (!previousActivityName) {
       const newState = prevState.map(obj => obj.activity === objToUpdate.activity ? objToUpdate : obj)
       storeNewState(newState)
       return;
     }
-
     const newState = prevState.map(obj => obj.activity !== previousActivityName ? obj : objToUpdate)
     storeNewState(newState)
   }

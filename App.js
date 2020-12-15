@@ -13,38 +13,7 @@ export default function App() {
 
   const [activities, setActivities] = React.useReducer(activitiesReducer, [])
   const activitiesProviderValue = React.useMemo(() => ({ activities, setActivities }), [activities, setActivities])
-  const [cleanCompleted, setCleanCompleted] = React.useState(false);
-  let startUpInterval;
-
-  const checkIfNextDay = () => {
-    const currentTime = moment().format("HH:mm");
-    const endOfDay = '14:08';
-    if (currentTime === endOfDay) {
-      console.log("unchecking completed");
-      retrieveDataFromAsyncStorage()
-        .then((data) => {
-          data.forEach((activity) => {
-            if (activity.completed == true) {
-              // activity.completed = false;
-
-              updateKeyInAsyncStorage({ activity: activity.activity, keyToUpdate: "completed", newValue: false });
-              retrieveDataFromAsyncStorage()
-                .then((d) => console.log(d));
-            }
-          })
-        })
-      clearInterval(startUpInterval);
-      setTimeout(() => {
-        setCleanCompleted(!cleanCompleted)
-      }, 65000);
-    }
-  }
-
-  React.useEffect(() => {
-    console.log("useeffect interval start");
-    startUpInterval = setInterval(checkIfNextDay, 5000);
-  }, [cleanCompleted])
-
+  
   return (
     <ActivitiesContext.Provider value={activitiesProviderValue}>
       <NativeRouter>

@@ -1,16 +1,30 @@
-export const sortActivities = (d) => {
+export const sortActivities = (d, newDay) => {
+
+const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+const dayOfTheWeek = weekdays[new Date().getDay()-1]
+let todaysActivities
 
   if (d === undefined) {
     return []
   }
+  
+  const dAllFalse = d.map((activity) => {
+    return {...activity, completed: false}
+  })
 
-  const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-  const dayOfTheWeek = weekdays[new Date().getDay()-1]
+  if (!newDay){
+    todaysActivities = d.filter((act) => act.daysToAlert.find((weekday) => {
+        return weekday.chosen === true && weekday.day === dayOfTheWeek
+      })
+    )
+  }
 
-  const todaysActivities = d.filter((act) => act.daysToAlert.find((weekday) => {
-      return weekday.chosen === true && weekday.day === dayOfTheWeek
-    })
-  )
+  if (newDay){
+    todaysActivities = dAllFalse.filter((act) => act.daysToAlert.find((weekday) => {
+        return weekday.chosen === true && weekday.day === dayOfTheWeek
+      })
+    )
+  }
 
   const notCompleted = todaysActivities.filter((a) => !a.completed)
   const completed = todaysActivities.filter((a) => a.completed)

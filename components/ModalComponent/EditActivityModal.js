@@ -183,7 +183,7 @@ export default function EditActivityModal(props) {
                 />
               </View>
             :null}
-            <UpdateActivityButton editActivity={editActivity} setShowTextInput={setShowTextInput} />
+            <UpdateActivityButton disabled={!chosenDays} editActivity={editActivity} setShowTextInput={setShowTextInput} />
           </View>
         </View>
       </Modal>

@@ -4,7 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 export default function UpdateActivityButton(props) {
 
-  const { editActivity, setShowTextInput } = props
+  const { editActivity, setShowTextInput, disabled } = props
 
   const updateActivity = () => {
     editActivity();
@@ -13,7 +13,7 @@ export default function UpdateActivityButton(props) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={updateActivity}>
+      <TouchableOpacity onPress={disabled ? updateActivity : null}>
         <LinearGradient
           colors={['#E5C564', '#EBB000']}
           style={styles.button}> 
