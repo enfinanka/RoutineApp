@@ -84,8 +84,7 @@ export const updateKeyInAsyncStorage = async (objToUpdate) => {
     const newState = prevState.map(obj => obj.activity !== activity ? obj : { ...obj, [keyToUpdate]: newValue })
     storeNewState(newState)
   }
-  retrieveDataFromAsyncStorage()
-    .then(data => updateStorage(data))
+  retrieveDataFromAsyncStorage().then(data => updateStorage(data))
 };
 
 
@@ -96,8 +95,7 @@ export const deleteAnActivityFromAsyncStorage = async (activity) => {
     const newState = prevState.filter(obj => obj.activity !== activity)
     storeNewState(newState)
   }
-  retrieveDataFromAsyncStorage()
-    .then(data => updateStorage(data))
+  retrieveDataFromAsyncStorage().then(data => updateStorage(data))
 };
 
 
@@ -119,8 +117,7 @@ export const replaceObjectInAsyncStorage = async (objToUpdate, previousActivityN
     const newState = prevState.map(obj => obj.activity !== previousActivityName ? obj : objToUpdate)
     storeNewState(newState)
   }
-  retrieveDataFromAsyncStorage()
-    .then(data => updateStorage(data))
+  retrieveDataFromAsyncStorage().then(data => updateStorage(data))
 };
 
 
@@ -128,9 +125,12 @@ export const replaceObjectInAsyncStorage = async (objToUpdate, previousActivityN
 //addObjectInAsyncStorage({completed: false, activity: 'oscar', type: 'funstuff', alert: true, alertWhen: '00:12'})
 export const addObjectInAsyncStorage = async (newObj) => {
   async function updateStorage(prevState) {
+    if(prevState === undefined) {
+      storeNewState([newObj])
+      return
+    }
     const newState = [...prevState, newObj]
     storeNewState(newState)
   }
-  retrieveDataFromAsyncStorage()
-    .then(data => updateStorage(data))
+  retrieveDataFromAsyncStorage().then(data => updateStorage(data))
 };

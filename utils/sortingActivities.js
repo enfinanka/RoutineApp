@@ -1,12 +1,19 @@
 export const sortActivities = (d) => {
 
   if (d === undefined) {
-    d = []
+    return []
   }
 
+  const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+  const dayOfTheWeek = weekdays[new Date().getDay()-1]
 
-  const notCompleted = d.filter((a) => !a.completed)
-  const completed = d.filter((a) => a.completed)
+  const todaysActivities = d.filter((act) => act.daysToAlert.find((weekday) => {
+      return weekday.chosen === true && weekday.day === dayOfTheWeek
+    })
+  )
+
+  const notCompleted = todaysActivities.filter((a) => !a.completed)
+  const completed = todaysActivities.filter((a) => a.completed)
 
   const notCompletedNoTime = notCompleted.filter((a)=> !a.alertWhen)
   const completedNoTime = completed.filter((a)=> !a.alertWhen)
@@ -32,8 +39,5 @@ export const sortActivities = (d) => {
   const sortedHasTimeNotCompleted = notCompletedSortedByTime.map((act)=> notCompletedAndHasTime.find((obj)=> obj.activity === act.activity))
   const sortedHasTimeCompleted = completedSortedByTime.map((act)=> completedAndHasTime.find((obj)=> obj.activity === act.activity))
 
-  if (d === []) {
-    return []
-  }
   return [...sortedHasTimeNotCompleted, ...notCompletedNoTime, ...sortedHasTimeCompleted, ...completedNoTime]
 }
