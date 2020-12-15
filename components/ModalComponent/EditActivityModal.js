@@ -11,6 +11,7 @@ import { replaceObjectInAsyncStorage } from '../../utils/asyncStorage';
 import Toast from 'react-native-toast-message';
 import { activityAlreadyExists } from '../../utils/validation';
 import { LinearGradient } from 'expo-linear-gradient';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import CheckboxDays from './Checkbox';
 
 
@@ -141,7 +142,7 @@ export default function EditActivityModal(props) {
               />
             : null}
 
-            <View>
+            <View style={styles.textContainer}>
             <CheckboxDays 
               days={days} 
               chosenDays={chosenDays} 
@@ -150,15 +151,20 @@ export default function EditActivityModal(props) {
               setCheckAll={setCheckAll} 
               daysToAlert={daysToAlert}/>
             </View>
-            
+
+
+            {/* <View style={styles.timeWrapper}> */}
+              <View style={styles.timeContainer}>
+                {/* <Text style={styles.modalText} >{ chosenTime ? "Selected time" :  "Select Time" }</Text>               */}
+                <TimeButton title="Choose time" chosenTime={chosenTime} setShow={setShow} />
+              { chosenTime ? <MaterialIcon style={styles.clearTime} name="clear" size={40} color="#fff"/> : null}      
+              </View>
+            {/* </View> */}
+
+                        
             <View style={styles.textContainer}>
               <Text style={styles.modalText}>Notifications</Text>
               <SwitchToggle disabled={!chosenTime} setAlert={setAlert} alert={alert} />
-            </View>
-
-            <View style={styles.textContainer}>
-              <Text style={styles.modalText} >{ chosenTime ? "Selected time" :  "Select Time"}</Text>              
-              <TimeButton chosenTime={chosenTime} setShow={setShow} />
             </View>
             
             {show ?
@@ -171,6 +177,7 @@ export default function EditActivityModal(props) {
                   locale="gb"
                   is24Hour={true}
                   headerTextIOS="Select Time"
+                  minuteInterval={5}
                 />
               </View>
             :null}
@@ -230,13 +237,13 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     marginTop: 10,
-    width: 300,
+    width: 330,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignContent: 'space-around',
     alignItems: 'center',
-    paddingBottom: 30
+    paddingBottom: 20
   },
   input: {
     height: 50,
@@ -247,6 +254,16 @@ const styles = StyleSheet.create({
   container: {
     paddingBottom: 50,
   },
+  timeWrapper: {
+    display: "flex",
+    flexDirection: "row"
+  },
+  clearTime: {
+
+    borderRadius: 20,
+    marginLeft: 10,
+  },  
+
   checkboxContainer: {
     display: 'flex',
     flexDirection: 'row',
@@ -265,5 +282,15 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 12,
     fontWeight: 'bold'
-  }
+  },
+  timeContainer: {
+    marginTop: 10,
+    width: 330,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    // alignContent: 'space-around',
+    alignItems: 'center',
+    paddingBottom: 20
+  },
 });
