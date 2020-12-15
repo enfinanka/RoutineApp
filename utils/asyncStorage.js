@@ -14,42 +14,50 @@ async function storeNewState(newState) {
 
 export const InitalStoreDataToAsyncStorage = async () => {
   const activities = [
-    { completed: false, activity: 'oscar', type: 'health', alert: true, alertWhen: '12:00', daysToAlert: [
-      {day: 'Mon', chosen: false}, 
-      {day: 'Tue', chosen: false}, 
-      {day: 'Wed', chosen: false}, 
-      {day: 'Thu', chosen: false}, 
-      {day: 'Fri', chosen: false},
-      {day: 'Sat', chosen: false},
-      {day: 'Sun', chosen: false}
-    ]},
-    { completed: false, activity: 'eat pizza', type: 'health', alert: true, alertWhen: '11:59', daysToAlert: [
-      {day: 'Mon', chosen: false}, 
-      {day: 'Tue', chosen: false}, 
-      {day: 'Wed', chosen: false}, 
-      {day: 'Thu', chosen: false}, 
-      {day: 'Fri', chosen: false},
-      {day: 'Sat', chosen: false},
-      {day: 'Sun', chosen: false}
-    ]},
-    { completed: false, activity: 'change dipers', type: 'family', alert: false, alertWhen: '20:00', daysToAlert: [
-      {day: 'Mon', chosen: false}, 
-      {day: 'Tue', chosen: false}, 
-      {day: 'Wed', chosen: false}, 
-      {day: 'Thu', chosen: false}, 
-      {day: 'Fri', chosen: false},
-      {day: 'Sat', chosen: false},
-      {day: 'Sun', chosen: false}
-    ] },
-    { completed: false, activity: 'hit boss in eye', type: 'work', alert: false, alertWhen: '00:00', daysToAlert: [
-      {day: 'Mon', chosen: false}, 
-      {day: 'Tue', chosen: false}, 
-      {day: 'Wed', chosen: false}, 
-      {day: 'Thu', chosen: false}, 
-      {day: 'Fri', chosen: false},
-      {day: 'Sat', chosen: false},
-      {day: 'Sun', chosen: false}
-    ] }
+    {
+      completed: false, activity: 'oscar', type: 'health', alert: true, alertWhen: '12:00', daysToAlert: [
+        { day: 'Mon', chosen: false },
+        { day: 'Tue', chosen: false },
+        { day: 'Wed', chosen: false },
+        { day: 'Thu', chosen: false },
+        { day: 'Fri', chosen: false },
+        { day: 'Sat', chosen: false },
+        { day: 'Sun', chosen: false }
+      ]
+    },
+    {
+      completed: false, activity: 'eat pizza', type: 'health', alert: true, alertWhen: '11:59', daysToAlert: [
+        { day: 'Mon', chosen: false },
+        { day: 'Tue', chosen: false },
+        { day: 'Wed', chosen: false },
+        { day: 'Thu', chosen: false },
+        { day: 'Fri', chosen: false },
+        { day: 'Sat', chosen: false },
+        { day: 'Sun', chosen: false }
+      ]
+    },
+    {
+      completed: false, activity: 'change dipers', type: 'family', alert: false, alertWhen: '20:00', daysToAlert: [
+        { day: 'Mon', chosen: false },
+        { day: 'Tue', chosen: false },
+        { day: 'Wed', chosen: false },
+        { day: 'Thu', chosen: false },
+        { day: 'Fri', chosen: false },
+        { day: 'Sat', chosen: false },
+        { day: 'Sun', chosen: false }
+      ]
+    },
+    {
+      completed: false, activity: 'hit boss in eye', type: 'work', alert: false, alertWhen: '00:00', daysToAlert: [
+        { day: 'Mon', chosen: false },
+        { day: 'Tue', chosen: false },
+        { day: 'Wed', chosen: false },
+        { day: 'Thu', chosen: false },
+        { day: 'Fri', chosen: false },
+        { day: 'Sat', chosen: false },
+        { day: 'Sun', chosen: false }
+      ]
+    }
   ]
   storeNewState(activities)
 };
@@ -105,15 +113,12 @@ export const deleteAnActivityFromAsyncStorage = async (activity) => {
 // Vill man byta namn och redigera skcickar man med en sträng med det gamla namnet så funktionen vet vilken den ska byta ut i arrayen.
 //replaceObjectInAsyncStorage({completed: false, activity: 'oscar', type: 'funstuff', alert: true, alertWhen: '00:12'}, "nyttAktivitetsNamn")
 export const replaceObjectInAsyncStorage = async (objToUpdate, previousActivityName) => {
-
   async function updateStorage(prevState) {
-
     if (!previousActivityName) {
       const newState = prevState.map(obj => obj.activity === objToUpdate.activity ? objToUpdate : obj)
       storeNewState(newState)
       return;
     }
-
     const newState = prevState.map(obj => obj.activity !== previousActivityName ? obj : objToUpdate)
     storeNewState(newState)
   }
@@ -125,7 +130,7 @@ export const replaceObjectInAsyncStorage = async (objToUpdate, previousActivityN
 //addObjectInAsyncStorage({completed: false, activity: 'oscar', type: 'funstuff', alert: true, alertWhen: '00:12'})
 export const addObjectInAsyncStorage = async (newObj) => {
   async function updateStorage(prevState) {
-    if(prevState === undefined) {
+    if (prevState === undefined) {
       storeNewState([newObj])
       return
     }

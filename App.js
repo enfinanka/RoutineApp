@@ -1,17 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, SafeAreaView, Platform } from 'react-native';
-import {NativeRouter, Switch, Route } from 'react-router-native';
+import { NativeRouter, Switch, Route } from 'react-router-native';
+import moment from 'moment-timezone/moment-timezone'
 import Toast from 'react-native-toast-message';
 import HomeScreen from './screens/HomeScreen';
 import { ActivitiesContext } from './contexts'
 import { activitiesReducer } from './reducers'
+import { retrieveDataFromAsyncStorage, updateKeyInAsyncStorage } from './utils/asyncStorage';
 
 export default function App() {
 
-const [ activities, setActivities ] = React.useReducer(activitiesReducer, [])
-const activitiesProviderValue = React.useMemo(() => ({ activities, setActivities }), [activities, setActivities])
-
+  const [activities, setActivities] = React.useReducer(activitiesReducer, [])
+  const activitiesProviderValue = React.useMemo(() => ({ activities, setActivities }), [activities, setActivities])
+  
   return (
     <ActivitiesContext.Provider value={activitiesProviderValue}>
       <NativeRouter>
