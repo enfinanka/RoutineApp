@@ -15,7 +15,6 @@ import CheckboxDays from './Checkbox';
 
 
 
-
 export default function NewActivityModal(props) {
 
   const { showModal, setShowModal, history, refresh, setRefresh } = props;

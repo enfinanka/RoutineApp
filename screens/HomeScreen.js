@@ -4,7 +4,7 @@ import Header from '../components/HeaderComponents/Header';
 import TodaysList from '../components/ListComponents/TodaysList';
 import { ActivitiesContext } from '../contexts';
 import NoActivities from '../components/ListComponents/NoActivities';
-import { retrieveDataFromAsyncStorage, InitalStoreDataToAsyncStorage, clearAllAsyncStorage } from '../utils/asyncStorage';
+import { retrieveDataFromAsyncStorage } from '../utils/asyncStorage';
 import { sortActivities } from '../utils/sortingActivities';
 import AddButton from '../components/ButtonComponents/AddButton';
 
