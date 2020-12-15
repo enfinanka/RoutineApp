@@ -12,6 +12,8 @@ import Toast from 'react-native-toast-message';
 import { activityLongerThanZero, activityAlreadyExists } from '../../utils/validation';
 import { LinearGradient } from 'expo-linear-gradient';
 import CheckboxDays from './Checkbox';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+
 
 
 
@@ -151,26 +153,24 @@ export default function NewActivityModal(props) {
                 value={inputActivity}
                 maxLength={25}
               />
-              {/* <TextInput
-                label="Category"
-                style={styles.input}
-                theme={{ colors: {primary: '#1E2036'} }}
-                onChangeText={text => setInputCategory(text)}
-                value={inputCategory}
-              /> */}
             </View>
             <View>
               <CheckboxDays days={days} setChosenDays={setChosenDays} checkAll={checkAll} setCheckAll={setCheckAll}/>
             </View>
 
-            <View style={styles.textContainer}>
-              <Text style={styles.modalText}>Notifications</Text>
-              <SwitchToggle disabled={!chosenTime} setAlert={setAlert} alert={alert} />
+            <View style={styles.timeContainer}>
+              <TouchableOpacity style={styles.button} onPress={()=>setShow(true)}>
+                <Text style={styles.buttonText}>{ chosenTime ? "Change time" :  "Select time"}</Text>
+              </TouchableOpacity>   
+              <View style={styles.time}>
+                <TimeButton chosenTime={chosenTime} show={show} setShow={setShow} />
+                { chosenTime ? <MaterialIcon style={styles.clearTime} name="clear" size={25} color="#fff" onPress={() => setChosenTime('')}/> : null}      
+              </View>           
             </View>
 
             <View style={styles.textContainer}>
-              {/* <Text style={styles.modalText} >{ chosenTime ? "Selected time" :  "Select Time"}</Text>               */}
-              <TimeButton chosenTime={chosenTime} show={show} setShow={setShow} />
+              <Text style={styles.modalText}>Notifications</Text>
+              <SwitchToggle disabled={!chosenTime} setAlert={setAlert} alert={alert} />
             </View>
 
 
@@ -184,6 +184,7 @@ export default function NewActivityModal(props) {
                   locale="gb"
                   is24Hour={true}
                   headerTextIOS="Select Time"
+                  minuteInterval={5}
                 />
               </View>
             :null}
@@ -233,18 +234,16 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   textContainer: {
-    // margin: 10,
     marginTop: 10,
-    width: 300,
+    width: 330,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignContent: 'space-around',
     alignItems: 'center',
-    paddingBottom: 30
+    paddingBottom: 20
   },
   container: {
-    paddingBottom: 30,
+    paddingBottom: 20,
   },
   input: {
     height: 50,
@@ -270,5 +269,43 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 12,
     fontWeight: 'bold'
-  }
+  },
+  timeContainer: {
+    marginTop: 10,
+    width: 330,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 20
+  },
+  time: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  button: {
+    color: '#fff',
+    backgroundColor: '#3f4155',
+    minHeight: 42,
+    borderRadius: 15,
+    borderColor: '#EBB000',
+    borderWidth: 2,
+    padding: 10,
+    display: "flex",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: 16,
+    color: '#EBB000',
+    textAlign: 'center',
+    // fontWeight: 'bold'
+  },
+  clearTime: {
+    borderRadius: 20,
+    marginLeft: 10,
+  },  
 });

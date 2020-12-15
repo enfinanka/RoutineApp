@@ -135,7 +135,7 @@ export default function EditActivityModal(props) {
               <TextInput style={styles.input}
                 onChangeText={text => setInputActivity(text)}
                 value={inputActivity}
-                maxLength={16}
+                maxLength={25}
                 autoFocus
                 theme={{ colors: {primary: '#1E2036'} }}
                 clearButtonMode="always"          
@@ -153,13 +153,15 @@ export default function EditActivityModal(props) {
             </View>
 
 
-            {/* <View style={styles.timeWrapper}> */}
-              <View style={styles.timeContainer}>
-                {/* <Text style={styles.modalText} >{ chosenTime ? "Selected time" :  "Select Time" }</Text>               */}
-                <TimeButton title="Choose time" chosenTime={chosenTime} setShow={setShow} />
-              { chosenTime ? <MaterialIcon style={styles.clearTime} name="clear" size={40} color="#fff"/> : null}      
-              </View>
-            {/* </View> */}
+            <View style={styles.timeContainer}>
+              <TouchableOpacity style={styles.button} onPress={()=>setShow(true)}>
+                <Text style={styles.buttonText}>{ chosenTime ? "Change time" :  "Select time"}</Text>
+              </TouchableOpacity>   
+              <View style={styles.time}>
+                <TimeButton chosenTime={chosenTime} show={show} setShow={setShow} />
+                { chosenTime ? <MaterialIcon style={styles.clearTime} name="clear" size={25} color="#fff"/> : null}      
+              </View>           
+            </View>
 
                         
             <View style={styles.textContainer}>
@@ -254,16 +256,6 @@ const styles = StyleSheet.create({
   container: {
     paddingBottom: 50,
   },
-  timeWrapper: {
-    display: "flex",
-    flexDirection: "row"
-  },
-  clearTime: {
-
-    borderRadius: 20,
-    marginLeft: 10,
-  },  
-
   checkboxContainer: {
     display: 'flex',
     flexDirection: 'row',
@@ -288,9 +280,36 @@ const styles = StyleSheet.create({
     width: 330,
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'flex-end',
-    // alignContent: 'space-around',
+    justifyContent: 'space-between',
+    alignContent: 'center',
     alignItems: 'center',
-    paddingBottom: 20
+    paddingBottom: 30
   },
+  time: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  button: {
+    color: '#fff',
+    backgroundColor: '#3f4155',
+    minHeight: 42,
+    borderRadius: 15,
+    borderColor: '#EBB000',
+    borderWidth: 2,
+    padding: 10,
+    display: "flex",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: 16,
+    color: '#EBB000',
+    textAlign: 'center',
+  },
+  clearTime: {
+    borderRadius: 20,
+    marginLeft: 10,
+  },  
 });
