@@ -19,15 +19,22 @@ export default function TodaysList(props) {
   const [showEditModal, setShowEditModal] = React.useState(false);
   const [activityName, setActivityName] = React.useState('');
   const [chosenTime, setChosenTime] = React.useState('');
+  const [chosenDays, setChosenDays] = React.useState([chosenDays]);
   const [alert, setAlert] = React.useState(false);
 
-  const key = Math.floor(Math.random()*100000000)
+  const key = Math.floor(Math.random()*100000000);
 
-  const editActivity = (activityName, notificationAlert, alertWhen) => {
+  const editActivity = (activityName, notificationAlert, alertWhen, daysToAlert) => {
     setShowEditModal(true);
     setActivityName(activityName);
     setAlert(notificationAlert);
     setChosenTime(alertWhen);
+    setChosenDays(daysToAlert);
+  }
+
+  const handleCompleted = (activity, completed) => {
+    setActivities({ type: 'SET_COMPLETED', payload: activity})
+    setRefresh(!refresh)
   }
 
   const renderItem = (data) => {
@@ -35,15 +42,19 @@ export default function TodaysList(props) {
       <View style={data.item.completed ? styles.listItemDone : styles.listItem}>
         <View style={{display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
           <Text style={styles.activityText}>{data.item.activity}</Text>
-          <View style={{display: 'flex', justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center'}}>
-            {data.item.alert ? 
-              <Ionicons style={styles.notifyIcon} name="ios-notifications" size={20} color="#EBB000"/>
-            : null}
-            {data.item.alertWhen ? 
+          <View
+            style={{
+              display: 'flex', 
+              justifyContent: 'flex-start', 
+              flexDirection: 'row', 
+              alignItems: 'center'
+            }}>
+            {data.item.alert ? <Ionicons style={styles.notifyIcon} name="ios-notifications" size={20} color="#EBB000"/> : null}
+            {data.item.alertWhen ?
               <Text
-              style={{
+                style={{
                 color: data.item.completed ? '#F5F4F8' : '#85BCA9',
-                fontSize: 16,
+                fontSize: 14,
                 marginLeft: data.item.alert ? 10 : 20,
                 marginTop: 10
                 }}
@@ -51,30 +62,12 @@ export default function TodaysList(props) {
             : null}
           </View>
         </View>
-        <TouchableOpacity style={styles.checkIcon} onPress={checkActivityComplete => {
-          setActivities({ type: 'SET_COMPLETED', payload: data.item.activity })
-          if(!data.item.completed){
-            Toast.show({
-              text1: 'Completed',
-              text2: 'Nice, you have just completed your activity!',
-              visibilityTime: 2000,
-            })
-          }else{
-            Toast.show({
-              text1: 'Unchecked',
-              text2: 'You have unchecked your activity',
-              visibilityTime: 2000,
-              type: 'info'
-            })
-          }
-          
-        }}>
+        <TouchableOpacity style={styles.checkIcon} onPress={() => handleCompleted(data.item.activity, data.item.completed)}>
           {data.item.completed ?
-            <AntDesign name="checkcircleo" size={50} color="#F5F4F8" />
-            : 
-            <Feather name="circle" size={50} color="#85BCA9" />
+            <AntDesign name="checkcircleo" size={50} color="#F5F4F8"/>
+            :
+            <Feather name="circle" size={50} color="#85BCA9"/>
           }
-          
         </TouchableOpacity>
       </View>
     )
@@ -85,13 +78,13 @@ export default function TodaysList(props) {
     <View style={styles.rowBack}>
       <TouchableOpacity
         style={styles.leftButton}
-        onPress={() => editActivity(data.item.activity, data.item.alert, data.item.alertWhen )}
+        onPress={() => editActivity(data.item.activity, data.item.alert, data.item.alertWhen, data.item.daysToAlert )}
       >
         <Text style={{ color: '#F5F4F8' }}>Edit</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.backRightBtnRight}
-        onPress={deleteActivity => {
+        onPress={() => {
           setActivities({ type: 'REMOVE_ACTIVITY', payload: data.item.activity })
           Toast.show({
             text1: `Activity Deleted`,
@@ -131,6 +124,8 @@ export default function TodaysList(props) {
         alert={alert}
         chosenTime={chosenTime}
         setChosenTime={setChosenTime}
+        chosenDays={chosenDays}
+        setChosenDays={setChosenDays}
       />
     </View> 
   );
@@ -230,5 +225,13 @@ const styles = StyleSheet.create({
   notifyIcon: {
     marginTop: 10,
     marginLeft: 20
+  },
+  days: {
+    display: 'flex', 
+    justifyContent: 'flex-start', 
+    flexDirection: 'row', 
+    alignItems: 'center',
+    marginLeft: 20,
+    marginTop: 5,
   }
 });

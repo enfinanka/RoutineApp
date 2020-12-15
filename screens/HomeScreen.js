@@ -4,19 +4,22 @@ import Header from '../components/HeaderComponents/Header';
 import TodaysList from '../components/ListComponents/TodaysList';
 import { ActivitiesContext } from '../contexts';
 import NoActivities from '../components/ListComponents/NoActivities';
-import { retrieveDataFromAsyncStorage, InitalStoreDataToAsyncStorage } from '../utils/asyncStorage';
+import { retrieveDataFromAsyncStorage } from '../utils/asyncStorage';
+import { sortActivities } from '../utils/sortingActivities';
 import AddButton from '../components/ButtonComponents/AddButton';
 
 export default function HomeScreen({ history }) {
   const { activities, setActivities } = React.useContext(ActivitiesContext);
   const [refresh, setRefresh] = React.useState(false)
 
-  //kommentera fram InitalStoreDataToAsyncStorage() för att lägga in exemplen i asyncStorage.
   React.useEffect(() => {
     const timer = setTimeout(() => {
+<<<<<<< HEAD
       // InitalStoreDataToAsyncStorage();
+=======
+>>>>>>> 88f01f9d130d3459a4032a8fd1038ee26413b5a7
       retrieveDataFromAsyncStorage()
-        .then((d) => setActivities({ type: 'ADD_FROM_ASYNCSTORAGE', payload: d }))
+      .then((d) => setActivities({ type: 'ADD_FROM_ASYNCSTORAGE', payload: sortActivities(d) }))
     }, 0)
     return () => clearTimeout(timer)
   }, [refresh])

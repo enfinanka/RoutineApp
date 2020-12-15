@@ -14,10 +14,42 @@ async function storeNewState(newState) {
 
 export const InitalStoreDataToAsyncStorage = async () => {
   const activities = [
-    { completed: false, activity: 'oscar', type: 'health', alert: true, alertWhen: '12:00' },
-    { completed: false, activity: 'eat pizza', type: 'health', alert: true, alertWhen: '11:59' },
-    { completed: false, activity: 'change dipers', type: 'family', alert: false, alertWhen: '20:00' },
-    { completed: false, activity: 'hit boss in eye', type: 'work', alert: false, alertWhen: '00:00' }
+    { completed: false, activity: 'oscar', type: 'health', alert: true, alertWhen: '12:00', daysToAlert: [
+      {day: 'Mon', chosen: false}, 
+      {day: 'Tue', chosen: false}, 
+      {day: 'Wed', chosen: false}, 
+      {day: 'Thu', chosen: false}, 
+      {day: 'Fri', chosen: false},
+      {day: 'Sat', chosen: false},
+      {day: 'Sun', chosen: false}
+    ]},
+    { completed: false, activity: 'eat pizza', type: 'health', alert: true, alertWhen: '11:59', daysToAlert: [
+      {day: 'Mon', chosen: false}, 
+      {day: 'Tue', chosen: false}, 
+      {day: 'Wed', chosen: false}, 
+      {day: 'Thu', chosen: false}, 
+      {day: 'Fri', chosen: false},
+      {day: 'Sat', chosen: false},
+      {day: 'Sun', chosen: false}
+    ]},
+    { completed: false, activity: 'change dipers', type: 'family', alert: false, alertWhen: '20:00', daysToAlert: [
+      {day: 'Mon', chosen: false}, 
+      {day: 'Tue', chosen: false}, 
+      {day: 'Wed', chosen: false}, 
+      {day: 'Thu', chosen: false}, 
+      {day: 'Fri', chosen: false},
+      {day: 'Sat', chosen: false},
+      {day: 'Sun', chosen: false}
+    ] },
+    { completed: false, activity: 'hit boss in eye', type: 'work', alert: false, alertWhen: '00:00', daysToAlert: [
+      {day: 'Mon', chosen: false}, 
+      {day: 'Tue', chosen: false}, 
+      {day: 'Wed', chosen: false}, 
+      {day: 'Thu', chosen: false}, 
+      {day: 'Fri', chosen: false},
+      {day: 'Sat', chosen: false},
+      {day: 'Sun', chosen: false}
+    ] }
   ]
   storeNewState(activities)
 };
@@ -52,8 +84,7 @@ export const updateKeyInAsyncStorage = async (objToUpdate) => {
     const newState = prevState.map(obj => obj.activity !== activity ? obj : { ...obj, [keyToUpdate]: newValue })
     storeNewState(newState)
   }
-  retrieveDataFromAsyncStorage()
-    .then(data => updateStorage(data))
+  retrieveDataFromAsyncStorage().then(data => updateStorage(data))
 };
 
 
@@ -64,8 +95,7 @@ export const deleteAnActivityFromAsyncStorage = async (activity) => {
     const newState = prevState.filter(obj => obj.activity !== activity)
     storeNewState(newState)
   }
-  retrieveDataFromAsyncStorage()
-    .then(data => updateStorage(data))
+  retrieveDataFromAsyncStorage().then(data => updateStorage(data))
 };
 
 
@@ -87,8 +117,7 @@ export const replaceObjectInAsyncStorage = async (objToUpdate, previousActivityN
     const newState = prevState.map(obj => obj.activity !== previousActivityName ? obj : objToUpdate)
     storeNewState(newState)
   }
-  retrieveDataFromAsyncStorage()
-    .then(data => updateStorage(data))
+  retrieveDataFromAsyncStorage().then(data => updateStorage(data))
 };
 
 
@@ -96,9 +125,12 @@ export const replaceObjectInAsyncStorage = async (objToUpdate, previousActivityN
 //addObjectInAsyncStorage({completed: false, activity: 'oscar', type: 'funstuff', alert: true, alertWhen: '00:12'})
 export const addObjectInAsyncStorage = async (newObj) => {
   async function updateStorage(prevState) {
+    if(prevState === undefined) {
+      storeNewState([newObj])
+      return
+    }
     const newState = [...prevState, newObj]
     storeNewState(newState)
   }
-  retrieveDataFromAsyncStorage()
-    .then(data => updateStorage(data))
+  retrieveDataFromAsyncStorage().then(data => updateStorage(data))
 };

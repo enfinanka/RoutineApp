@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, TouchableOpacity, Text} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Ionicon from 'react-native-vector-icons/Ionicons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 export default function BackButton(props) {
   const { setShow, chosenTime } = props
@@ -8,35 +9,30 @@ export default function BackButton(props) {
   return (
     <View>
       <TouchableOpacity
-        style={styles.button}
-        onPress={()=>setShow(true)}
+      style={styles.button}
       >
-        <Icon name="ios-time" size={20} color="#fff"/>
-        <Text style={styles.buttonText}>{chosenTime ? chosenTime : "Choose time"}</Text>
+        <Ionicon name="ios-time" size={20} color="#fff"/>
+        <Text style={styles.buttonText}>{chosenTime ? chosenTime : 'No time' }</Text>
       </TouchableOpacity>
     </View>
-
   );
 }
 
 const styles = StyleSheet.create({
   button: {
     color: '#fff',
-    backgroundColor: '#EBB000',
     minHeight: 42,
-    borderRadius: 3,
-    minWidth: 120,
+    borderRadius: 15,
     padding: 8,
-    flex: 1,
+    display: "flex",
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   buttonText: {
     fontSize: 16,
     color: '#fff',
     textAlign: 'center',
     marginLeft: 10,
-  }
+  },
 });
