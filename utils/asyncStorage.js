@@ -14,10 +14,42 @@ async function storeNewState(newState) {
 
 export const InitalStoreDataToAsyncStorage = async () => {
   const activities = [
-    { completed: false, activity: 'oscar', type: 'health', alert: true, alertWhen: '12:00', daysToAlert: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] },
-    { completed: false, activity: 'eat pizza', type: 'health', alert: true, alertWhen: '11:59', daysToAlert: []},
-    { completed: false, activity: 'change dipers', type: 'family', alert: false, alertWhen: '20:00', daysToAlert: ['Mon', 'Tua'] },
-    { completed: false, activity: 'hit boss in eye', type: 'work', alert: false, alertWhen: '00:00', daysToAlert: ['Mon'] }
+    { completed: false, activity: 'oscar', type: 'health', alert: true, alertWhen: '12:00', daysToAlert: [
+      {day: 'Mon', chosen: false}, 
+      {day: 'Tue', chosen: false}, 
+      {day: 'Wed', chosen: false}, 
+      {day: 'Thu', chosen: false}, 
+      {day: 'Fri', chosen: false},
+      {day: 'Sat', chosen: false},
+      {day: 'Sun', chosen: false}
+    ]},
+    { completed: false, activity: 'eat pizza', type: 'health', alert: true, alertWhen: '11:59', daysToAlert: [
+      {day: 'Mon', chosen: false}, 
+      {day: 'Tue', chosen: false}, 
+      {day: 'Wed', chosen: false}, 
+      {day: 'Thu', chosen: false}, 
+      {day: 'Fri', chosen: false},
+      {day: 'Sat', chosen: false},
+      {day: 'Sun', chosen: false}
+    ]},
+    { completed: false, activity: 'change dipers', type: 'family', alert: false, alertWhen: '20:00', daysToAlert: [
+      {day: 'Mon', chosen: false}, 
+      {day: 'Tue', chosen: false}, 
+      {day: 'Wed', chosen: false}, 
+      {day: 'Thu', chosen: false}, 
+      {day: 'Fri', chosen: false},
+      {day: 'Sat', chosen: false},
+      {day: 'Sun', chosen: false}
+    ] },
+    { completed: false, activity: 'hit boss in eye', type: 'work', alert: false, alertWhen: '00:00', daysToAlert: [
+      {day: 'Mon', chosen: false}, 
+      {day: 'Tue', chosen: false}, 
+      {day: 'Wed', chosen: false}, 
+      {day: 'Thu', chosen: false}, 
+      {day: 'Fri', chosen: false},
+      {day: 'Sat', chosen: false},
+      {day: 'Sun', chosen: false}
+    ] }
   ]
   storeNewState(activities)
 };
