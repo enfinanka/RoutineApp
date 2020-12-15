@@ -32,8 +32,7 @@ export default function CheckboxDays(props) {
         return day;
       }
     })
-    // const trueDays = days.filter((day) => day.chosen === true);
-    // const daysAsString = trueDays.map((day) => day.day);
+
     setChosenDays(days)
     setChecked(!checked);
   }
@@ -45,8 +44,7 @@ export default function CheckboxDays(props) {
         return obj;
       }  
     });
-    // const trueDays = days.filter((day) => day.chosen === true)
-    // const daysAsString = trueDays.map((day) => day.day);
+
     setChosenDays(chosenDays);
     setChecked(!checked);
   };
@@ -76,7 +74,6 @@ export default function CheckboxDays(props) {
           <View style={styles.checkboxes} key={index}>
             <Text style={styles.days}>{obj.day}</Text>
             <CheckBox
-              center
               checkedIcon='dot-circle-o'
               uncheckedIcon='circle-o'
               checkedColor='#EBB000'
@@ -91,7 +88,8 @@ export default function CheckboxDays(props) {
         <View style={styles.allDays}>
           <Text style={styles.selectAll}>Select all days</Text>
           <CheckBox
-            center
+            iconRight
+            right
             checkedColor='#EBB000'
             checked={checkAll}
             size={30}
@@ -126,17 +124,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   allDays: {
-    // display: 'flex',
-    // flexDirection: 'row',
-    // alignItems: 'center',
-    // justifyContent: 'flex-start',
-    // width: 330
-    width: 300,
+    width: 330,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignContent: 'space-around',
     alignItems: 'center',
-    // paddingBottom: 15
   }
 });
