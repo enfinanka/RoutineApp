@@ -15,7 +15,7 @@ export default function HomeScreen({ history }) {
 
   React.useEffect(() => {
     const timer = setTimeout(() => {
-      InitalStoreDataToAsyncStorage()
+      // InitalStoreDataToAsyncStorage()
       // clearAllAsyncStorage()
       retrieveDataFromAsyncStorage()
         .then((d) => setActivities({ type: 'ADD_FROM_ASYNCSTORAGE', payload: sortActivities(d) }))
