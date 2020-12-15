@@ -1,9 +1,8 @@
 export const sortActivities = (d) => {
 
   if (d === undefined) {
-    d = []
+    return []
   }
-
 
   const notCompleted = d.filter((a) => !a.completed)
   const completed = d.filter((a) => a.completed)
@@ -32,8 +31,5 @@ export const sortActivities = (d) => {
   const sortedHasTimeNotCompleted = notCompletedSortedByTime.map((act)=> notCompletedAndHasTime.find((obj)=> obj.activity === act.activity))
   const sortedHasTimeCompleted = completedSortedByTime.map((act)=> completedAndHasTime.find((obj)=> obj.activity === act.activity))
 
-  if (d === []) {
-    return []
-  }
   return [...sortedHasTimeNotCompleted, ...notCompletedNoTime, ...sortedHasTimeCompleted, ...completedNoTime]
 }

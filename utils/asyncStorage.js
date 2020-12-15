@@ -128,6 +128,10 @@ export const replaceObjectInAsyncStorage = async (objToUpdate, previousActivityN
 //addObjectInAsyncStorage({completed: false, activity: 'oscar', type: 'funstuff', alert: true, alertWhen: '00:12'})
 export const addObjectInAsyncStorage = async (newObj) => {
   async function updateStorage(prevState) {
+    if(prevState === undefined) {
+      storeNewState([newObj])
+      return
+    }
     const newState = [...prevState, newObj]
     storeNewState(newState)
   }
