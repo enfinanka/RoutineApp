@@ -9,7 +9,7 @@ export default function EditActivityNameButton(props) {
     <View>
       <TouchableOpacity
         onPress={() => setShowTextInput(!showTextInput)}>
-        <Icon name="edit" size={25} color="#EBB000" />
+        <Icon name="edit" size={25} color="#5E616F" />
       </TouchableOpacity>
     </View>
   );

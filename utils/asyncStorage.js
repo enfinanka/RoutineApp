@@ -14,10 +14,10 @@ async function storeNewState(newState) {
 
 export const InitalStoreDataToAsyncStorage = async () => {
   const activities = [
-    { completed: false, activity: 'oscar', type: 'health', alert: true, alertWhen: '12:00' },
-    { completed: false, activity: 'eat pizza', type: 'health', alert: true, alertWhen: '11:59' },
-    { completed: false, activity: 'change dipers', type: 'family', alert: false, alertWhen: '20:00' },
-    { completed: false, activity: 'hit boss in eye', type: 'work', alert: false, alertWhen: '00:00' }
+    { completed: false, activity: 'oscar', type: 'health', alert: true, alertWhen: '12:00', daysToAlert: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] },
+    { completed: false, activity: 'eat pizza', type: 'health', alert: true, alertWhen: '11:59', daysToAlert: []},
+    { completed: false, activity: 'change dipers', type: 'family', alert: false, alertWhen: '20:00', daysToAlert: ['Mon', 'Tue'] },
+    { completed: false, activity: 'hit boss in eye', type: 'work', alert: false, alertWhen: '00:00', daysToAlert: ['Mon'] }
   ]
   storeNewState(activities)
 };

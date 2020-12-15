@@ -12,15 +12,35 @@ import Toast from 'react-native-toast-message';
 import { activityAlreadyExists } from '../../utils/validation';
 import { LinearGradient } from 'expo-linear-gradient';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import CheckboxDays from './Checkbox';
 
 
 
 export default function EditActivityModal(props) {
+
   const [inputActivity, setInputActivity] = React.useState();
   const [show, setShow] = React.useState(false);
+  const [isSelected, setSelection] = React.useState(false);
   const [showTextInput, setShowTextInput] = React.useState(false);
+  const [checkAll, setCheckAll] = React.useState(false);
 
-  const { setShowEditModal, showEditModal, activityName, refresh, setRefresh, setAlert, alert, chosenTime, setChosenTime, activities } = props;  
+  const { 
+    setShowEditModal,
+    showEditModal, 
+    activityName, 
+    refresh, 
+    setRefresh, 
+    setAlert, 
+    alert, 
+    chosenTime, 
+    setChosenTime, 
+    activities, 
+    daysToAlert, 
+    chosenDays, 
+    setChosenDays 
+  } = props;  
+
+  const [days, setDays] = React.useState(chosenDays);
 
   const editActivity = () => {
     
@@ -28,10 +48,10 @@ export default function EditActivityModal(props) {
       completed: false,
       activity: inputActivity ? inputActivity : activityName,
       type: 'work',
+      daysToAlert: chosenDays,
       alert: alert,
       alertWhen: chosenTime
     }
-
     if (!inputActivity) {
       replaceObjectInAsyncStorage(changeActivity);
       setShowEditModal(false);
@@ -58,6 +78,8 @@ export default function EditActivityModal(props) {
     setShowEditModal(false);
     setRefresh(!refresh);
     setInputActivity('');
+    setCheckAll(false);
+    setChosenDays('');
   }
 
   const handleConfirm = (time) => {
@@ -119,19 +141,31 @@ export default function EditActivityModal(props) {
                 clearButtonMode="always"          
               />
             : null}
-            
+
             <View style={styles.textContainer}>
-              <Text style={styles.modalText}>Notifications</Text>
-              <SwitchToggle disabled={!chosenTime} setAlert={setAlert} alert={alert} />
+            <CheckboxDays 
+              days={days} 
+              chosenDays={chosenDays} 
+              setChosenDays={setChosenDays} 
+              checkAll={checkAll} 
+              setCheckAll={setCheckAll} 
+              daysToAlert={daysToAlert}/>
             </View>
 
+
             {/* <View style={styles.timeWrapper}> */}
-              <View style={styles.textContainer}>
+              <View style={styles.timeContainer}>
                 {/* <Text style={styles.modalText} >{ chosenTime ? "Selected time" :  "Select Time" }</Text>               */}
                 <TimeButton title="Choose time" chosenTime={chosenTime} setShow={setShow} />
               { chosenTime ? <MaterialIcon style={styles.clearTime} name="clear" size={40} color="#fff"/> : null}      
               </View>
             {/* </View> */}
+
+                        
+            <View style={styles.textContainer}>
+              <Text style={styles.modalText}>Notifications</Text>
+              <SwitchToggle disabled={!chosenTime} setAlert={setAlert} alert={alert} />
+            </View>
             
             {show ?
               <View>
@@ -140,7 +174,7 @@ export default function EditActivityModal(props) {
                   mode="time"
                   onConfirm={handleConfirm}
                   onCancel={hideDatePicker}
-                  locale="gb" // Use "en_GB" here
+                  locale="gb"
                   is24Hour={true}
                   headerTextIOS="Select Time"
                   minuteInterval={5}
@@ -201,22 +235,20 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   textContainer: {
-    margin: 10,
-    marginTop: 30,
-    width: 300,
+    marginTop: 10,
+    width: 330,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignContent: 'space-around',
     alignItems: 'center',
-    paddingBottom: 30
+    paddingBottom: 20
   },
   input: {
     height: 50,
     margin: 10,
     width: 350,
     color: '#fff',
-    textAlign: 'center',
   },
   container: {
     paddingBottom: 50,
@@ -226,13 +258,38 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   clearTime: {
-    backgroundColor: "tomato",
 
-      borderRadius: 20,
-      marginLeft: 10,
+    borderRadius: 20,
+    marginLeft: 10,
+  },  
 
-
-  
-
-  }
+  checkboxContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 100
+  },
+  checkboxes: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 50
+  },
+  days: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: 'bold'
+  },
+  timeContainer: {
+    marginTop: 10,
+    width: 330,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    // alignContent: 'space-around',
+    alignItems: 'center',
+    paddingBottom: 20
+  },
 });

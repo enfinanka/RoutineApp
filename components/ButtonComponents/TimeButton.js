@@ -22,9 +22,13 @@ export default function BackButton(props) {
 const styles = StyleSheet.create({
   button: {
     color: '#fff',
-    backgroundColor: '#5E6170',
+    backgroundColor: '#3F4153',
     minHeight: 42,
+    width: 150,
     borderRadius: 15,
+    // border:'1px solid #EBB000',
+    borderColor: '#EBB000',
+    borderWidth: 2,
     padding: 8,
     display: "flex",
     flexDirection: 'row',
@@ -33,7 +37,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 16,
-    color: '#fff',
+    color: '#EBB000',
     textAlign: 'center',
     marginLeft: 10,
   },

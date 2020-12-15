@@ -14,6 +14,9 @@ export const activitiesReducer = (state, action) => {
     case 'SET_TIME':
       return state.map((obj) => obj.alertWhen === action.payload ? { ...obj, alertWhen: !obj.alertWhen } : obj)
 
+    case 'SET_DAYS':
+    return state.map((obj) => obj.days === action.payload ? { ...obj, daysToAlert: !obj.days } : obj)
+
     case 'ADD_ACTIVITY':
       return [...state, action.payload]
 
