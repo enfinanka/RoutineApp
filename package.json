@@ -15,10 +15,7 @@
     "@react-navigation/stack": "^5.12.8",
     "expo": "^39.0.5",
     "expo-blur": "~8.2.0",
-<<<<<<< HEAD
-=======
     "expo-linear-gradient": "~8.3.0",
->>>>>>> 88f01f9d130d3459a4032a8fd1038ee26413b5a7
     "expo-status-bar": "~1.0.2",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.32",

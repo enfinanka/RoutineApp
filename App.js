@@ -7,7 +7,7 @@ import Toast from 'react-native-toast-message';
 import HomeScreen from './screens/HomeScreen';
 import { ActivitiesContext } from './contexts'
 import { activitiesReducer } from './reducers'
-import { retrieveDataFromAsyncStorage } from './utils/asyncStorage';
+import { retrieveDataFromAsyncStorage, updateKeyInAsyncStorage } from './utils/asyncStorage';
 
 export default function App() {
 
@@ -18,24 +18,25 @@ export default function App() {
 
   const checkIfNextDay = () => {
     const currentTime = moment().format("HH:mm");
-    const endOfDay = '14:13';
+    const endOfDay = '14:08';
     if (currentTime === endOfDay) {
       console.log("unchecking completed");
       retrieveDataFromAsyncStorage()
         .then((data) => {
-          data.map((activity) => {
-            if (activity.completed === true) {
-              activity.completed = false;
-              console.log(activity);
+          data.forEach((activity) => {
+            if (activity.completed == true) {
+              // activity.completed = false;
+
+              updateKeyInAsyncStorage({ activity: activity.activity, keyToUpdate: "completed", newValue: false });
+              retrieveDataFromAsyncStorage()
+                .then((d) => console.log(d));
             }
           })
         })
       clearInterval(startUpInterval);
-      console.log("clean interval");
       setTimeout(() => {
         setCleanCompleted(!cleanCompleted)
       }, 65000);
-      console.log("after setTimeout");
     }
   }
 
