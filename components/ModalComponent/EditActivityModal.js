@@ -209,6 +209,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.8,
     shadowRadius: 15,
+    elevation: 3
   },
   closeButton: {
     position: "absolute",
