@@ -81,6 +81,7 @@ export default function EditActivityModal(props) {
     setInputActivity('');
     setCheckAll(false);
     setChosenDays('');
+    setHasSelectedDay(false)
   }
 
   const handleConfirm = (time) => {
