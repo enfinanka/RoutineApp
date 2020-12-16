@@ -8,8 +8,8 @@ export default function SwitchToggle(props) {
     <View>
       <Switch
         disabled={disabled}
-        trackColor={{ false: "red", true: "#EBB000" }}
-        thumbColor={alert ? "#fff" : "#fff"}
+        trackColor={!disabled ? { false: "grey", true: '#EBB000' }: {false: 'grey', true: 'grey'}}
+        thumbColor="#fff"
         ios_backgroundColor="#8B8A8A"
         onValueChange={() => setAlert(!alert)}
         value={alert}
