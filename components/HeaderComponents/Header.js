@@ -7,16 +7,19 @@ import moment from 'moment-timezone/moment-timezone';
 
 export default function Header(props) {
 
-  const { title, today } = props;
+  const { title, today, dayToDisplay } = props;
+  const dayStartsWith = today.substring(0,3);
   var todaysDate = moment().format('MMMM Do YYYY');
-  console.log(todaysDate)
 
   return (
     <View >
-      <Text style={styles.header}>{title}</Text>
+      <Text style={styles.header}>{dayStartsWith === dayToDisplay ? 'Todays activities' : dayToDisplay + " activities"}</Text>
       <View>
         {/* <Text style={styles.date}>{todaysDate}</Text>  */}
+        {dayStartsWith === dayToDisplay ? 
         <Text style={styles.date}>{today}</Text>
+        : null
+        }
       </View>
     </View>
   );

@@ -17,6 +17,8 @@ export default function HomeScreen({ history }) {
 
   const [refresh, setRefresh] = React.useState(false)
   const [cleanCompleted, setCleanCompleted] = React.useState(false);
+  const [dayToDisplay, setDayToDisplay] = React.useState();
+  const [title, setTitle] = React.useState('');
 
   const clearCompletedIfNextDay = () => {
     const currentTime = moment().format("HH:mm");
@@ -27,6 +29,7 @@ export default function HomeScreen({ history }) {
         .then(() => setCleanCompleted(!cleanCompleted))
     }
   }
+  console.log(today)
 
   React.useEffect(() => {
     const startUpInterval = setInterval(clearCompletedIfNextDay, 5000);
@@ -40,15 +43,15 @@ export default function HomeScreen({ history }) {
 
     const timer = setTimeout(() => {
       retrieveDataFromAsyncStorage()
-        .then((d) => setActivities({ type: 'ADD_FROM_ASYNCSTORAGE', payload: sortActivities(d) }))
+        .then((d) => setActivities({ type: 'ADD_FROM_ASYNCSTORAGE', payload: sortActivities(d, false, dayToDisplay) }))
     }, 0)
     return () => clearTimeout(timer)
-  }, [refresh])
+  }, [refresh, dayToDisplay])
 
   return (
     <View style={styles.container}>
-      <NavigationDays today={today}/>
-        <Header title="Today's activities" today={today}/>
+      <NavigationDays today={today} setActivities={setActivities} setDayToDisplay={setDayToDisplay}/>
+        <Header today={today} dayToDisplay={dayToDisplay}/>
 
      {/* <View style={styles.welcomeContainer}>
       <Welcome />
