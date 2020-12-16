@@ -14,9 +14,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import CheckboxDays from './Checkbox';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
-
-
-
 export default function NewActivityModal(props) {
 
   const { showModal, setShowModal, history, refresh, setRefresh } = props;
