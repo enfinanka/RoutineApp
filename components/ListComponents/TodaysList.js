@@ -4,6 +4,8 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Animated,
+  Dimensions
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
@@ -21,8 +23,12 @@ export default function TodaysList(props) {
   const [chosenTime, setChosenTime] = React.useState('');
   const [chosenDays, setChosenDays] = React.useState([chosenDays]);
   const [alert, setAlert] = React.useState(false);
+  const [itemToAnimate, setItemToAnimate] = React.useState('');
 
   const key = Math.floor(Math.random()*100000000);
+
+  const position = new Animated.ValueXY({x: 0, y: 0});
+
 
   const editActivity = (activityName, notificationAlert, alertWhen, daysToAlert) => {
     setShowEditModal(true);
@@ -30,6 +36,21 @@ export default function TodaysList(props) {
     setAlert(notificationAlert);
     setChosenTime(alertWhen);
     setChosenDays(daysToAlert);
+  }
+
+  const deleteItem = (data, index) => {
+    setTimeout(() => {
+      setItemToAnimate(index);
+      console.log(itemToAnimate, 'itemtoanimate')
+      Animated.spring(position, {
+        toValue: {x: 500, y: 0},
+        speed: 10,
+        useNativeDriver: true,
+        bounciness: 1,
+        delay: 400,
+      }).start();
+      setActivities({ type: 'REMOVE_ACTIVITY', payload: data }) , 4000}
+      )
   }
 
   const handleCompleted = (activity, completed) => {
@@ -44,9 +65,9 @@ export default function TodaysList(props) {
           <Text style={styles.activityText}>{data.item.activity}</Text>
           <View
             style={{
-              display: 'flex', 
-              justifyContent: 'flex-start', 
-              flexDirection: 'row', 
+              display: 'flex',
+              justifyContent: 'flex-start',
+              flexDirection: 'row',
               alignItems: 'center'
             }}>
             {data.item.alert ? <Ionicons style={styles.notifyIcon} name="ios-notifications" size={20} color="#EBB000"/> : null}
@@ -72,9 +93,9 @@ export default function TodaysList(props) {
       </View>
     )
   };
-  
-  const renderHiddenItem = (data, rowMap) => (
-    
+
+  const renderHiddenItem = (data) => (
+
     <View style={styles.rowBack}>
       <TouchableOpacity
         style={styles.leftButton}
@@ -86,11 +107,7 @@ export default function TodaysList(props) {
         style={styles.backRightBtnRight}
         onPress={() => {
           setActivities({ type: 'REMOVE_ACTIVITY', payload: data.item.activity })
-          Toast.show({
-            text1: `Activity Deleted`,
-            type: 'error',
-            visibilityTime: 2000
-          })
+          // deleteItem(data.item.activity, data.index)
         }}
       >
         <Text style={{ color: "#F5F4F8" }}>Delete</Text>
@@ -113,11 +130,11 @@ export default function TodaysList(props) {
         key={key}
         keyExtractor={(item, index) => index.toString()}
       />
-      <EditActivityModal 
-        activityName={activityName} 
-        activities={activities} 
-        setShowEditModal={setShowEditModal} 
-        showEditModal={showEditModal} 
+      <EditActivityModal
+        activityName={activityName}
+        activities={activities}
+        setShowEditModal={setShowEditModal}
+        showEditModal={showEditModal}
         refresh={refresh}
         setRefresh={setRefresh}
         setAlert={setAlert}
@@ -127,7 +144,7 @@ export default function TodaysList(props) {
         chosenDays={chosenDays}
         setChosenDays={setChosenDays}
       />
-    </View> 
+    </View>
   );
 }
 
@@ -135,7 +152,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: '100%',
-    paddingTop: 50,
+    height: '100%',
+    marginTop: 20,
   },
   listItem: {
     display: 'flex',
@@ -227,9 +245,9 @@ const styles = StyleSheet.create({
     marginLeft: 20
   },
   days: {
-    display: 'flex', 
-    justifyContent: 'flex-start', 
-    flexDirection: 'row', 
+    display: 'flex',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
     alignItems: 'center',
     marginLeft: 20,
     marginTop: 5,

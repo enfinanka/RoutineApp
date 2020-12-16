@@ -8,12 +8,12 @@ export default function BackButton(props) {
 
   return (
     <View>
-      <TouchableOpacity
+      <View
       style={styles.button}
       >
         <Ionicon name="ios-time" size={20} color="#fff"/>
         <Text style={styles.buttonText}>{chosenTime ? chosenTime : 'No time' }</Text>
-      </TouchableOpacity>
+      </View>
     </View>
   );
 }

@@ -1,25 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import NavigationDays from './NavigationDays';
 
 
 export default function Header(props) {
 
-  const { title} = props;
-  const [today, setToday] = useState('')
-
-  useEffect(() => {
-    const options = { weekday: 'long', month: 'long', day: 'numeric', hour12: false };
-    const prnDt = new Date().toLocaleDateString('us', options);
-    setToday(prnDt)
-  }, []);
+  const { title, today } = props;
 
   return (
-    <View >
-      <Text style={styles.header}>{title}</Text>
-        <View>
-          <Text style={styles.date}>{today}</Text>
-        </View>
+    <View style={styles.container}>
+        <Text style={styles.header}>{title}</Text>
+        <Text style={styles.date}>{today}</Text>
     </View>
   );
 }
@@ -28,20 +20,18 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-    paddingLeft: 20,
+    justifyContent: 'space-between',
   },
   header: {
     color: '#85BCA9',
-    fontSize: 35,
+    fontSize: 30,
     paddingLeft: 20,
     fontWeight: 'bold',
-    marginTop: 40
+    paddingBottom: 5
   },
   date: {
     color: '#85BCA9',
     paddingLeft: 20,
-    marginTop: 5,
-    fontSize: 20
+    fontSize: 16
   }
 });
