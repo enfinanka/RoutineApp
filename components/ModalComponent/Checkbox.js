@@ -4,7 +4,7 @@ import { CheckBox } from 'react-native-elements';
 
 export default function CheckboxDays(props) {
 
-  const { setChosenDays, days, checkAll, setCheckAll, chosenDays } = props;
+  const { setChosenDays, days, checkAll, setCheckAll, chosenDays, setHasSelectedDay } = props;
   const [checked, setChecked] = React.useState(false);  
 
   const handleDays = (e) => {
@@ -44,9 +44,14 @@ export default function CheckboxDays(props) {
         return obj;
       }  
     });
-
     setChosenDays(chosenDays);
     setChecked(!checked);
+    const hasChosen = !!chosenDays.find((day)=> day.chosen === true)
+    if (hasChosen) {
+      setHasSelectedDay(true)
+      return
+    }
+    setHasSelectedDay(false)
   };
 
   return (

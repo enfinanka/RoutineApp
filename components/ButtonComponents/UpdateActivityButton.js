@@ -4,20 +4,23 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 export default function UpdateActivityButton(props) {
 
-  const { editActivity, setShowTextInput, disabled } = props
+  const { editActivity, setShowTextInput, hasSelectedDay } = props
 
   const updateActivity = () => {
+    if (!hasSelectedDay) {
+      return
+    }
     editActivity();
     setShowTextInput(false);
   }
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={disabled ? updateActivity : null}>
+      <TouchableOpacity onPress={updateActivity}>
         <LinearGradient
-          colors={['#E5C564', '#EBB000']}
+            colors={hasSelectedDay ? ['#E5C564', '#EBB000'] : ['#8B8A8A', '#8B8A8A'] }
           style={styles.button}> 
-          <Text style={styles.buttonText}>Update Activity</Text>
+          <Text style={hasSelectedDay ? styles.buttonText : styles.disabled}>Update Activity</Text>
         </LinearGradient>
       </TouchableOpacity>
     </View>
@@ -42,6 +45,10 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 20,
     color: '#fff',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+  },
+  disabled: {
+    fontSize: 20,
+    color: 'lightgrey',
   }
 });
