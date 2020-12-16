@@ -1,17 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import NavigationDays from './NavigationDays';
+import moment from 'moment-timezone/moment-timezone';
+
 
 
 export default function Header(props) {
 
   const { title, today } = props;
+  var todaysDate = moment().format('MMMM Do YYYY');
+  console.log(todaysDate)
 
   return (
-    <View style={styles.container}>
-        <Text style={styles.header}>{title}</Text>
+    <View >
+      <Text style={styles.header}>{title}</Text>
+      <View>
+        {/* <Text style={styles.date}>{todaysDate}</Text>  */}
         <Text style={styles.date}>{today}</Text>
+      </View>
     </View>
   );
 }
