@@ -4,6 +4,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Animated,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
@@ -23,6 +24,21 @@ export default function TodaysList(props) {
   const [alert, setAlert] = React.useState(false);
 
   const key = Math.floor(Math.random()*100000000);
+  
+  const spinValue = new Animated.Value(0);
+
+  Animated.timing(spinValue, {
+    toValue: 1,
+    duration: 300,
+    useNativeDriver: true,
+    bounciness: 0,
+    delay: 200,
+  }).start();
+
+  const spin = spinValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '360deg']
+  })
 
   const editActivity = (activityName, notificationAlert, alertWhen, daysToAlert) => {
     setShowEditModal(true);
@@ -62,13 +78,21 @@ export default function TodaysList(props) {
             : null}
           </View>
         </View>
-        <TouchableOpacity style={styles.checkIcon} onPress={() => handleCompleted(data.item.activity, data.item.completed)}>
-          {data.item.completed ?
-            <AntDesign name="checkcircleo" size={50} color="#F5F4F8"/>
-            :
-            <Feather name="circle" size={50} color="#85BCA9"/>
-          }
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.checkIcon} onPress={() => handleCompleted(data.item.activity, data.item.completed)}>
+            {data.item.completed ?
+              <Animated.View
+                style={{
+                  transform: [
+                    { rotate: spin}
+                  ]
+                }}
+              >
+                <AntDesign name="checkcircleo" size={50} color="#F5F4F8"/>
+              </Animated.View>
+              :
+              <Feather name="circle" size={50} color="#85BCA9"/>
+            }
+          </TouchableOpacity>
       </View>
     )
   };
