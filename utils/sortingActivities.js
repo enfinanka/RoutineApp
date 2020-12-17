@@ -10,9 +10,6 @@ let todaysActivities
   }
 
   if (!newDay){
-    const dAllFalse = d.map((activity) => {
-      return {...activity, completed: false}
-    })
     todaysActivities = d.filter((act) => act.daysToAlert.find((weekday) => {
         return weekday.chosen === true && weekday.day === dayOfTheWeek
       })
@@ -21,6 +18,9 @@ let todaysActivities
 
   // If its a new day and all completed are going to be cleared.
   if (newDay){
+    const dAllFalse = d.map((activity) => {
+      return {...activity, completed: false}
+    })
     todaysActivities = dAllFalse.filter((act) => act.daysToAlert.find((weekday) => {
         return weekday.chosen === true && weekday.day === dayOfTheWeek
       })
