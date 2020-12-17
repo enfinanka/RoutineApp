@@ -47,7 +47,6 @@ export default function CheckboxDays(props) {
         return obj;
       }  
     });
-    console.log(chosenDays);
     setChosenDays(chosenDays);
     setChecked(!checked);
     const hasChosen = !!chosenDays.find((day)=> day.chosen === true)

@@ -152,7 +152,11 @@ export default function NewActivityModal(props) {
               />
             </View>
             <View>
-              <CheckboxDays setHasSelectedDay={setHasSelectedDay} days={days} setChosenDays={setChosenDays} checkAll={checkAll} setCheckAll={setCheckAll}/>
+              <CheckboxDays
+                setHasSelectedDay={setHasSelectedDay} 
+                days={days} setChosenDays={setChosenDays} 
+                checkAll={checkAll} 
+                setCheckAll={setCheckAll}/>
             </View>
 
             <View style={styles.timeContainer}>
@@ -170,7 +174,6 @@ export default function NewActivityModal(props) {
               <SwitchToggle disabled={!chosenTime} setAlert={setAlert} alert={alert} />
             </View>
 
-
             {show ?
               <View>
                 <DateTimePickerModal
@@ -185,7 +188,11 @@ export default function NewActivityModal(props) {
                 />
               </View>
             :null}
-            <AddActivityButton hasSelectedDay={hasSelectedDay} addNewActivity={addNewActivity} setShowModal={setShowModal} />
+            <AddActivityButton 
+              hasSelectedDay={hasSelectedDay} 
+              addNewActivity={addNewActivity} 
+              setShowModal={setShowModal} 
+            />
           </View>
         </View>
         </Modal>
