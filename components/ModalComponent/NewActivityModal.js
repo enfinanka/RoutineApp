@@ -15,11 +15,9 @@ import CheckboxDays from './Checkbox';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 
-
-
 export default function NewActivityModal(props) {
 
-  const { showModal, setShowModal, history, refresh, setRefresh } = props;
+  const { showModal, setShowModal, refresh, setRefresh } = props;
 
   const [inputActivity, setInputActivity] = React.useState('');
   const [inputCategory, setInputCategory] = React.useState('');
@@ -187,7 +185,7 @@ export default function NewActivityModal(props) {
                 />
               </View>
             :null}
-            <AddActivityButton hasSelectedDay={hasSelectedDay} history={history} addNewActivity={addNewActivity} setShowModal={setShowModal} />
+            <AddActivityButton hasSelectedDay={hasSelectedDay} addNewActivity={addNewActivity} setShowModal={setShowModal} />
           </View>
         </View>
         </Modal>

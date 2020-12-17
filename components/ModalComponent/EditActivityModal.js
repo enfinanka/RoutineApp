@@ -20,10 +20,9 @@ export default function EditActivityModal(props) {
 
   const [inputActivity, setInputActivity] = React.useState();
   const [show, setShow] = React.useState(false);
-  const [isSelected, setSelection] = React.useState(false);
   const [showTextInput, setShowTextInput] = React.useState(false);
   const [checkAll, setCheckAll] = React.useState(false);
-  const [hasSelectedDay, setHasSelectedDay] = React.useState(false);
+  const [hasSelectedDay, setHasSelectedDay] = React.useState(true);
 
   const { 
     setShowEditModal,
@@ -41,7 +40,7 @@ export default function EditActivityModal(props) {
     setChosenDays 
   } = props;  
 
-  const [days, setDays] = React.useState(chosenDays);
+  const [days, setDays] = React.useState();
 
   const editActivity = () => {
     

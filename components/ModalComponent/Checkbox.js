@@ -14,8 +14,6 @@ export default function CheckboxDays(props) {
         return obj;
       }  
     });
-    // const trueDays = days.filter((day) => day.chosen === true)
-    // const daysAsString = trueDays.map((day) => day.day);
     setChosenDays(days);
     setChecked(!checked);
     const hasChosen = !!days.find((day)=> day.chosen === true)
@@ -38,7 +36,6 @@ export default function CheckboxDays(props) {
         return day;
       }
     })
-
     setChosenDays(days)
     setChecked(!checked);
   }
@@ -50,6 +47,7 @@ export default function CheckboxDays(props) {
         return obj;
       }  
     });
+    console.log(chosenDays);
     setChosenDays(chosenDays);
     setChecked(!checked);
     const hasChosen = !!chosenDays.find((day)=> day.chosen === true)
@@ -109,7 +107,8 @@ export default function CheckboxDays(props) {
         </View>
         : null}
     </View>
-  )}
+  )
+}
 
 const styles = StyleSheet.create({
   checkboxContainer: {

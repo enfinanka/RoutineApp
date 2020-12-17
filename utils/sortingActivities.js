@@ -4,21 +4,22 @@ const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 const dayOfTheWeek = weekdays[new Date().getDay()-1]
 let todaysActivities
 
+// If notthing was found in asyncStorage.
   if (d === undefined) {
     return []
   }
-  
-  const dAllFalse = d.map((activity) => {
-    return {...activity, completed: false}
-  })
 
   if (!newDay){
+    const dAllFalse = d.map((activity) => {
+      return {...activity, completed: false}
+    })
     todaysActivities = d.filter((act) => act.daysToAlert.find((weekday) => {
         return weekday.chosen === true && weekday.day === dayOfTheWeek
       })
     )
   }
 
+  // If its a new day and all completed are going to be cleared.
   if (newDay){
     todaysActivities = dAllFalse.filter((act) => act.daysToAlert.find((weekday) => {
         return weekday.chosen === true && weekday.day === dayOfTheWeek
