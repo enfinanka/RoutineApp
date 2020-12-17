@@ -54,7 +54,7 @@ export default function HomeScreen({ history }) {
       <NavigationDays dayToDisaply={dayToDisplay} dayStartsWith={dayStartsWith} today={today} setActivities={setActivities} setDayToDisplay={setDayToDisplay}/>
         <Header today={today} dayToDisplay={dayToDisplay} dayStartsWith={dayStartsWith}/>
 
-     {/* <View style={styles.welcomeContainer}>
+    {/* <View style={styles.welcomeContainer}>
       <Welcome />
      </View> */}
 
