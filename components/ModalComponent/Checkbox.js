@@ -38,6 +38,12 @@ export default function CheckboxDays(props) {
     })
     setChosenDays(days)
     setChecked(!checked);
+    const hasChosen = !!days.find((day)=> day.chosen === true)
+    if (hasChosen) {
+      setHasSelectedDay(true)
+      return
+    }
+    setHasSelectedDay(false)
   }
 
   const editDays = (e) => {
