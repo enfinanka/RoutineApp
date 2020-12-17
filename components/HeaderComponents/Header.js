@@ -4,12 +4,9 @@ import moment from 'moment-timezone/moment-timezone';
 
 export default function Header(props) {
 
-  const { title, today, dayToDisplay } = props;
-  const dayStartsWith = today.substring(0,3);
-  var todaysDate = moment().format('MMMM Do YYYY');
-  const [header, setHeader] = React.useState('')
+  const { today, dayToDisplay, dayStartsWith } = props;
 
-  console.log(dayToDisplay, 'dayTodisplay');
+  const [header, setHeader] = React.useState('')
 
   React.useEffect(() => {
     if(dayToDisplay === 'Mon'){

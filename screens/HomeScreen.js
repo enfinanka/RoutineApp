@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, View, Platform, StatusBar } from 'react-native';
 import Header from '../components/HeaderComponents/Header';
 import TodaysList from '../components/ListComponents/TodaysList';
@@ -13,8 +13,10 @@ import moment from 'moment-timezone/moment-timezone'
 
 export default function HomeScreen({ history }) {
   const { activities, setActivities } = React.useContext(ActivitiesContext);
-  const [today, setToday] = useState('')
-  const dayStartsWith = today.substring(0,3);
+  const todaysDate = moment().format('dddd Do MMM');
+
+  const [today, setToday] = React.useState(todaysDate)
+  const dayStartsWith = todaysDate.substring(0,3);
 
   const [refresh, setRefresh] = React.useState(false)
   const [cleanCompleted, setCleanCompleted] = React.useState(false);
@@ -50,7 +52,7 @@ export default function HomeScreen({ history }) {
   return (
     <View style={styles.container}>
       <NavigationDays dayToDisaply={dayToDisplay} dayStartsWith={dayStartsWith} today={today} setActivities={setActivities} setDayToDisplay={setDayToDisplay}/>
-        <Header today={today} dayToDisplay={dayToDisplay}/>
+        <Header today={today} dayToDisplay={dayToDisplay} dayStartsWith={dayStartsWith}/>
 
      {/* <View style={styles.welcomeContainer}>
       <Welcome />
