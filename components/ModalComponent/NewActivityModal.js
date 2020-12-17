@@ -156,7 +156,8 @@ export default function NewActivityModal(props) {
                 setHasSelectedDay={setHasSelectedDay} 
                 days={days} setChosenDays={setChosenDays} 
                 checkAll={checkAll} 
-                setCheckAll={setCheckAll}/>
+                setCheckAll={setCheckAll}
+              />
             </View>
 
             <View style={styles.timeContainer}>

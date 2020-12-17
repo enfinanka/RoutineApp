@@ -57,6 +57,12 @@ export default function CheckboxDays(props) {
     setHasSelectedDay(false)
   };
 
+  React.useEffect(()=>{
+    if(days) {
+      setHasSelectedDay(false)
+    }
+  },[])
+
   return (
     <View>
       <View style={styles.checkboxContainer}>
