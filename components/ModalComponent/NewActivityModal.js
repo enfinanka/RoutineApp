@@ -16,7 +16,7 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 export default function NewActivityModal(props) {
 
-  const { showModal, setShowModal, history, refresh, setRefresh } = props;
+  const { showModal, setShowModal, refresh, setRefresh } = props;
 
   const [inputActivity, setInputActivity] = React.useState('');
   const [inputCategory, setInputCategory] = React.useState('');
@@ -25,7 +25,7 @@ export default function NewActivityModal(props) {
   const [checkAll, setCheckAll] = React.useState(false);
   const [alert, setAlert] = React.useState(false);
   const [show, setShow] = React.useState(false);
-
+  const [hasSelectedDay, setHasSelectedDay] = React.useState(false);
   const [days, setDays] = React.useState([
     {day: 'Mon', chosen: false}, 
     {day: 'Tue', chosen: false}, 
@@ -146,7 +146,12 @@ export default function NewActivityModal(props) {
               />
             </View>
             <View>
-              <CheckboxDays days={days} setChosenDays={setChosenDays} checkAll={checkAll} setCheckAll={setCheckAll}/>
+              <CheckboxDays
+                setHasSelectedDay={setHasSelectedDay} 
+                days={days} setChosenDays={setChosenDays} 
+                checkAll={checkAll} 
+                setCheckAll={setCheckAll}
+              />
             </View>
 
             <View style={styles.timeContainer}>
@@ -164,7 +169,6 @@ export default function NewActivityModal(props) {
               <SwitchToggle disabled={!chosenTime} setAlert={setAlert} alert={alert} />
             </View>
 
-
             {show ?
               <View>
                 <DateTimePickerModal
@@ -179,7 +183,11 @@ export default function NewActivityModal(props) {
                 />
               </View>
             :null}
-            <AddActivityButton history={history} addNewActivity={addNewActivity} setShowModal={setShowModal} />
+            <AddActivityButton 
+              hasSelectedDay={hasSelectedDay} 
+              addNewActivity={addNewActivity} 
+              setShowModal={setShowModal} 
+            />
           </View>
         </View>
         </Modal>

@@ -25,7 +25,7 @@ export default function AddButton(props) {
         setRefresh={setRefresh}
         showModal={showModal}
         setShowModal={setShowModal}
-        history={history} />
+      />
     </View>
   );
 }

@@ -47,7 +47,7 @@ export default function TodaysList(props) {
     setChosenDays(daysToAlert);
   }
 
-  const handleCompleted = (activity, completed) => {
+  const handleCompleted = (activity) => {
     setActivities({ type: 'SET_COMPLETED', payload: activity})
     setRefresh(!refresh)
   }
@@ -77,7 +77,7 @@ export default function TodaysList(props) {
             : null}
           </View>
         </View>
-          <TouchableOpacity style={styles.checkIcon} onPress={() => handleCompleted(data.item.activity, data.item.completed)}>
+          <TouchableOpacity style={styles.checkIcon} onPress={() => handleCompleted(data.item.activity)}>
             {data.item.completed ?
               <Animated.View
                 style={{
@@ -95,9 +95,9 @@ export default function TodaysList(props) {
       </View>
     )
   };
-
+  
   const renderHiddenItem = (data) => (
-
+    
     <View style={styles.rowBack}>
       <TouchableOpacity
         style={styles.leftButton}

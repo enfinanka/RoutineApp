@@ -4,7 +4,7 @@ import { CheckBox } from 'react-native-elements';
 
 export default function CheckboxDays(props) {
 
-  const { setChosenDays, days, checkAll, setCheckAll, chosenDays } = props;
+  const { setChosenDays, days, checkAll, setCheckAll, chosenDays, setHasSelectedDay } = props;
   const [checked, setChecked] = React.useState(false);  
 
   const handleDays = (e) => {
@@ -14,10 +14,14 @@ export default function CheckboxDays(props) {
         return obj;
       }  
     });
-    // const trueDays = days.filter((day) => day.chosen === true)
-    // const daysAsString = trueDays.map((day) => day.day);
     setChosenDays(days);
     setChecked(!checked);
+    const hasChosen = !!days.find((day)=> day.chosen === true)
+    if (hasChosen) {
+      setHasSelectedDay(true)
+      return
+    }
+    setHasSelectedDay(false)
   };
 
   const handleAllDays = (days) => {
@@ -32,9 +36,14 @@ export default function CheckboxDays(props) {
         return day;
       }
     })
-
     setChosenDays(days)
     setChecked(!checked);
+    const hasChosen = !!days.find((day)=> day.chosen === true)
+    if (hasChosen) {
+      setHasSelectedDay(true)
+      return
+    }
+    setHasSelectedDay(false)
   }
 
   const editDays = (e) => {
@@ -44,10 +53,24 @@ export default function CheckboxDays(props) {
         return obj;
       }  
     });
-
     setChosenDays(chosenDays);
     setChecked(!checked);
+    const hasChosen = !!chosenDays.find((day)=> day.chosen === true)
+    if (hasChosen) {
+      setHasSelectedDay(true)
+      return
+    }
+    setHasSelectedDay(false)
   };
+
+  React.useEffect(()=>{
+    if(days) {
+      setHasSelectedDay(false)
+    }
+    if(chosenDays) {
+      setHasSelectedDay(true)
+    }
+  },[])
 
   return (
     <View>
@@ -98,7 +121,8 @@ export default function CheckboxDays(props) {
         </View>
         : null}
     </View>
-  )}
+  )
+}
 
 const styles = StyleSheet.create({
   checkboxContainer: {

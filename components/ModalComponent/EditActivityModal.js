@@ -20,9 +20,9 @@ export default function EditActivityModal(props) {
 
   const [inputActivity, setInputActivity] = React.useState();
   const [show, setShow] = React.useState(false);
-  const [isSelected, setSelection] = React.useState(false);
   const [showTextInput, setShowTextInput] = React.useState(false);
   const [checkAll, setCheckAll] = React.useState(false);
+  const [hasSelectedDay, setHasSelectedDay] = React.useState(true);
 
   const { 
     setShowEditModal,
@@ -40,7 +40,7 @@ export default function EditActivityModal(props) {
     setChosenDays 
   } = props;  
 
-  const [days, setDays] = React.useState([]);
+  const [days, setDays] = React.useState();
 
   const editActivity = () => {
     
@@ -80,6 +80,7 @@ export default function EditActivityModal(props) {
     setInputActivity('');
     setCheckAll(false);
     setChosenDays('');
+    setHasSelectedDay(false)
   }
 
   const handleConfirm = (time) => {
@@ -149,9 +150,10 @@ export default function EditActivityModal(props) {
               setChosenDays={setChosenDays} 
               checkAll={checkAll} 
               setCheckAll={setCheckAll} 
-              daysToAlert={daysToAlert}/>
+              daysToAlert={daysToAlert}
+              setHasSelectedDay={setHasSelectedDay}
+            />
             </View>
-
 
             <View style={styles.timeContainer}>
               <TouchableOpacity style={styles.button} onPress={()=>setShow(true)}>
@@ -183,7 +185,7 @@ export default function EditActivityModal(props) {
                 />
               </View>
             :null}
-            <UpdateActivityButton disabled={!chosenDays} editActivity={editActivity} setShowTextInput={setShowTextInput} />
+            <UpdateActivityButton hasSelectedDay={hasSelectedDay} editActivity={editActivity} setShowTextInput={setShowTextInput} />
           </View>
         </View>
       </Modal>

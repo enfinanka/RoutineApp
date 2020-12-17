@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import moment from 'moment-timezone/moment-timezone';
 
 export default function Header(props) {
 
