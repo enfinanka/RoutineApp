@@ -8,22 +8,20 @@ export default function CheckboxDays(props) {
   const [checked, setChecked] = React.useState(false);  
 
   const handleDays = (e) => {
+    console.log('handeledays ran');
     days.find((obj) => {
       if(obj.day === e) {
         obj.chosen = !obj.chosen;
         return obj;
       }  
     });
-    // const trueDays = days.filter((day) => day.chosen === true)
-    // const daysAsString = trueDays.map((day) => day.day);
     setChosenDays(days);
     setChecked(!checked);
-    const hasChosen = !!days.find((day)=> day.chosen === true)
+    const hasChosen = !!chosenDays.find((day)=> day.chosen === true)
+    console.log('hasChosen in handleDays', hasChosen);
     if (hasChosen) {
       setHasSelectedDay(true)
-      return
     }
-    setHasSelectedDay(false)
   };
 
   const handleAllDays = (days) => {

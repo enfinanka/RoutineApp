@@ -20,6 +20,9 @@ let todaysActivities
   }
 
   if (newDay){
+    const dAllFalse = d.map((activity) => {
+      return {...activity, completed: false}
+    })
     todaysActivities = dAllFalse.filter((act) => act.daysToAlert.find((weekday) => {
         return weekday.chosen === true && weekday.day === dayOfTheWeek
       })

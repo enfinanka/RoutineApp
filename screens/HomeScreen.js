@@ -50,7 +50,7 @@ export default function HomeScreen({ history }) {
           setRefresh={setRefresh} />
       }
       <View style={styles.addButton}>
-        <AddButton refresh={refresh} setRefresh={setRefresh} history={history} />
+        <AddButton refresh={refresh} setRefresh={setRefresh} />
       </View>
     </View>
   );

@@ -7,7 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 export default function AddButton(props) {
   const [showModal, setShowModal] = useState(false);
-  const { refresh, setRefresh, history } = props;
+  const { refresh, setRefresh } = props;
 
   return (
     <View style={styles.container}>
@@ -25,7 +25,7 @@ export default function AddButton(props) {
         setRefresh={setRefresh}
         showModal={showModal}
         setShowModal={setShowModal}
-        history={history} />
+      />
     </View>
   );
 }
