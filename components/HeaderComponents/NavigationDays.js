@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function NavigationDays(props) {
 
   const { setDayToDisplay, dayStartsWith } = props;
-  const [activeDay, setActiveDay] = useState(dayStartsWith);
+  const [activeDay, setActiveDay] = React.useState(dayStartsWith);
   
   React.useEffect(() => {
     setDayToDisplay(dayStartsWith);

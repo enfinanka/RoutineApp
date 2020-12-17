@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import NewActivityModal from '../ModalComponent/NewActivityModal';
@@ -6,7 +6,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 
 export default function AddButton(props) {
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = React.useState(false);
   const { refresh, setRefresh, history } = props;
 
   return (

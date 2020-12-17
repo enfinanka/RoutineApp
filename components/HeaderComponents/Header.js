@@ -3,8 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 
 export default function Header(props) {
 
-  const { today, dayToDisplay } = props;
-  const dayStartsWith = today.substring(0,3);
+  const { today, dayToDisplay, dayStartsWith } = props;
+
   const [header, setHeader] = React.useState('')
 
   React.useEffect(() => {
