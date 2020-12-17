@@ -161,7 +161,7 @@ export default function EditActivityModal(props) {
               </TouchableOpacity>   
               <View style={styles.time}>
                 <TimeButton chosenTime={chosenTime} show={show} setShow={setShow} />
-                { chosenTime ? <MaterialIcon style={styles.clearTime} name="clear" size={25} color="#fff"/> : null}      
+                { chosenTime ? <MaterialIcon style={styles.clearTime} name="clear" size={25} color="#fff" onPress={() => setChosenTime('')}/> : null}      
               </View>           
             </View>
 

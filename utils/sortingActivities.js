@@ -1,8 +1,9 @@
-export const sortActivities = (d, newDay) => {
+export const sortActivities = (d, newDay, dayToDisplay) => {
 
-const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-const dayOfTheWeek = weekdays[new Date().getDay()-1]
-let todaysActivities
+  const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+
+  const dayOfTheWeek = dayToDisplay ? dayToDisplay : weekdays[new Date().getDay()-1]
+  let todaysActivities;
 
 // If notthing was found in asyncStorage.
   if (d === undefined) {
