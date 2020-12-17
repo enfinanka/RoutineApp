@@ -6,8 +6,6 @@ export default function NoActivities(props) {
   const { today, daysToDisplay } = props;
   const dayStartsWith = today.substring(0,3);
 
-  console.log(daysToDisplay, 'in noactivitess')
-
   const position = new Animated.ValueXY({x: 0, y: 1500});
   const opacity = new Animated.Value(0);
 
@@ -67,7 +65,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    // marginTop: 100,
     margin: 80,
     backgroundColor: '#3F4155',
     padding: 40,

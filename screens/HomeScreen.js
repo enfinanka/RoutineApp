@@ -14,11 +14,11 @@ import moment from 'moment-timezone/moment-timezone'
 export default function HomeScreen({ history }) {
   const { activities, setActivities } = React.useContext(ActivitiesContext);
   const [today, setToday] = useState('')
+  const dayStartsWith = today.substring(0,3);
 
   const [refresh, setRefresh] = React.useState(false)
   const [cleanCompleted, setCleanCompleted] = React.useState(false);
-  const [dayToDisplay, setDayToDisplay] = React.useState();
-  const [title, setTitle] = React.useState('');
+  const [dayToDisplay, setDayToDisplay] = React.useState(today);
 
   const clearCompletedIfNextDay = () => {
     const currentTime = moment().format("HH:mm");
@@ -29,7 +29,6 @@ export default function HomeScreen({ history }) {
         .then(() => setCleanCompleted(!cleanCompleted))
     }
   }
-  console.log(today)
 
   React.useEffect(() => {
     const startUpInterval = setInterval(clearCompletedIfNextDay, 5000);
@@ -50,7 +49,7 @@ export default function HomeScreen({ history }) {
 
   return (
     <View style={styles.container}>
-      <NavigationDays today={today} setActivities={setActivities} setDayToDisplay={setDayToDisplay}/>
+      <NavigationDays dayToDisaply={dayToDisplay} dayStartsWith={dayStartsWith} today={today} setActivities={setActivities} setDayToDisplay={setDayToDisplay}/>
         <Header today={today} dayToDisplay={dayToDisplay}/>
 
      {/* <View style={styles.welcomeContainer}>

@@ -1,21 +1,45 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import NavigationDays from './NavigationDays';
 import moment from 'moment-timezone/moment-timezone';
-
-
 
 export default function Header(props) {
 
   const { title, today, dayToDisplay } = props;
   const dayStartsWith = today.substring(0,3);
   var todaysDate = moment().format('MMMM Do YYYY');
+  const [header, setHeader] = React.useState('')
+
+  console.log(dayToDisplay, 'dayTodisplay');
+
+  React.useEffect(() => {
+    if(dayToDisplay === 'Mon'){
+      setHeader('Monday')
+    }
+    if(dayToDisplay === 'Tue'){
+      setHeader('Tuesday')
+    }
+    if(dayToDisplay === 'Wed'){
+      setHeader('Wednesday')
+    }
+    if(dayToDisplay === 'Thu'){
+      setHeader('Thursday')
+    }
+    if(dayToDisplay === 'Fri'){
+      setHeader('Friday')
+    }
+    if(dayToDisplay === 'Sat'){
+      setHeader('Saturday')
+    }
+    if(dayToDisplay === 'Sun'){
+      setHeader('Sunday')
+    }
+  }, [dayToDisplay])
+
 
   return (
     <View >
-      <Text style={styles.header}>{dayStartsWith === dayToDisplay ? 'Todays activities' : dayToDisplay + " activities"}</Text>
+      <Text style={styles.header}>{dayStartsWith === dayToDisplay ? 'Todays activities' : header + "'s activities"}</Text>
       <View>
-        {/* <Text style={styles.date}>{todaysDate}</Text>  */}
         {dayStartsWith === dayToDisplay ? 
         <Text style={styles.date}>{today}</Text>
         : null

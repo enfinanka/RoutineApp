@@ -23,12 +23,8 @@ export default function TodaysList(props) {
   const [chosenTime, setChosenTime] = React.useState('');
   const [chosenDays, setChosenDays] = React.useState([chosenDays]);
   const [alert, setAlert] = React.useState(false);
-  const [itemToAnimate, setItemToAnimate] = React.useState('');
 
   const key = Math.floor(Math.random()*100000000);
-
-  const position = new Animated.ValueXY({x: 0, y: 0});
-
 
   const editActivity = (activityName, notificationAlert, alertWhen, daysToAlert) => {
     setShowEditModal(true);
@@ -36,21 +32,6 @@ export default function TodaysList(props) {
     setAlert(notificationAlert);
     setChosenTime(alertWhen);
     setChosenDays(daysToAlert);
-  }
-
-  const deleteItem = (data, index) => {
-    setTimeout(() => {
-      setItemToAnimate(index);
-      console.log(itemToAnimate, 'itemtoanimate')
-      Animated.spring(position, {
-        toValue: {x: 500, y: 0},
-        speed: 10,
-        useNativeDriver: true,
-        bounciness: 1,
-        delay: 400,
-      }).start();
-      setActivities({ type: 'REMOVE_ACTIVITY', payload: data }) , 4000}
-      )
   }
 
   const handleCompleted = (activity, completed) => {
@@ -107,7 +88,6 @@ export default function TodaysList(props) {
         style={styles.backRightBtnRight}
         onPress={() => {
           setActivities({ type: 'REMOVE_ACTIVITY', payload: data.item.activity })
-          // deleteItem(data.item.activity, data.index)
         }}
       >
         <Text style={{ color: "#F5F4F8" }}>Delete</Text>

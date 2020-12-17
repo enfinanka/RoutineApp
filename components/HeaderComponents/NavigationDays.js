@@ -1,32 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import WavyHeader from './WaveHeader';
-import { sortActivities } from '../../utils/sortingActivities';
-import { retrieveDataFromAsyncStorage } from '../../utils/asyncStorage';
-
-
 
 export default function NavigationDays(props) {
 
-  const { today, setActivities, setDayToDisplay } = props;
-  const dayStartsWith = today.substring(0,3);
+  const { setDayToDisplay, dayStartsWith } = props;
   const [activeDay, setActiveDay] = useState(dayStartsWith);
-  const [renderActivites, setRenderActiveDay] = useState(dayStartsWith);
+  
+  React.useEffect(() => {
+    setDayToDisplay(dayStartsWith);
+    setActiveDay(dayStartsWith)
 
-  // React.useEffect(() => {
-  //   setActiveDay(dayStartsWith)
-  // }, [today])
+  }, [dayStartsWith])
 
   const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-  // const allActivities = ['All activities'];
-
 
   const showDayList = (oneDay) => {
     setDayToDisplay(oneDay)
-    // retrieveDataFromAsyncStorage()
-    //   .then((d) => setActivities({ type: 'ADD_FROM_ASYNCSTORAGE', payload: sortActivities(d, false, oneDay)}))
-    // setActivities({ type: 'ADD_FROM_ASYNCSTORAGE', payload: sortActivities(oneDay, true)})
     setActiveDay(oneDay)
   }
 
@@ -35,7 +25,7 @@ export default function NavigationDays(props) {
       {weekdays.map((oneDay, i) => {
         return( 
         <TouchableOpacity onPress={() => showDayList(oneDay)} key={i}>
-          <Text style={activeDay === oneDay ? styles.activeDay : styles.weekdays}>{dayStartsWith === oneDay ? 'Today' : oneDay}</Text> 
+          <Text style={activeDay === oneDay ? styles.activeDay : styles.weekdays}>{dayStartsWith === oneDay  ? 'Today' : oneDay}</Text> 
         </TouchableOpacity>
         )
       })} 
