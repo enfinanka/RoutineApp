@@ -61,6 +61,9 @@ export default function CheckboxDays(props) {
     if(days) {
       setHasSelectedDay(false)
     }
+    if(chosenDays) {
+      setHasSelectedDay(true)
+    }
   },[])
 
   return (
