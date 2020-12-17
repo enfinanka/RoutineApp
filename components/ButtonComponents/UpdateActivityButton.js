@@ -13,7 +13,7 @@ export default function UpdateActivityButton(props) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={disabled ? updateActivity : null}>
+      <TouchableOpacity onPress={updateActivity}>
         <LinearGradient
           colors={['#E5C564', '#EBB000']}
           style={styles.button}> 

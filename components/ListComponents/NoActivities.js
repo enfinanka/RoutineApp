@@ -1,7 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, Animated } from 'react-native';
 
-export default function NoActivities() {
+export default function NoActivities(props) {
+
+  const { today, daysToDisplay } = props;
+  const dayStartsWith = today.substring(0,3);
 
   const position = new Animated.ValueXY({x: 0, y: 1500});
   const opacity = new Animated.Value(0);
@@ -23,7 +26,7 @@ export default function NoActivities() {
   }).start();
 
   return (
-    <View >
+    <View style={styles.container}>
       <Animated.View
           style={{
             transform: [
@@ -32,7 +35,7 @@ export default function NoActivities() {
           }}>
         <View style={styles.textContainer}>
           <Image source={require('../../assets/lonely.png')} style={styles.image}/>
-          <Text style={styles.textAnimation}>You have no activities today</Text>
+          <Text style={styles.textAnimation}>You have no activities</Text>
         </View>
       </Animated.View>
       <Animated.View 
@@ -46,6 +49,13 @@ export default function NoActivities() {
   )}
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    marginTop: 20,
+  },
+  
   image: {
     width: 100,
     height: 100,
@@ -55,7 +65,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 100,
     margin: 80,
     backgroundColor: '#3F4155',
     padding: 40,
@@ -79,6 +88,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 15,
     fontWeight: 'bold',
-    marginBottom: 20
+    marginBottom: 100
   },
 });

@@ -14,9 +14,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import CheckboxDays from './Checkbox';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
-
-
-
 export default function NewActivityModal(props) {
 
   const { showModal, setShowModal, history, refresh, setRefresh } = props;
@@ -90,11 +87,6 @@ export default function NewActivityModal(props) {
       })      
       return;
     }
-    Toast.show({
-      text1: 'Success!',
-      text2: `Activity ${inputActivity} is added to the list!`,
-      visibilityTime: 2000,
-    })
     addObjectInAsyncStorage(newActivity)
     clearValues();
     setRefresh(!refresh)
