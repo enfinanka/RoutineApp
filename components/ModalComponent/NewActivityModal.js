@@ -103,6 +103,11 @@ export default function NewActivityModal(props) {
     setShow(false);
   }
 
+  const clearTime = () => {
+    setChosenTime('')
+    setAlert(false);
+  }
+
   return (
     <View>
       <Modal
@@ -160,7 +165,7 @@ export default function NewActivityModal(props) {
               </TouchableOpacity>   
               <View style={styles.time}>
                 <TimeButton chosenTime={chosenTime} show={show} setShow={setShow} />
-                { chosenTime ? <MaterialIcon style={styles.clearTime} name="clear" size={25} color="#fff" onPress={() => setChosenTime('')}/> : null}      
+                { chosenTime ? <MaterialIcon style={styles.clearTime} name="clear" size={25} color="#fff" onPress={() => clearTime()}/> : null}      
               </View>           
             </View>
 
