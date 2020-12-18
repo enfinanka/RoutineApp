@@ -41,7 +41,6 @@ const styles = StyleSheet.create({
     shadowRadius: 0.5,
   },
   button: {
-    backgroundColor: 'red',
     minHeight: 42,
     height: 70,
     borderRadius: 30,
