@@ -93,6 +93,7 @@ export const updateKeyInAsyncStorage = async (objToUpdate) => {
     storeNewState(newState)
   }
   retrieveDataFromAsyncStorage().then(data => updateStorage(data))
+  .catch((err) => console.log(err))
 };
 
 
@@ -104,6 +105,7 @@ export const deleteAnActivityFromAsyncStorage = async (activity) => {
     storeNewState(newState)
   }
   retrieveDataFromAsyncStorage().then(data => updateStorage(data))
+  .catch((err) => console.log(err))
 };
 
 
@@ -123,6 +125,7 @@ export const replaceObjectInAsyncStorage = async (objToUpdate, previousActivityN
     storeNewState(newState)
   }
   retrieveDataFromAsyncStorage().then(data => updateStorage(data))
+  .catch((err) => console.log(err))
 };
 
 
@@ -138,4 +141,5 @@ export const addObjectInAsyncStorage = async (newObj) => {
     storeNewState(newState)
   }
   retrieveDataFromAsyncStorage().then(data => updateStorage(data))
+  .catch((err) => console.log(err))
 };

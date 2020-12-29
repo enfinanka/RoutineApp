@@ -29,6 +29,7 @@ export default function HomeScreen({ history }) {
       retrieveDataFromAsyncStorage()
         .then((d) => setActivities({ type: 'ADD_FROM_ASYNCSTORAGE', payload: sortActivities(d, true)}))
         .then(() => setCleanCompleted(!cleanCompleted))
+        .catch((err) => console.log(err))
     }
   }
 
@@ -45,6 +46,7 @@ export default function HomeScreen({ history }) {
     const timer = setTimeout(() => {
       retrieveDataFromAsyncStorage()
         .then((d) => setActivities({ type: 'ADD_FROM_ASYNCSTORAGE', payload: sortActivities(d, false, dayToDisplay) }))
+        .catch((err) => console.log(err))
     }, 0)
     return () => clearTimeout(timer)
   }, [refresh, dayToDisplay])
